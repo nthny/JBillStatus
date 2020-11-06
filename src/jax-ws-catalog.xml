@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="https://e-factura.sunat.gob.pe/ol-it-wsconscpegem/billConsultService?wsdl" uri="wsdl/e-factura.sunat.gob.pe/ol-it-wsconscpegem/billConsultService.wsdl"/>
+    <system systemId="https://e-factura.sunat.gob.pe/ol-it-wsconscpegem/billConsultService?wsdl=1" uri="wsdl/e-factura.sunat.gob.pe/ol-it-wsconscpegem/billConsultService.wsdl_1.wsdl"/>
+    <system systemId="https://e-factura.sunat.gob.pe/ol-it-wsconscpegem/billConsultService?xsd=1" uri="wsdl/e-factura.sunat.gob.pe/ol-it-wsconscpegem/billConsultService.xsd_1.xsd"/>
+</catalog>

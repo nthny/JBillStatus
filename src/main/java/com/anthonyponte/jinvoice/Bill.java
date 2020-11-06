@@ -5,78 +5,89 @@
  */
 package com.anthonyponte.jinvoice;
 
+import com.poiji.annotation.ExcelCellName;
+import com.poiji.annotation.ExcelRow;
+
 /** @author nthny */
 public class Bill {
 
-    private long id;
-    private String ruc;
-    private String tipo;
-    private String serie;
-    private int correlativo;
+  @ExcelRow private long id;
 
-    public Bill() {}
+  @ExcelCellName("RUC")
+  private String ruc;
 
-    public Bill(long id, String ruc, String tipo, String serie, int correlativo) {
-        this.id = id;
-        this.ruc = ruc;
-        this.tipo = tipo;
-        this.serie = serie;
-        this.correlativo = correlativo;
-    }
+  @ExcelCellName("Tipo")
+  private String tipo;
 
-    public long getId() {
-        return id;
-    }
+  @ExcelCellName("Serie")
+  private String serie;
 
-    public void setId(long id) {
-        this.id = id;
-    }
+  @ExcelCellName("Correlativo")
+  private int correlativo;
 
-    public String getRuc() {
-        return ruc;
-    }
+  public Bill() {}
 
-    public void setRuc(String ruc) {
-        this.ruc = ruc;
-    }
+  public Bill(long id, String ruc, String tipo, String serie, int correlativo) {
+    this.id = id;
+    this.ruc = ruc;
+    this.tipo = tipo;
+    this.serie = serie;
+    this.correlativo = correlativo;
+  }
 
-    public String getTipo() {
-        return tipo;
-    }
+  public long getId() {
+    return id;
+  }
 
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
+  public void setId(long id) {
+    this.id = id;
+  }
 
-    public String getSerie() {
-        return serie;
-    }
+  public String getRuc() {
+    return ruc;
+  }
 
-    public void setSerie(String serie) {
-        this.serie = serie;
-    }
+  public void setRuc(String ruc) {
+    this.ruc = ruc;
+  }
 
-    public int getCorrelativo() {
-        return correlativo;
-    }
+  public String getTipo() {
+    return tipo;
+  }
 
-    public void setCorrelativo(int correlativo) {
-        this.correlativo = correlativo;
-    }
+  public void setTipo(String tipo) {
+    this.tipo = tipo;
+  }
 
-    @Override
-    public String toString() {
-        return "Bill{"
-                + "id="
-                + id
-                + ", ruc="
-                + ruc
-                + ", tipo="
-                + tipo
-                + ", serie="
-                + serie
-                + ", correlativo="
-                + correlativo
-                + '}';
-    }
+  public String getSerie() {
+    return serie;
+  }
+
+  public void setSerie(String serie) {
+    this.serie = serie;
+  }
+
+  public int getCorrelativo() {
+    return correlativo;
+  }
+
+  public void setCorrelativo(int correlativo) {
+    this.correlativo = correlativo;
+  }
+
+  @Override
+  public String toString() {
+    return "Bill{"
+        + "id="
+        + id
+        + ", ruc="
+        + ruc
+        + ", tipo="
+        + tipo
+        + ", serie="
+        + serie
+        + ", correlativo="
+        + correlativo
+        + '}';
+  }
 }

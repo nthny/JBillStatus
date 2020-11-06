@@ -6,15 +6,14 @@
 package com.anthonyponte.jinvoice;
 
 import com.github.weisj.darklaf.LafManager;
-import static com.github.weisj.darklaf.LafManager.getPreferredThemeStyle;
 
 /** @author nthny */
 public class Main {
 
-    /** @param args the command line arguments */
-    public static void main(String[] args) {
-        LafManager.installTheme(LafManager.getPreferredThemeStyle());
-        MainFrame mainFrame = new MainFrame();
-        new MainController(mainFrame).start();
-    }
+  /** @param args the command line arguments */
+  public static void main(String[] args) {
+    LafManager.installTheme(LafManager.getPreferredThemeStyle());
+    MainFrame mainFrame = new MainFrame();
+    new MainController(mainFrame).start();
+  }
 }
