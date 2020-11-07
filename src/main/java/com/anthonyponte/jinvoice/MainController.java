@@ -40,10 +40,13 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /** @author nthny */
-public class MainController implements ActionListener {
+public class MainController {
 
   private final MainFrame mainFrame;
   private EventList<Bill> eventList;
@@ -58,9 +61,57 @@ public class MainController implements ActionListener {
   public void start() {
     mainFrame.setVisible(true);
 
-    mainFrame.menuImportar.addActionListener(this);
+    mainFrame.menuImportar.addActionListener(
+        (ActionEvent e) -> {
+          FileFilter filter = new FileNameExtensionFilter("Excel file", "xls", "xlsx");
+          JFileChooser chooser = new JFileChooser();
+          chooser.setCurrentDirectory(new java.io.File("."));
+          chooser.addChoosableFileFilter(filter);
+          chooser.setFileFilter(filter);
 
-    mainFrame.menuExportar.addActionListener(this);
+          int result = chooser.showOpenDialog(mainFrame);
+          if (result == JFileChooser.APPROVE_OPTION) {
+            try {
+              File f = chooser.getSelectedFile().getAbsoluteFile();
+
+              if (f.getName().endsWith(".xls")) {
+                List<Bill> bills = new XlsReader().read(Bill.class, f);
+                eventList.addAll(bills);
+              } else if (f.getName().endsWith(".xlsx")) {
+                List<Bill> bills = new XlsxReader().read(Bill.class, f);
+                eventList.addAll(bills);
+              } else {
+                JOptionPane.showMessageDialog(
+                    mainFrame,
+                    "El archivo debe ser .xls o .xlsx",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+              }
+            } catch (SpreadsheetReadException ex) {
+              Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+          }
+        });
+
+    mainFrame.menuExportar.addActionListener(
+        new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+            try {
+              SpreadsheetWriter writer =
+                  new SpreadsheetWriter(
+                      "C:\\"
+                          + DateFormat.getDateInstance(DateFormat.FULL).format(new Date())
+                          + ".xlsx");
+              writer.addSheet(Bill.class, eventList);
+              writer.write();
+            } catch (FileNotFoundException ex) {
+              Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+              Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+          }
+        });
 
     mainFrame.scroll.setDropTarget(
         new DropTarget() {
@@ -80,7 +131,6 @@ public class MainController implements ActionListener {
                         eventList.addAll(bills);
                       } else if (f.getName().endsWith(".xlsx")) {
                         List<Bill> bills = new XlsxReader().read(Bill.class, f);
-                        System.out.println(".drop()" + bills);
                         eventList.addAll(bills);
                       } else {
                         JOptionPane.showMessageDialog(
@@ -103,7 +153,7 @@ public class MainController implements ActionListener {
   }
 
   private void init() {
-    eventList = GlazedLists.threadSafeList(new BasicEventList<>());
+    eventList = new BasicEventList<>();
 
     Comparator comparator =
         (Comparator<Bill>) (Bill o1, Bill o2) -> o1.getCorrelativo() - o2.getCorrelativo();
@@ -119,7 +169,7 @@ public class MainController implements ActionListener {
         };
 
     MatcherEditor<Bill> matcherEditor =
-        new TextComponentMatcherEditor<>(mainFrame.filter, textFilterator);
+        new TextComponentMatcherEditor<>(this.mainFrame.filter, textFilterator);
 
     FilterList<Bill> filterList = new FilterList<>(sortedList, matcherEditor);
 
@@ -175,24 +225,5 @@ public class MainController implements ActionListener {
 
     TableComparatorChooser.install(
         mainFrame.table, sortedList, TableComparatorChooser.MULTIPLE_COLUMN_MOUSE_WITH_UNDO);
-  }
-
-  @Override
-  public void actionPerformed(ActionEvent e) {
-    Object source = e.getSource();
-    if (source == mainFrame.menuImportar) {
-      try {
-        SpreadsheetWriter writer =
-            new SpreadsheetWriter(
-                "C:\\" + DateFormat.getDateInstance(DateFormat.FULL).format(new Date()) + ".xlsx");
-        writer.addSheet(Bill.class, eventList);
-        writer.write();
-      } catch (FileNotFoundException ex) {
-        Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
-      } catch (IOException ex) {
-        Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
-      }
-    } else if (source == mainFrame.menuExportar) {
-    }
   }
 }
