@@ -33,13 +33,14 @@ public class MainFrame extends javax.swing.JFrame {
         scroll = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
         filter = new com.github.weisj.darklaf.components.text.SearchTextField();
-        menu = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
+        menuBar = new javax.swing.JMenuBar();
+        menu = new javax.swing.JMenu();
         menuImportar = new javax.swing.JMenuItem();
         menuExportar = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("JInvoice");
+        setIconImage(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_bill_64.png")).getImage());
         setMinimumSize(new java.awt.Dimension(800, 600));
 
         table.setModel(new javax.swing.table.DefaultTableModel(
@@ -55,17 +56,17 @@ public class MainFrame extends javax.swing.JFrame {
         scroll.setViewportView(table);
         table.putClientProperty(DarkTableUI.KEY_ALTERNATE_ROW_COLOR, true);
 
-        jMenu1.setText("Menu");
+        menu.setText("Menu");
 
         menuImportar.setText("Importar");
-        jMenu1.add(menuImportar);
+        menu.add(menuImportar);
 
         menuExportar.setText("Exportar");
-        jMenu1.add(menuExportar);
+        menu.add(menuExportar);
 
-        menu.add(jMenu1);
+        menuBar.add(menu);
 
-        setJMenuBar(menu);
+        setJMenuBar(menuBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -83,8 +84,8 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(filter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(scroll, javax.swing.GroupLayout.DEFAULT_SIZE, 525, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(scroll, javax.swing.GroupLayout.DEFAULT_SIZE, 530, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -96,10 +97,10 @@ public class MainFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public com.github.weisj.darklaf.components.text.SearchTextField filter;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenuBar menu;
-    private javax.swing.JMenuItem menuExportar;
-    private javax.swing.JMenuItem menuImportar;
+    private javax.swing.JMenu menu;
+    private javax.swing.JMenuBar menuBar;
+    public javax.swing.JMenuItem menuExportar;
+    public javax.swing.JMenuItem menuImportar;
     public javax.swing.JScrollPane scroll;
     public javax.swing.JTable table;
     // End of variables declaration//GEN-END:variables

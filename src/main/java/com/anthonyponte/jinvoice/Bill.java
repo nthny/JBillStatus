@@ -5,42 +5,30 @@
  */
 package com.anthonyponte.jinvoice;
 
-import com.poiji.annotation.ExcelCellName;
-import com.poiji.annotation.ExcelRow;
+import io.github.millij.poi.ss.model.annotations.SheetColumn;
 
 /** @author nthny */
 public class Bill {
 
-  @ExcelRow private long id;
-
-  @ExcelCellName("RUC")
+  @SheetColumn("RUC")
   private String ruc;
 
-  @ExcelCellName("Tipo")
+  @SheetColumn("Tipo")
   private String tipo;
 
-  @ExcelCellName("Serie")
+  @SheetColumn("Serie")
   private String serie;
 
-  @ExcelCellName("Correlativo")
+  @SheetColumn("Correlativo")
   private int correlativo;
 
   public Bill() {}
 
-  public Bill(long id, String ruc, String tipo, String serie, int correlativo) {
-    this.id = id;
+  public Bill(String ruc, String tipo, String serie, int correlativo) {
     this.ruc = ruc;
     this.tipo = tipo;
     this.serie = serie;
     this.correlativo = correlativo;
-  }
-
-  public long getId() {
-    return id;
-  }
-
-  public void setId(long id) {
-    this.id = id;
   }
 
   public String getRuc() {
@@ -78,9 +66,7 @@ public class Bill {
   @Override
   public String toString() {
     return "Bill{"
-        + "id="
-        + id
-        + ", ruc="
+        + "ruc="
         + ruc
         + ", tipo="
         + tipo

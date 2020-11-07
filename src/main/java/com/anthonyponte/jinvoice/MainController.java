@@ -19,23 +19,31 @@ import ca.odell.glazedlists.swing.DefaultEventSelectionModel;
 import static ca.odell.glazedlists.swing.GlazedListsSwing.eventTableModelWithThreadProxyList;
 import ca.odell.glazedlists.swing.TableComparatorChooser;
 import ca.odell.glazedlists.swing.TextComponentMatcherEditor;
-import com.poiji.bind.Poiji;
+import io.github.millij.poi.SpreadsheetReadException;
+import io.github.millij.poi.ss.reader.XlsReader;
+import io.github.millij.poi.ss.reader.XlsxReader;
+import io.github.millij.poi.ss.writer.SpreadsheetWriter;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.dnd.DnDConstants;
 import java.awt.dnd.DropTarget;
 import java.awt.dnd.DropTargetDropEvent;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.text.DateFormat;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /** @author nthny */
-public class MainController {
+public class MainController implements ActionListener {
 
   private final MainFrame mainFrame;
   private EventList<Bill> eventList;
@@ -49,6 +57,11 @@ public class MainController {
 
   public void start() {
     mainFrame.setVisible(true);
+
+    mainFrame.menuImportar.addActionListener(this);
+
+    mainFrame.menuExportar.addActionListener(this);
+
     mainFrame.scroll.setDropTarget(
         new DropTarget() {
           @Override
@@ -62,12 +75,24 @@ public class MainController {
                   for (Object value : fileList) {
                     if (value instanceof File) {
                       File f = (File) value;
-                      List<Bill> list = Poiji.fromExcel(f, Bill.class);
-                      eventList.addAll(list);
+                      if (f.getName().endsWith(".xls")) {
+                        List<Bill> bills = new XlsReader().read(Bill.class, f);
+                        eventList.addAll(bills);
+                      } else if (f.getName().endsWith(".xlsx")) {
+                        List<Bill> bills = new XlsxReader().read(Bill.class, f);
+                        System.out.println(".drop()" + bills);
+                        eventList.addAll(bills);
+                      } else {
+                        JOptionPane.showMessageDialog(
+                            mainFrame,
+                            "El archivo debe ser .xls o .xlsx",
+                            "Error",
+                            JOptionPane.ERROR_MESSAGE);
+                      }
                     }
                   }
                 }
-              } catch (UnsupportedFlavorException | IOException ex) {
+              } catch (UnsupportedFlavorException | IOException | SpreadsheetReadException ex) {
                 Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
               }
             } else {
@@ -102,21 +127,19 @@ public class MainController {
         new TableFormat<Bill>() {
           @Override
           public int getColumnCount() {
-            return 5;
+            return 4;
           }
 
           @Override
           public String getColumnName(int i) {
             switch (i) {
               case 0:
-                return "#";
-              case 1:
                 return "RUC";
-              case 2:
+              case 1:
                 return "Tipo";
-              case 3:
+              case 2:
                 return "Serie";
-              case 4:
+              case 3:
                 return "Correlativo";
               default:
                 break;
@@ -128,14 +151,12 @@ public class MainController {
           public Object getColumnValue(Bill e, int i) {
             switch (i) {
               case 0:
-                return e.getId();
-              case 1:
                 return e.getRuc();
-              case 2:
+              case 1:
                 return e.getTipo();
-              case 3:
+              case 2:
                 return e.getSerie();
-              case 4:
+              case 3:
                 return e.getCorrelativo();
               default:
                 break;
@@ -154,5 +175,24 @@ public class MainController {
 
     TableComparatorChooser.install(
         mainFrame.table, sortedList, TableComparatorChooser.MULTIPLE_COLUMN_MOUSE_WITH_UNDO);
+  }
+
+  @Override
+  public void actionPerformed(ActionEvent e) {
+    Object source = e.getSource();
+    if (source == mainFrame.menuImportar) {
+      try {
+        SpreadsheetWriter writer =
+            new SpreadsheetWriter(
+                "C:\\" + DateFormat.getDateInstance(DateFormat.FULL).format(new Date()) + ".xlsx");
+        writer.addSheet(Bill.class, eventList);
+        writer.write();
+      } catch (FileNotFoundException ex) {
+        Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+      } catch (IOException ex) {
+        Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+      }
+    } else if (source == mainFrame.menuExportar) {
+    }
   }
 }

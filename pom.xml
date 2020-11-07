@@ -17,9 +17,9 @@
             <version>1.11.0</version>
         </dependency>
         <dependency>
-            <groupId>com.github.ozlerhakan</groupId>
-            <artifactId>poiji</artifactId>
-            <version>3.0.1</version>
+            <groupId>io.github.millij</groupId>
+            <artifactId>poi-object-mapper</artifactId>
+            <version>1.0.0</version>
         </dependency>
     </dependencies>
     <properties>
