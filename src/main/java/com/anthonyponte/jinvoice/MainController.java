@@ -8,7 +8,6 @@ package com.anthonyponte.jinvoice;
 import ca.odell.glazedlists.BasicEventList;
 import ca.odell.glazedlists.EventList;
 import ca.odell.glazedlists.FilterList;
-import ca.odell.glazedlists.GlazedLists;
 import ca.odell.glazedlists.SortedList;
 import ca.odell.glazedlists.TextFilterator;
 import ca.odell.glazedlists.gui.TableFormat;
