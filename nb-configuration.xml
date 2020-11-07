@@ -23,7 +23,6 @@ Any value defined here will override the pom.xml file value but is only applicab
         <de-funfried-netbeans-plugins-externalcodeformatter.enabledFormatter_2e_JAVA>google-java-formatter</de-funfried-netbeans-plugins-externalcodeformatter.enabledFormatter_2e_JAVA>
         <de-funfried-netbeans-plugins-externalcodeformatter.showNotifications>false</de-funfried-netbeans-plugins-externalcodeformatter.showNotifications>
         <de-funfried-netbeans-plugins-externalcodeformatter.useProjectSettings>true</de-funfried-netbeans-plugins-externalcodeformatter.useProjectSettings>
-        <org-netbeans-modules-maven-jaxws._5f_C_5f_billConsultService>https://e-factura.sunat.gob.pe/ol-it-wsconscpegem/billConsultService?wsdl</org-netbeans-modules-maven-jaxws._5f_C_5f_billConsultService>
         <org-netbeans-modules-javascript2-requirejs.enabled>true</org-netbeans-modules-javascript2-requirejs.enabled>
     </properties>
 </project-shared-configuration>

@@ -9,8 +9,6 @@ import ca.odell.glazedlists.BasicEventList;
 import ca.odell.glazedlists.EventList;
 import ca.odell.glazedlists.FilterList;
 import ca.odell.glazedlists.SortedList;
-import ca.odell.glazedlists.TextFilterator;
-import ca.odell.glazedlists.gui.TableFormat;
 import ca.odell.glazedlists.matchers.MatcherEditor;
 import ca.odell.glazedlists.swing.AdvancedListSelectionModel;
 import ca.odell.glazedlists.swing.AdvancedTableModel;
@@ -29,12 +27,10 @@ import java.awt.dnd.DnDConstants;
 import java.awt.dnd.DropTarget;
 import java.awt.dnd.DropTargetDropEvent;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.DateFormat;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -92,25 +88,21 @@ public class MainController {
           }
         });
 
-    mainFrame.menuExportar.addActionListener(
-        new ActionListener() {
-          @Override
-          public void actionPerformed(ActionEvent e) {
-            try {
-              SpreadsheetWriter writer =
-                  new SpreadsheetWriter(
-                      "C:\\"
-                          + DateFormat.getDateInstance(DateFormat.FULL).format(new Date())
-                          + ".xlsx");
-              writer.addSheet(Bill.class, eventList);
-              writer.write();
-            } catch (FileNotFoundException ex) {
-              Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IOException ex) {
-              Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-          }
-        });
+    mainFrame.menuExportar.addActionListener((ActionEvent e) -> {
+        try {
+            SpreadsheetWriter writer =
+                    new SpreadsheetWriter(
+                            "C:\\"
+                                    + DateFormat.getDateInstance(DateFormat.FULL).format(new Date())
+                                    + ".xlsx");
+            writer.addSheet(Bill.class, eventList);
+            writer.write();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+		});
 
     mainFrame.scroll.setDropTarget(
         new DropTarget() {
@@ -154,67 +146,14 @@ public class MainController {
   private void init() {
     eventList = new BasicEventList<>();
 
-    Comparator comparator =
-        (Comparator<Bill>) (Bill o1, Bill o2) -> o1.getCorrelativo() - o2.getCorrelativo();
-
-    SortedList<Bill> sortedList = new SortedList<>(eventList, comparator);
-
-    TextFilterator<Bill> textFilterator =
-        (List<String> list, Bill e) -> {
-          list.add(e.getRuc());
-          list.add(e.getTipo());
-          list.add(e.getSerie());
-          list.add(String.valueOf(e.getCorrelativo()));
-        };
+    SortedList<Bill> sortedList = new SortedList<>(eventList, new BillComparator());
 
     MatcherEditor<Bill> matcherEditor =
-        new TextComponentMatcherEditor<>(this.mainFrame.filter, textFilterator);
+        new TextComponentMatcherEditor<>(this.mainFrame.filter, new BillTextFilterator());
 
     FilterList<Bill> filterList = new FilterList<>(sortedList, matcherEditor);
 
-    TableFormat<Bill> tableFormat =
-        new TableFormat<Bill>() {
-          @Override
-          public int getColumnCount() {
-            return 4;
-          }
-
-          @Override
-          public String getColumnName(int i) {
-            switch (i) {
-              case 0:
-                return "RUC";
-              case 1:
-                return "Tipo";
-              case 2:
-                return "Serie";
-              case 3:
-                return "Correlativo";
-              default:
-                break;
-            }
-            throw new IllegalStateException("Unexpected column: " + i);
-          }
-
-          @Override
-          public Object getColumnValue(Bill e, int i) {
-            switch (i) {
-              case 0:
-                return e.getRuc();
-              case 1:
-                return e.getTipo();
-              case 2:
-                return e.getSerie();
-              case 3:
-                return e.getCorrelativo();
-              default:
-                break;
-            }
-            throw new IllegalStateException("Unexpected column: " + i);
-          }
-        };
-
-    model = eventTableModelWithThreadProxyList(filterList, tableFormat);
+    model = eventTableModelWithThreadProxyList(filterList, new BillTableFormat());
 
     selectionModel = new DefaultEventSelectionModel<>(eventList);
 

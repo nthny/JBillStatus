@@ -6,6 +6,7 @@
 package com.anthonyponte.jinvoice;
 
 import io.github.millij.poi.ss.model.annotations.SheetColumn;
+import pe.gob.sunat.StatusResponse;
 
 /** @author nthny */
 public class Bill {
@@ -22,6 +23,9 @@ public class Bill {
   @SheetColumn("Correlativo")
   private int correlativo;
 
+  private StatusResponse billResponse;
+  private StatusResponse cdrResponse;
+
   public Bill() {}
 
   public Bill(String ruc, String tipo, String serie, int correlativo) {
@@ -29,6 +33,21 @@ public class Bill {
     this.tipo = tipo;
     this.serie = serie;
     this.correlativo = correlativo;
+  }
+
+  public Bill(
+      String ruc,
+      String tipo,
+      String serie,
+      int correlativo,
+      StatusResponse billResponse,
+      StatusResponse cdrResponse) {
+    this.ruc = ruc;
+    this.tipo = tipo;
+    this.serie = serie;
+    this.correlativo = correlativo;
+    this.billResponse = billResponse;
+    this.cdrResponse = cdrResponse;
   }
 
   public String getRuc() {
@@ -63,6 +82,22 @@ public class Bill {
     this.correlativo = correlativo;
   }
 
+  public StatusResponse getBillResponse() {
+    return billResponse;
+  }
+
+  public void setBillResponse(StatusResponse billResponse) {
+    this.billResponse = billResponse;
+  }
+
+  public StatusResponse getCdrResponse() {
+    return cdrResponse;
+  }
+
+  public void setCdrResponse(StatusResponse cdrResponse) {
+    this.cdrResponse = cdrResponse;
+  }
+
   @Override
   public String toString() {
     return "Bill{"
@@ -74,6 +109,10 @@ public class Bill {
         + serie
         + ", correlativo="
         + correlativo
+        + ", billResponse="
+        + billResponse
+        + ", cbrResponse="
+        + cdrResponse
         + '}';
   }
 }
