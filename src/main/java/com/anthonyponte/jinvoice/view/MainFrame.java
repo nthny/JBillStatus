@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.anthonyponte.jinvoice;
+package com.anthonyponte.jinvoice.view;
 
 import com.github.weisj.darklaf.ui.table.DarkTableUI;
 import com.github.weisj.darklaf.ui.text.DarkTextUI;

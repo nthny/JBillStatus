@@ -5,6 +5,8 @@
  */
 package com.anthonyponte.jinvoice;
 
+import com.anthonyponte.jinvoice.controller.MainController;
+import com.anthonyponte.jinvoice.view.MainFrame;
 import com.github.weisj.darklaf.LafManager;
 import javax.swing.SwingUtilities;
 

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.anthonyponte.jinvoice;
+package com.anthonyponte.jinvoice.pojo;
 
 import io.github.millij.poi.ss.model.annotations.SheetColumn;
 import pe.gob.sunat.StatusResponse;

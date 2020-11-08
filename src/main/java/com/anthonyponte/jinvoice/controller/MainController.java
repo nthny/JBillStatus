@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.anthonyponte.jinvoice;
+package com.anthonyponte.jinvoice.controller;
 
+import com.anthonyponte.jinvoice.view.MainFrame;
 import ca.odell.glazedlists.BasicEventList;
 import ca.odell.glazedlists.EventList;
 import ca.odell.glazedlists.FilterList;
@@ -16,6 +17,11 @@ import ca.odell.glazedlists.swing.DefaultEventSelectionModel;
 import static ca.odell.glazedlists.swing.GlazedListsSwing.eventTableModelWithThreadProxyList;
 import ca.odell.glazedlists.swing.TableComparatorChooser;
 import ca.odell.glazedlists.swing.TextComponentMatcherEditor;
+import com.anthonyponte.jinvoice.pojo.Bill;
+import com.anthonyponte.jinvoice.utils.BillComparator;
+import com.anthonyponte.jinvoice.utils.BillTableFormat;
+import com.anthonyponte.jinvoice.utils.BillTextFilterator;
+import com.anthonyponte.jinvoice.utils.BillWorker;
 import io.github.millij.poi.SpreadsheetReadException;
 import io.github.millij.poi.ss.reader.XlsReader;
 import io.github.millij.poi.ss.reader.XlsxReader;
@@ -66,43 +72,28 @@ public class MainController {
 
           int result = chooser.showOpenDialog(mainFrame);
           if (result == JFileChooser.APPROVE_OPTION) {
-            try {
-              File f = chooser.getSelectedFile().getAbsoluteFile();
-
-              if (f.getName().endsWith(".xls")) {
-                List<Bill> bills = new XlsReader().read(Bill.class, f);
-                eventList.addAll(bills);
-              } else if (f.getName().endsWith(".xlsx")) {
-                List<Bill> bills = new XlsxReader().read(Bill.class, f);
-                eventList.addAll(bills);
-              } else {
-                JOptionPane.showMessageDialog(
-                    mainFrame,
-                    "El archivo debe ser .xls o .xlsx",
-                    "Error",
-                    JOptionPane.ERROR_MESSAGE);
-              }
-            } catch (SpreadsheetReadException ex) {
-              Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            File file = chooser.getSelectedFile().getAbsoluteFile();
+            BillWorker worker = new BillWorker(mainFrame, file, eventList);
+            worker.execute();
           }
         });
 
-    mainFrame.menuExportar.addActionListener((ActionEvent e) -> {
-        try {
+    mainFrame.menuExportar.addActionListener(
+        (ActionEvent e) -> {
+          try {
             SpreadsheetWriter writer =
-                    new SpreadsheetWriter(
-                            "C:\\"
-                                    + DateFormat.getDateInstance(DateFormat.FULL).format(new Date())
-                                    + ".xlsx");
+                new SpreadsheetWriter(
+                    "C:\\"
+                        + DateFormat.getDateInstance(DateFormat.FULL).format(new Date())
+                        + ".xlsx");
             writer.addSheet(Bill.class, eventList);
             writer.write();
-        } catch (FileNotFoundException ex) {
+          } catch (FileNotFoundException ex) {
             Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
+          } catch (IOException ex) {
             Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-		});
+          }
+        });
 
     mainFrame.scroll.setDropTarget(
         new DropTarget() {
@@ -116,24 +107,13 @@ public class MainController {
                 if (fileList != null && fileList.size() > 0) {
                   for (Object value : fileList) {
                     if (value instanceof File) {
-                      File f = (File) value;
-                      if (f.getName().endsWith(".xls")) {
-                        List<Bill> bills = new XlsReader().read(Bill.class, f);
-                        eventList.addAll(bills);
-                      } else if (f.getName().endsWith(".xlsx")) {
-                        List<Bill> bills = new XlsxReader().read(Bill.class, f);
-                        eventList.addAll(bills);
-                      } else {
-                        JOptionPane.showMessageDialog(
-                            mainFrame,
-                            "El archivo debe ser .xls o .xlsx",
-                            "Error",
-                            JOptionPane.ERROR_MESSAGE);
-                      }
+                      File file = (File) value;
+                      BillWorker worker = new BillWorker(mainFrame, file, eventList);
+                      worker.execute();
                     }
                   }
                 }
-              } catch (UnsupportedFlavorException | IOException | SpreadsheetReadException ex) {
+              } catch (UnsupportedFlavorException | IOException ex) {
                 Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
               }
             } else {

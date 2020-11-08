@@ -4,8 +4,9 @@
  * and open the template in the editor.
  */
 
-package com.anthonyponte.jinvoice;
+package com.anthonyponte.jinvoice.utils;
 
+import com.anthonyponte.jinvoice.pojo.Bill;
 import ca.odell.glazedlists.gui.TableFormat;
 
 /** @author nthny */
