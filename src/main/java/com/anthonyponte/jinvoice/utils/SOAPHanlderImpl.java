@@ -32,8 +32,7 @@ public class SOAPHanlderImpl implements SOAPHandler<SOAPMessageContext> {
 
   @Override
   public Set<QName> getHeaders() {
-    throw new UnsupportedOperationException(
-        "Not supported yet."); // To change body of generated methods, choose Tools | Templates.
+    return null;
   }
 
   @Override
@@ -79,8 +78,5 @@ public class SOAPHanlderImpl implements SOAPHandler<SOAPMessageContext> {
   }
 
   @Override
-  public void close(MessageContext mc) {
-    throw new UnsupportedOperationException(
-        "Not supported yet."); // To change body of generated methods, choose Tools | Templates.
-  }
+  public void close(MessageContext mc) {}
 }

@@ -22,9 +22,6 @@ import com.anthonyponte.jinvoice.utils.BillComparator;
 import com.anthonyponte.jinvoice.utils.BillTableFormat;
 import com.anthonyponte.jinvoice.utils.BillTextFilterator;
 import com.anthonyponte.jinvoice.utils.BillWorker;
-import io.github.millij.poi.SpreadsheetReadException;
-import io.github.millij.poi.ss.reader.XlsReader;
-import io.github.millij.poi.ss.reader.XlsxReader;
 import io.github.millij.poi.ss.writer.SpreadsheetWriter;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
@@ -42,7 +39,6 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 

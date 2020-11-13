@@ -10,6 +10,7 @@ import com.anthonyponte.jinvoice.pojo.Bill;
 import com.anthonyponte.jinvoice.controller.MainController;
 import com.anthonyponte.jinvoice.view.MainFrame;
 import ca.odell.glazedlists.EventList;
+import com.anthonyponte.jinvoice.view.LoadingWindow;
 import io.github.millij.poi.SpreadsheetReadException;
 import io.github.millij.poi.ss.reader.XlsReader;
 import io.github.millij.poi.ss.reader.XlsxReader;
@@ -26,18 +27,21 @@ import pe.gob.sunat.BillService;
 /** @author nthny */
 public class BillWorker extends SwingWorker<List<Bill>, Object> {
 
-  private MainFrame mainFrame;
-  private File file;
-  private EventList<Bill> eventList;
+  private final MainFrame mainFrame;
+  private LoadingWindow window;
+  private final File file;
+  private final EventList<Bill> eventList;
 
   public BillWorker(MainFrame mainFrame, File file, EventList<Bill> eventList) {
     this.mainFrame = mainFrame;
     this.file = file;
     this.eventList = eventList;
+    this.window = new LoadingWindow();
   }
 
   @Override
   protected List<Bill> doInBackground() throws Exception {
+    window.setVisible(true);
     try {
       if (file.getName().endsWith(".xls")) {
         List<Bill> bills = new XlsReader().read(Bill.class, file);
@@ -59,6 +63,8 @@ public class BillWorker extends SwingWorker<List<Bill>, Object> {
   protected void done() {
     try {
       eventList.addAll(get());
+      window.setVisible(false);
+      window.dispose();
     } catch (InterruptedException | ExecutionException ex) {
       Logger.getLogger(BillWorker.class.getName()).log(Level.SEVERE, null, ex);
     }
