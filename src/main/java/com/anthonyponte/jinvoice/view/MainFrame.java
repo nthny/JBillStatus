@@ -61,9 +61,11 @@ public class MainFrame extends javax.swing.JFrame {
 
         menu.setText("Menu");
 
+        menuImportar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_import_16.png"))); // NOI18N
         menuImportar.setText("Importar");
         menu.add(menuImportar);
 
+        menuExportar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_export_16.png"))); // NOI18N
         menuExportar.setText("Exportar");
         menu.add(menuExportar);
 
