@@ -18,10 +18,12 @@ import static ca.odell.glazedlists.swing.GlazedListsSwing.eventTableModelWithThr
 import ca.odell.glazedlists.swing.TableComparatorChooser;
 import ca.odell.glazedlists.swing.TextComponentMatcherEditor;
 import com.anthonyponte.jinvoice.pojo.Bill;
+import com.anthonyponte.jinvoice.pojo.User;
 import com.anthonyponte.jinvoice.utils.BillComparator;
 import com.anthonyponte.jinvoice.utils.BillTableFormat;
 import com.anthonyponte.jinvoice.utils.BillTextFilterator;
 import com.anthonyponte.jinvoice.utils.BillWorker;
+import com.anthonyponte.jinvoice.view.DialogFrame;
 import io.github.millij.poi.ss.writer.SpreadsheetWriter;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
@@ -30,6 +32,7 @@ import java.awt.dnd.DnDConstants;
 import java.awt.dnd.DropTarget;
 import java.awt.dnd.DropTargetDropEvent;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -38,6 +41,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.prefs.Preferences;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -46,6 +50,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class MainController {
 
   private final MainFrame mainFrame;
+  private DialogFrame dialogFrame;
   private EventList<Bill> eventList;
   private AdvancedListSelectionModel<Bill> selectionModel;
   private AdvancedTableModel<Bill> model;
@@ -58,7 +63,7 @@ public class MainController {
   public void start() {
     mainFrame.setVisible(true);
 
-    mainFrame.menuImportar.addActionListener(
+    mainFrame.menuImport.addActionListener(
         (ActionEvent e) -> {
           FileFilter filter = new FileNameExtensionFilter("Excel file", "xls", "xlsx");
           JFileChooser chooser = new JFileChooser();
@@ -74,7 +79,7 @@ public class MainController {
           }
         });
 
-    mainFrame.menuExportar.addActionListener(
+    mainFrame.menuExport.addActionListener(
         (ActionEvent e) -> {
           try {
             SpreadsheetWriter writer =
@@ -89,6 +94,12 @@ public class MainController {
           } catch (IOException ex) {
             Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
           }
+        });
+
+    mainFrame.menuOptions.addActionListener(
+        (ActionEvent e) -> {
+          dialogFrame = new DialogFrame(mainFrame, false);
+          new DialogController(dialogFrame, mainFrame).start();
         });
 
     mainFrame.scroll.setDropTarget(

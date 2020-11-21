@@ -18,6 +18,7 @@ public class Main {
     SwingUtilities.invokeLater(
         () -> {
           LafManager.installTheme(LafManager.getPreferredThemeStyle());
+					
           MainFrame mainFrame = new MainFrame();
           new MainController(mainFrame).start();
         });

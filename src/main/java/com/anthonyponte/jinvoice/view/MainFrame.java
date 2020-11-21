@@ -36,13 +36,14 @@ public class MainFrame extends javax.swing.JFrame {
         table = new javax.swing.JTable();
         filter = new com.github.weisj.darklaf.components.text.SearchTextField();
         menuBar = new javax.swing.JMenuBar();
-        menu = new javax.swing.JMenu();
-        menuImportar = new javax.swing.JMenuItem();
-        menuExportar = new javax.swing.JMenuItem();
+        menuFile = new javax.swing.JMenu();
+        menuImport = new javax.swing.JMenuItem();
+        menuExport = new javax.swing.JMenuItem();
+        menuOptions = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("JInvoice");
-        setIconImage(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_bill_64.png")).getImage());
+        setIconImage(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_receipt_64.png")).getImage());
         setMinimumSize(new java.awt.Dimension(800, 600));
 
         table.setModel(new javax.swing.table.DefaultTableModel(
@@ -59,17 +60,22 @@ public class MainFrame extends javax.swing.JFrame {
         scroll.setViewportView(table);
         table.putClientProperty(DarkTableUI.KEY_ALTERNATE_ROW_COLOR, true);
 
-        menu.setText("Menu");
+        menuFile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_menu_vertical_16.png"))); // NOI18N
+        menuFile.setText("Menu");
 
-        menuImportar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_import_16.png"))); // NOI18N
-        menuImportar.setText("Importar");
-        menu.add(menuImportar);
+        menuImport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_import_16.png"))); // NOI18N
+        menuImport.setText("Importar");
+        menuFile.add(menuImport);
 
-        menuExportar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_export_16.png"))); // NOI18N
-        menuExportar.setText("Exportar");
-        menu.add(menuExportar);
+        menuExport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_export_16.png"))); // NOI18N
+        menuExport.setText("Exportar");
+        menuFile.add(menuExport);
 
-        menuBar.add(menu);
+        menuOptions.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_key_16.png"))); // NOI18N
+        menuOptions.setText("Clave SOL");
+        menuFile.add(menuOptions);
+
+        menuBar.add(menuFile);
 
         setJMenuBar(menuBar);
 
@@ -90,7 +96,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(filter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scroll, javax.swing.GroupLayout.DEFAULT_SIZE, 530, Short.MAX_VALUE)
+                .addComponent(scroll, javax.swing.GroupLayout.DEFAULT_SIZE, 531, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -108,10 +114,11 @@ public class MainFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public com.github.weisj.darklaf.components.text.SearchTextField filter;
-    private javax.swing.JMenu menu;
     private javax.swing.JMenuBar menuBar;
-    public javax.swing.JMenuItem menuExportar;
-    public javax.swing.JMenuItem menuImportar;
+    public javax.swing.JMenuItem menuExport;
+    private javax.swing.JMenu menuFile;
+    public javax.swing.JMenuItem menuImport;
+    public javax.swing.JMenuItem menuOptions;
     public javax.swing.JScrollPane scroll;
     public javax.swing.JTable table;
     // End of variables declaration//GEN-END:variables
