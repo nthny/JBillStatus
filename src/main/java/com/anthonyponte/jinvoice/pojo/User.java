@@ -8,16 +8,19 @@ package com.anthonyponte.jinvoice.pojo;
 
 /** @author nthny */
 public class User {
+
+  private static User instance;
   private String ruc;
   private String username;
   private String password;
 
-  public User() {}
+  private User() {}
 
-  public User(String ruc, String username, String password) {
-    this.ruc = ruc;
-    this.username = username;
-    this.password = password;
+  public static User getInstance(){
+    if (instance == null) {
+      instance = new User();
+    }
+    return instance;
   }
 
   public String getRuc() {

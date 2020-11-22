@@ -6,6 +6,7 @@
 
 package com.anthonyponte.jinvoice.utils;
 
+import com.anthonyponte.jinvoice.pojo.User;
 import com.anthonyponte.jinvoice.utils.SOAPHanlderImpl;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,8 +19,7 @@ import pe.gob.sunat.StatusResponse;
 /** @author nthny */
 public class BillServiceImpl implements BillService {
 
-  private final String USER = "20513066431EPINSA16";
-  private final String PASS = "admin272z";
+  private final User user = User.getInstance();
 
   @Override
   public StatusResponse getStatusCdr(
@@ -34,7 +34,8 @@ public class BillServiceImpl implements BillService {
 
     @SuppressWarnings("rawtypes")
     List<Handler> handlers = new ArrayList<>();
-    SOAPHanlderImpl handler = new SOAPHanlderImpl(USER, PASS);
+    SOAPHanlderImpl handler =
+        new SOAPHanlderImpl(user.getRuc() + user.getUsername(), user.getPassword());
     handlers.add(handler);
     binding.getBinding().setHandlerChain(handlers);
 
@@ -54,7 +55,8 @@ public class BillServiceImpl implements BillService {
 
     @SuppressWarnings("rawtypes")
     List<Handler> handlers = new ArrayList<>();
-    SOAPHanlderImpl handler = new SOAPHanlderImpl(USER, PASS);
+    SOAPHanlderImpl handler =
+        new SOAPHanlderImpl(user.getRuc() + user.getUsername(), user.getPassword());
     handlers.add(handler);
     binding.getBinding().setHandlerChain(handlers);
 

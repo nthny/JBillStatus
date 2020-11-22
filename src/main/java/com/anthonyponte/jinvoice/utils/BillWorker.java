@@ -10,7 +10,7 @@ import com.anthonyponte.jinvoice.pojo.Bill;
 import com.anthonyponte.jinvoice.controller.MainController;
 import com.anthonyponte.jinvoice.view.MainFrame;
 import ca.odell.glazedlists.EventList;
-import com.anthonyponte.jinvoice.view.LoadingWindow;
+import com.anthonyponte.jinvoice.view.LoadingDialog;
 import io.github.millij.poi.SpreadsheetReadException;
 import io.github.millij.poi.ss.reader.XlsReader;
 import io.github.millij.poi.ss.reader.XlsxReader;
@@ -28,7 +28,7 @@ import pe.gob.sunat.BillService;
 public class BillWorker extends SwingWorker<List<Bill>, Object> {
 
   private final MainFrame mainFrame;
-  private final LoadingWindow window;
+  private final LoadingDialog loadingDialog;
   private final File file;
   private final EventList<Bill> eventList;
 
@@ -36,13 +36,13 @@ public class BillWorker extends SwingWorker<List<Bill>, Object> {
     this.mainFrame = mainFrame;
     this.file = file;
     this.eventList = eventList;
-    this.window = new LoadingWindow();
+    this.loadingDialog = new LoadingDialog(mainFrame, false);
   }
 
   @Override
   protected List<Bill> doInBackground() throws Exception {
-    window.setVisible(true);
-    try {
+    loadingDialog.setVisible(true);
+		try {
       if (file.getName().endsWith(".xls")) {
         List<Bill> bills = new XlsReader().read(Bill.class, file);
         return status(bills);
@@ -63,8 +63,7 @@ public class BillWorker extends SwingWorker<List<Bill>, Object> {
   protected void done() {
     try {
       eventList.addAll(get());
-      window.setVisible(false);
-      window.dispose();
+      loadingDialog.dispose();
     } catch (InterruptedException | ExecutionException ex) {
       Logger.getLogger(BillWorker.class.getName()).log(Level.SEVERE, null, ex);
     }

@@ -7,21 +7,26 @@ package com.anthonyponte.jinvoice.view;
 
 import com.github.weisj.darklaf.ui.text.DarkTextFieldUI;
 import com.github.weisj.darklaf.ui.text.DarkTextUI;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 /**
  *
  * @author nthny
  */
-public class DialogFrame extends javax.swing.JDialog {
+public class UserDialog extends javax.swing.JDialog {
 
     /**
      * Creates new form NewJDialog
+     *
      * @param parent
      * @param modal
      */
-    public DialogFrame(java.awt.Frame parent, boolean modal) {
+    public UserDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        setLocationRelativeTo(parent);
+        init();
     }
 
     /**
@@ -36,17 +41,17 @@ public class DialogFrame extends javax.swing.JDialog {
         txtRuc = new javax.swing.JTextField();
         txtUsername = new javax.swing.JTextField();
         txtPassword = new javax.swing.JPasswordField();
-        btnSave = new javax.swing.JButton();
+        btnEnter = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Clave SOL");
-        setIconImage(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_key_16.png")).getImage());
+        setIconImage(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_password_16.png")).getImage());
         setResizable(false);
 
         txtRuc.setPreferredSize(new java.awt.Dimension(150, 22));
 
-        btnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_checkmark_16.png"))); // NOI18N
-        btnSave.setText("Guardar");
+        btnEnter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_key_16.png"))); // NOI18N
+        btnEnter.setText("Entrar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -56,7 +61,7 @@ public class DialogFrame extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnSave)
+                        .addComponent(btnEnter)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -75,25 +80,36 @@ public class DialogFrame extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnSave)
+                .addComponent(btnEnter)
                 .addContainerGap())
         );
-
-        txtRuc.putClientProperty(DarkTextUI.KEY_DEFAULT_TEXT, "RUC");
-        txtRuc.putClientProperty(DarkTextFieldUI.KEY_SHOW_CLEAR, true);
-        txtUsername.putClientProperty(DarkTextUI.KEY_DEFAULT_TEXT, "Usuario");
-        txtUsername.putClientProperty(DarkTextFieldUI.KEY_SHOW_CLEAR, true);
-        txtPassword.putClientProperty(DarkTextUI.KEY_DEFAULT_TEXT, "Contraseña");
-        txtPassword.putClientProperty("JPasswordField.showViewIcon", true);
-        txtPassword.putClientProperty(DarkTextFieldUI.KEY_SHOW_CLEAR, true);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public javax.swing.JButton btnSave;
+    public javax.swing.JButton btnEnter;
     public javax.swing.JPasswordField txtPassword;
     public javax.swing.JTextField txtRuc;
     public javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
+
+    private void init() {
+        txtRuc.putClientProperty(DarkTextUI.KEY_DEFAULT_TEXT, "RUC");
+        txtRuc.putClientProperty(DarkTextFieldUI.KEY_SHOW_CLEAR, true);
+
+        txtUsername.putClientProperty(DarkTextUI.KEY_DEFAULT_TEXT, "Usuario");
+        txtUsername.putClientProperty(DarkTextFieldUI.KEY_SHOW_CLEAR, true);
+
+        txtPassword.putClientProperty(DarkTextUI.KEY_DEFAULT_TEXT, "Contraseña");
+        txtPassword.putClientProperty("JPasswordField.showViewIcon", true);
+        txtPassword.putClientProperty(DarkTextFieldUI.KEY_SHOW_CLEAR, true);
+
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                System.exit(0);
+            }
+        });
+    }
 }

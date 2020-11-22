@@ -5,7 +5,7 @@
     <Property name="defaultCloseOperation" type="int" value="2"/>
     <Property name="title" type="java.lang.String" value="Clave SOL"/>
     <Property name="iconImage" type="java.awt.Image" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-      <Connection code="new javax.swing.ImageIcon(getClass().getResource(&quot;/img/icons8_key_16.png&quot;)).getImage()" type="code"/>
+      <Connection code="new javax.swing.ImageIcon(getClass().getResource(&quot;/img/icons8_password_16.png&quot;)).getImage()" type="code"/>
     </Property>
     <Property name="resizable" type="boolean" value="false"/>
   </Properties>
@@ -32,7 +32,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="btnSave" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnEnter" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
@@ -57,7 +57,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="txtPassword" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="32767" attributes="0"/>
-              <Component id="btnSave" min="-2" max="-2" attributes="0"/>
+              <Component id="btnEnter" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -71,28 +71,25 @@
         </Property>
       </Properties>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="txtRuc.putClientProperty(DarkTextUI.KEY_DEFAULT_TEXT, &quot;RUC&quot;);&#xa;txtRuc.putClientProperty(DarkTextFieldUI.KEY_SHOW_CLEAR, true);"/>
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
       </AuxValues>
     </Component>
     <Component class="javax.swing.JTextField" name="txtUsername">
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="txtUsername.putClientProperty(DarkTextUI.KEY_DEFAULT_TEXT, &quot;Usuario&quot;);&#xa;txtUsername.putClientProperty(DarkTextFieldUI.KEY_SHOW_CLEAR, true);"/>
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
       </AuxValues>
     </Component>
     <Component class="javax.swing.JPasswordField" name="txtPassword">
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="txtPassword.putClientProperty(DarkTextUI.KEY_DEFAULT_TEXT, &quot;Contrase&#xf1;a&quot;);&#xa;txtPassword.putClientProperty(&quot;JPasswordField.showViewIcon&quot;, true);&#xa;txtPassword.putClientProperty(DarkTextFieldUI.KEY_SHOW_CLEAR, true);"/>
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
       </AuxValues>
     </Component>
-    <Component class="javax.swing.JButton" name="btnSave">
+    <Component class="javax.swing.JButton" name="btnEnter">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/img/icons8_checkmark_16.png"/>
+          <Image iconType="3" name="/img/icons8_key_16.png"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Guardar"/>
+        <Property name="text" type="java.lang.String" value="Entrar"/>
       </Properties>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>

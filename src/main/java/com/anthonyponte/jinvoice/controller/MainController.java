@@ -22,32 +22,24 @@ import com.anthonyponte.jinvoice.utils.BillComparator;
 import com.anthonyponte.jinvoice.utils.BillTableFormat;
 import com.anthonyponte.jinvoice.utils.BillTextFilterator;
 import com.anthonyponte.jinvoice.utils.BillWorker;
-import com.anthonyponte.jinvoice.view.DialogFrame;
-import io.github.millij.poi.ss.writer.SpreadsheetWriter;
+import com.anthonyponte.jinvoice.view.UserDialog;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.dnd.DnDConstants;
 import java.awt.dnd.DropTarget;
 import java.awt.dnd.DropTargetDropEvent;
-import java.awt.event.ActionEvent;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.text.DateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JFileChooser;
-import javax.swing.filechooser.FileFilter;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 /** @author nthny */
 public class MainController {
 
   private final MainFrame mainFrame;
-  private DialogFrame dialogFrame;
+  private UserDialog userDialog;
   private EventList<Bill> eventList;
   private AdvancedListSelectionModel<Bill> selectionModel;
   private AdvancedTableModel<Bill> model;
@@ -60,47 +52,8 @@ public class MainController {
   public void start() {
     mainFrame.setVisible(true);
 
-    dialogFrame = new DialogFrame(mainFrame, true);
-    new DialogController(dialogFrame, mainFrame).start();
-
-    mainFrame.menuImport.addActionListener(
-        (ActionEvent e) -> {
-          FileFilter filter = new FileNameExtensionFilter("Excel file", "xls", "xlsx");
-          JFileChooser chooser = new JFileChooser();
-          chooser.setCurrentDirectory(new java.io.File("."));
-          chooser.addChoosableFileFilter(filter);
-          chooser.setFileFilter(filter);
-
-          int result = chooser.showOpenDialog(mainFrame);
-          if (result == JFileChooser.APPROVE_OPTION) {
-            File file = chooser.getSelectedFile().getAbsoluteFile();
-            BillWorker worker = new BillWorker(mainFrame, file, eventList);
-            worker.execute();
-          }
-        });
-
-    mainFrame.menuExport.addActionListener(
-        (ActionEvent e) -> {
-          try {
-            SpreadsheetWriter writer =
-                new SpreadsheetWriter(
-                    "C:\\"
-                        + DateFormat.getDateInstance(DateFormat.FULL).format(new Date())
-                        + ".xlsx");
-            writer.addSheet(Bill.class, eventList);
-            writer.write();
-          } catch (FileNotFoundException ex) {
-            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
-          } catch (IOException ex) {
-            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
-          }
-        });
-
-    mainFrame.menuOptions.addActionListener(
-        (ActionEvent e) -> {
-          dialogFrame = new DialogFrame(mainFrame, true);
-          new DialogController(dialogFrame, mainFrame).start();
-        });
+    userDialog = new UserDialog(mainFrame, true);
+    new UserController(userDialog, mainFrame).start();
 
     mainFrame.scroll.setDropTarget(
         new DropTarget() {
