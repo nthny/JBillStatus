@@ -10,12 +10,14 @@ import com.anthonyponte.jinvoice.view.DialogFrame;
 import com.anthonyponte.jinvoice.view.MainFrame;
 import com.github.weisj.darklaf.ui.text.DarkTextUI;
 import java.awt.event.ActionEvent;
+import java.util.prefs.Preferences;
 
 /** @author nthny */
 public class DialogController {
 
   private final DialogFrame frame;
   private final MainFrame mainFrame;
+  private Preferences prefs;
 
   public DialogController(DialogFrame frame, MainFrame mainFrame) {
     this.frame = frame;
@@ -24,18 +26,21 @@ public class DialogController {
   }
 
   public void start() {
-    frame.setVisible(true);
+    prefs = Preferences.userNodeForPackage(this.getClass());
+
     frame.setLocationRelativeTo(mainFrame);
+    frame.setVisible(true);
   }
 
   private void init() {
-    frame.btnSave.addActionListener((ActionEvent e) -> {
-        frame.txtRuc.putClientProperty(
-                DarkTextUI.KEY_HAS_ERROR, frame.txtRuc.getText().isEmpty());
-        frame.txtUsername.putClientProperty(
-                DarkTextUI.KEY_HAS_ERROR, frame.txtUsername.getText().isEmpty());
-        frame.txtPassword.putClientProperty(
-                DarkTextUI.KEY_HAS_ERROR, frame.txtPassword.getText().isEmpty());
-		});
+    frame.btnSave.addActionListener(
+        (ActionEvent e) -> {
+          frame.txtRuc.putClientProperty(
+              DarkTextUI.KEY_HAS_ERROR, frame.txtRuc.getText().isEmpty());
+          frame.txtUsername.putClientProperty(
+              DarkTextUI.KEY_HAS_ERROR, frame.txtUsername.getText().isEmpty());
+          frame.txtPassword.putClientProperty(
+              DarkTextUI.KEY_HAS_ERROR, frame.txtPassword.getText().isEmpty());
+        });
   }
 }

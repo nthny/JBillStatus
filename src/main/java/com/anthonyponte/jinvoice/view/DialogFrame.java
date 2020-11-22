@@ -5,6 +5,7 @@
  */
 package com.anthonyponte.jinvoice.view;
 
+import com.github.weisj.darklaf.ui.text.DarkTextFieldUI;
 import com.github.weisj.darklaf.ui.text.DarkTextUI;
 
 /**
@@ -15,6 +16,8 @@ public class DialogFrame extends javax.swing.JDialog {
 
     /**
      * Creates new form NewJDialog
+     * @param parent
+     * @param modal
      */
     public DialogFrame(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -42,7 +45,7 @@ public class DialogFrame extends javax.swing.JDialog {
 
         txtRuc.setPreferredSize(new java.awt.Dimension(150, 22));
 
-        btnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_save_16.png"))); // NOI18N
+        btnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_checkmark_16.png"))); // NOI18N
         btnSave.setText("Guardar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -77,9 +80,12 @@ public class DialogFrame extends javax.swing.JDialog {
         );
 
         txtRuc.putClientProperty(DarkTextUI.KEY_DEFAULT_TEXT, "RUC");
+        txtRuc.putClientProperty(DarkTextFieldUI.KEY_SHOW_CLEAR, true);
         txtUsername.putClientProperty(DarkTextUI.KEY_DEFAULT_TEXT, "Usuario");
+        txtUsername.putClientProperty(DarkTextFieldUI.KEY_SHOW_CLEAR, true);
         txtPassword.putClientProperty(DarkTextUI.KEY_DEFAULT_TEXT, "Contraseña");
         txtPassword.putClientProperty("JPasswordField.showViewIcon", true);
+        txtPassword.putClientProperty(DarkTextFieldUI.KEY_SHOW_CLEAR, true);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

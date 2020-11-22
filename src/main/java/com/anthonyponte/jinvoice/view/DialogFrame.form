@@ -71,26 +71,26 @@
         </Property>
       </Properties>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="txtRuc.putClientProperty(DarkTextUI.KEY_DEFAULT_TEXT, &quot;RUC&quot;);"/>
+        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="txtRuc.putClientProperty(DarkTextUI.KEY_DEFAULT_TEXT, &quot;RUC&quot;);&#xa;txtRuc.putClientProperty(DarkTextFieldUI.KEY_SHOW_CLEAR, true);"/>
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
       </AuxValues>
     </Component>
     <Component class="javax.swing.JTextField" name="txtUsername">
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="txtUsername.putClientProperty(DarkTextUI.KEY_DEFAULT_TEXT, &quot;Usuario&quot;);"/>
+        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="txtUsername.putClientProperty(DarkTextUI.KEY_DEFAULT_TEXT, &quot;Usuario&quot;);&#xa;txtUsername.putClientProperty(DarkTextFieldUI.KEY_SHOW_CLEAR, true);"/>
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
       </AuxValues>
     </Component>
     <Component class="javax.swing.JPasswordField" name="txtPassword">
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="txtPassword.putClientProperty(DarkTextUI.KEY_DEFAULT_TEXT, &quot;Contrase&#xf1;a&quot;);&#xa;txtPassword.putClientProperty(&quot;JPasswordField.showViewIcon&quot;, true);"/>
+        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="txtPassword.putClientProperty(DarkTextUI.KEY_DEFAULT_TEXT, &quot;Contrase&#xf1;a&quot;);&#xa;txtPassword.putClientProperty(&quot;JPasswordField.showViewIcon&quot;, true);&#xa;txtPassword.putClientProperty(DarkTextFieldUI.KEY_SHOW_CLEAR, true);"/>
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
       </AuxValues>
     </Component>
     <Component class="javax.swing.JButton" name="btnSave">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/img/icons8_save_16.png"/>
+          <Image iconType="3" name="/img/icons8_checkmark_16.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Guardar"/>
       </Properties>

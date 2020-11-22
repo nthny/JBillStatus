@@ -12,6 +12,8 @@ public class User {
   private String username;
   private String password;
 
+  public User() {}
+
   public User(String ruc, String username, String password) {
     this.ruc = ruc;
     this.username = username;

@@ -43,7 +43,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("JInvoice");
-        setIconImage(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_receipt_64.png")).getImage());
+        setIconImage(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_invoice_64.png")).getImage());
         setMinimumSize(new java.awt.Dimension(800, 600));
 
         table.setModel(new javax.swing.table.DefaultTableModel(
@@ -60,7 +60,7 @@ public class MainFrame extends javax.swing.JFrame {
         scroll.setViewportView(table);
         table.putClientProperty(DarkTableUI.KEY_ALTERNATE_ROW_COLOR, true);
 
-        menuFile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_menu_vertical_16.png"))); // NOI18N
+        menuFile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_menu_16.png"))); // NOI18N
         menuFile.setText("Menu");
 
         menuImport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_import_16.png"))); // NOI18N

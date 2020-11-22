@@ -28,7 +28,7 @@ import pe.gob.sunat.BillService;
 public class BillWorker extends SwingWorker<List<Bill>, Object> {
 
   private final MainFrame mainFrame;
-  private LoadingWindow window;
+  private final LoadingWindow window;
   private final File file;
   private final EventList<Bill> eventList;
 

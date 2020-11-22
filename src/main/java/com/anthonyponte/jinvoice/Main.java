@@ -8,6 +8,7 @@ package com.anthonyponte.jinvoice;
 import com.anthonyponte.jinvoice.controller.MainController;
 import com.anthonyponte.jinvoice.view.MainFrame;
 import com.github.weisj.darklaf.LafManager;
+import com.github.weisj.darklaf.theme.DarculaTheme;
 import javax.swing.SwingUtilities;
 
 /** @author nthny */
@@ -17,8 +18,8 @@ public class Main {
   public static void main(String[] args) {
     SwingUtilities.invokeLater(
         () -> {
-          LafManager.installTheme(LafManager.getPreferredThemeStyle());
-					
+          LafManager.installTheme(new DarculaTheme());
+
           MainFrame mainFrame = new MainFrame();
           new MainController(mainFrame).start();
         });
