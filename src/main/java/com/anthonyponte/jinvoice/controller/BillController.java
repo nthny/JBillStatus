@@ -5,7 +5,7 @@
  */
 package com.anthonyponte.jinvoice.controller;
 
-import com.anthonyponte.jinvoice.view.MainFrame;
+import com.anthonyponte.jinvoice.view.BillFrame;
 import ca.odell.glazedlists.BasicEventList;
 import ca.odell.glazedlists.EventList;
 import ca.odell.glazedlists.FilterList;
@@ -22,7 +22,6 @@ import com.anthonyponte.jinvoice.utils.BillComparator;
 import com.anthonyponte.jinvoice.utils.BillTableFormat;
 import com.anthonyponte.jinvoice.utils.BillTextFilterator;
 import com.anthonyponte.jinvoice.utils.BillWorker;
-import com.anthonyponte.jinvoice.view.UserDialog;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
@@ -36,15 +35,14 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /** @author nthny */
-public class MainController {
+public class BillController {
 
-  private final MainFrame mainFrame;
-  private UserDialog userDialog;
+  private final BillFrame mainFrame;
   private EventList<Bill> eventList;
   private AdvancedListSelectionModel<Bill> selectionModel;
   private AdvancedTableModel<Bill> model;
 
-  public MainController(MainFrame mainFrame) {
+  public BillController(BillFrame mainFrame) {
     this.mainFrame = mainFrame;
     init();
   }
@@ -52,11 +50,7 @@ public class MainController {
   public void start() {
     mainFrame.setVisible(true);
 
-    userDialog = new UserDialog(mainFrame, true);
-    new UserController(userDialog, mainFrame).start();
-
-    mainFrame.scroll.setDropTarget(
-        new DropTarget() {
+		mainFrame.scroll.setDropTarget(new DropTarget() {
           @Override
           public synchronized void drop(DropTargetDropEvent dtde) {
             if (dtde.isDataFlavorSupported(DataFlavor.javaFileListFlavor)) {
@@ -74,7 +68,7 @@ public class MainController {
                   }
                 }
               } catch (UnsupportedFlavorException | IOException ex) {
-                Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(BillController.class.getName()).log(Level.SEVERE, null, ex);
               }
             } else {
               dtde.rejectDrop();

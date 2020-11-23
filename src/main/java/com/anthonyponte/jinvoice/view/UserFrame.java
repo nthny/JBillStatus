@@ -5,27 +5,20 @@
  */
 package com.anthonyponte.jinvoice.view;
 
+import com.github.weisj.darklaf.ui.text.DarkPasswordFieldUI;
 import com.github.weisj.darklaf.ui.text.DarkTextFieldUI;
 import com.github.weisj.darklaf.ui.text.DarkTextUI;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-
 /**
  *
  * @author nthny
  */
-public class UserDialog extends javax.swing.JDialog {
+public class UserFrame extends javax.swing.JFrame {
 
     /**
-     * Creates new form NewJDialog
-     *
-     * @param parent
-     * @param modal
+     * Creates new form UserFrame
      */
-    public UserDialog(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
+    public UserFrame() {
         initComponents();
-        setLocationRelativeTo(parent);
         init();
     }
 
@@ -38,20 +31,25 @@ public class UserDialog extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        txtRuc = new javax.swing.JTextField();
+        txtRuc = new javax.swing.JFormattedTextField();
         txtUsername = new javax.swing.JTextField();
         txtPassword = new javax.swing.JPasswordField();
         btnEnter = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Clave SOL");
-        setIconImage(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_password_16.png")).getImage());
+        setIconImage(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_lock_64.png")).getImage());
         setResizable(false);
 
-        txtRuc.setPreferredSize(new java.awt.Dimension(150, 22));
+        txtUsername.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtUsernameKeyTyped(evt);
+            }
+        });
 
-        btnEnter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_key_16.png"))); // NOI18N
+        btnEnter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_approved_unlock_16.png"))); // NOI18N
         btnEnter.setText("Entrar");
+        btnEnter.setEnabled(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -60,15 +58,13 @@ public class UserDialog extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtRuc)
+                    .addComponent(txtUsername)
+                    .addComponent(txtPassword)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnEnter)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtRuc, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
-                            .addComponent(txtPassword, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtUsername, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addContainerGap())))
+                        .addGap(0, 307, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -79,18 +75,26 @@ public class UserDialog extends javax.swing.JDialog {
                 .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnEnter)
                 .addContainerGap())
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void txtUsernameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsernameKeyTyped
+        char keyChar = evt.getKeyChar();
+        if (Character.isLowerCase(keyChar)) {
+            evt.setKeyChar(Character.toUpperCase(keyChar));
+        }
+    }//GEN-LAST:event_txtUsernameKeyTyped
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btnEnter;
     public javax.swing.JPasswordField txtPassword;
-    public javax.swing.JTextField txtRuc;
+    public javax.swing.JFormattedTextField txtRuc;
     public javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
 
@@ -102,14 +106,6 @@ public class UserDialog extends javax.swing.JDialog {
         txtUsername.putClientProperty(DarkTextFieldUI.KEY_SHOW_CLEAR, true);
 
         txtPassword.putClientProperty(DarkTextUI.KEY_DEFAULT_TEXT, "Contraseña");
-        txtPassword.putClientProperty("JPasswordField.showViewIcon", true);
-        txtPassword.putClientProperty(DarkTextFieldUI.KEY_SHOW_CLEAR, true);
-
-        this.addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                System.exit(0);
-            }
-        });
+        txtPassword.putClientProperty(DarkPasswordFieldUI.KEY_SHOW_VIEW_BUTTON, true);
     }
 }

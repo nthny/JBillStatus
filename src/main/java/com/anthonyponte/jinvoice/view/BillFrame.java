@@ -13,12 +13,12 @@ import epinsa.com.pe.utils.TableColumnAdjuster;
  *
  * @author nthny
  */
-public class MainFrame extends javax.swing.JFrame {
+public class BillFrame extends javax.swing.JFrame {
 
     /**
      * Creates new form MainFrame
      */
-    public MainFrame() {
+    public BillFrame() {
         initComponents();
         init();
     }
@@ -35,11 +35,10 @@ public class MainFrame extends javax.swing.JFrame {
         scroll = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
         filter = new com.github.weisj.darklaf.components.text.SearchTextField();
-        menuBar = new javax.swing.JMenuBar();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("JInvoice");
-        setIconImage(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_bill_64.png")).getImage());
+        setIconImage(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_invoice_64.png")).getImage());
         setMinimumSize(new java.awt.Dimension(800, 600));
 
         table.setModel(new javax.swing.table.DefaultTableModel(
@@ -54,8 +53,6 @@ public class MainFrame extends javax.swing.JFrame {
         table.setShowGrid(true);
         table.getTableHeader().setReorderingAllowed(false);
         scroll.setViewportView(table);
-
-        setJMenuBar(menuBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -74,7 +71,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(filter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scroll, javax.swing.GroupLayout.DEFAULT_SIZE, 554, Short.MAX_VALUE)
+                .addComponent(scroll, javax.swing.GroupLayout.DEFAULT_SIZE, 555, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -94,10 +91,8 @@ public class MainFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public com.github.weisj.darklaf.components.text.SearchTextField filter;
-    private javax.swing.JMenuBar menuBar;
     public javax.swing.JScrollPane scroll;
     public javax.swing.JTable table;
     // End of variables declaration//GEN-END:variables
     private TableColumnAdjuster columnAdjuster;
-
 }

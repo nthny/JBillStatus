@@ -7,8 +7,8 @@
 package com.anthonyponte.jinvoice.utils;
 
 import com.anthonyponte.jinvoice.pojo.Bill;
-import com.anthonyponte.jinvoice.controller.MainController;
-import com.anthonyponte.jinvoice.view.MainFrame;
+import com.anthonyponte.jinvoice.controller.BillController;
+import com.anthonyponte.jinvoice.view.BillFrame;
 import ca.odell.glazedlists.EventList;
 import com.anthonyponte.jinvoice.view.LoadingDialog;
 import io.github.millij.poi.SpreadsheetReadException;
@@ -27,12 +27,12 @@ import pe.gob.sunat.BillService;
 /** @author nthny */
 public class BillWorker extends SwingWorker<List<Bill>, Object> {
 
-  private final MainFrame mainFrame;
+  private final BillFrame mainFrame;
   private final LoadingDialog loadingDialog;
   private final File file;
   private final EventList<Bill> eventList;
 
-  public BillWorker(MainFrame mainFrame, File file, EventList<Bill> eventList) {
+  public BillWorker(BillFrame mainFrame, File file, EventList<Bill> eventList) {
     this.mainFrame = mainFrame;
     this.file = file;
     this.eventList = eventList;
@@ -54,7 +54,7 @@ public class BillWorker extends SwingWorker<List<Bill>, Object> {
             mainFrame, "El archivo debe ser .xls o .xlsx", "Error", JOptionPane.ERROR_MESSAGE);
       }
     } catch (SpreadsheetReadException ex) {
-      Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+      Logger.getLogger(BillController.class.getName()).log(Level.SEVERE, null, ex);
     }
     return null;
   }
