@@ -5,22 +5,22 @@
  */
 package com.anthonyponte.jinvoice.pojo;
 
-import io.github.millij.poi.ss.model.annotations.SheetColumn;
+import com.poiji.annotation.ExcelCellName;
 import pe.gob.sunat.StatusResponse;
 
 /** @author nthny */
 public class Bill {
 
-  @SheetColumn("RUC")
+  @ExcelCellName("RUC")
   private String ruc;
 
-  @SheetColumn("Tipo")
+  @ExcelCellName("Tipo")
   private String tipo;
 
-  @SheetColumn("Serie")
+  @ExcelCellName("Serie")
   private String serie;
 
-  @SheetColumn("Correlativo")
+  @ExcelCellName("Correlativo")
   private int correlativo;
 
   private StatusResponse billResponse;

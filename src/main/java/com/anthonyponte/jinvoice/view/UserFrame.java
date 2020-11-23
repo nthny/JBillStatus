@@ -86,6 +86,10 @@ public class UserFrame extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        tfUsername.putClientProperty("JTextField.placeholderText", "Usuario");
+        tfPassword.putClientProperty("JTextField.placeholderText", "Contraseña");
+        tfRuc.putClientProperty("JTextField.placeholderText", "00000000000");
+
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents

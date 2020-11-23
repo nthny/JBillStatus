@@ -7,7 +7,7 @@ package com.anthonyponte.jinvoice;
 
 import com.anthonyponte.jinvoice.controller.UserController;
 import com.anthonyponte.jinvoice.view.UserFrame;
-import com.formdev.flatlaf.FlatDarkLaf;
+import com.formdev.flatlaf.intellijthemes.FlatArcDarkIJTheme;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
@@ -18,9 +18,10 @@ public class Main {
   public static void main(String[] args) {
     SwingUtilities.invokeLater(
         () -> {
-          FlatDarkLaf.install();
-          UIManager.put("Table.showHorizontalLines", false);
-          UIManager.put("Table.showVerticalLines", false);
+          FlatArcDarkIJTheme.install();
+          UIManager.put("Table.showHorizontalLines", true);
+          UIManager.put("Table.showVerticalLines", true);
+          UIManager.put("Table.rowHeight", 25);
 
           UserFrame userFrame = new UserFrame();
           new UserController(userFrame).start();

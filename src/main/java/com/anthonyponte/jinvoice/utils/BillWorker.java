@@ -11,9 +11,7 @@ import com.anthonyponte.jinvoice.controller.BillController;
 import com.anthonyponte.jinvoice.view.BillFrame;
 import ca.odell.glazedlists.EventList;
 import com.anthonyponte.jinvoice.view.LoadingDialog;
-import io.github.millij.poi.SpreadsheetReadException;
-import io.github.millij.poi.ss.reader.XlsReader;
-import io.github.millij.poi.ss.reader.XlsxReader;
+import com.poiji.bind.Poiji;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,19 +40,12 @@ public class BillWorker extends SwingWorker<List<Bill>, Object> {
   @Override
   protected List<Bill> doInBackground() throws Exception {
     loadingDialog.setVisible(true);
-		try {
-      if (file.getName().endsWith(".xls")) {
-        List<Bill> bills = new XlsReader().read(Bill.class, file);
-        return status(bills);
-      } else if (file.getName().endsWith(".xlsx")) {
-        List<Bill> bills = new XlsxReader().read(Bill.class, file);
-        return status(bills);
-      } else {
-        JOptionPane.showMessageDialog(
-            mainFrame, "El archivo debe ser .xls o .xlsx", "Error", JOptionPane.ERROR_MESSAGE);
-      }
-    } catch (SpreadsheetReadException ex) {
-      Logger.getLogger(BillController.class.getName()).log(Level.SEVERE, null, ex);
+    if (file.getName().endsWith(".xls") || file.getName().endsWith(".xlsx")) {
+      List<Bill> bills = Poiji.fromExcel(file, Bill.class);
+      return status(bills);
+    } else {
+      JOptionPane.showMessageDialog(
+          mainFrame, "El archivo debe ser .xls o .xlsx", "Error", JOptionPane.ERROR_MESSAGE);
     }
     return null;
   }
