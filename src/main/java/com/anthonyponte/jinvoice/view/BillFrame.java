@@ -5,8 +5,6 @@
  */
 package com.anthonyponte.jinvoice.view;
 
-import com.github.weisj.darklaf.ui.table.DarkTableUI;
-import com.github.weisj.darklaf.ui.text.DarkTextUI;
 import epinsa.com.pe.utils.TableColumnAdjuster;
 
 /**
@@ -34,7 +32,7 @@ public class BillFrame extends javax.swing.JFrame {
 
         scroll = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
-        filter = new com.github.weisj.darklaf.components.text.SearchTextField();
+        tfFilter = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("JInvoice");
@@ -61,17 +59,17 @@ public class BillFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scroll, javax.swing.GroupLayout.DEFAULT_SIZE, 780, Short.MAX_VALUE)
-                    .addComponent(filter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(scroll)
+                    .addComponent(tfFilter, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(filter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tfFilter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scroll, javax.swing.GroupLayout.DEFAULT_SIZE, 555, Short.MAX_VALUE)
+                .addComponent(scroll, javax.swing.GroupLayout.DEFAULT_SIZE, 560, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -80,19 +78,15 @@ public class BillFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void init() {
-        filter.putClientProperty(DarkTextUI.KEY_DEFAULT_TEXT, "Filtrar comprobantes");
-
-        table.putClientProperty(DarkTableUI.KEY_ALTERNATE_ROW_COLOR, true);
-
         columnAdjuster = new TableColumnAdjuster(table);
         columnAdjuster.setDynamicAdjustment(true);
         columnAdjuster.adjustColumns();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public com.github.weisj.darklaf.components.text.SearchTextField filter;
     public javax.swing.JScrollPane scroll;
     public javax.swing.JTable table;
+    public javax.swing.JTextField tfFilter;
     // End of variables declaration//GEN-END:variables
     private TableColumnAdjuster columnAdjuster;
 }

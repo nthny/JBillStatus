@@ -33,8 +33,8 @@
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="scroll" pref="780" max="32767" attributes="0"/>
-                  <Component id="filter" alignment="0" max="32767" attributes="0"/>
+                  <Component id="scroll" max="32767" attributes="0"/>
+                  <Component id="tfFilter" alignment="1" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -44,9 +44,9 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="filter" min="-2" max="-2" attributes="0"/>
+              <Component id="tfFilter" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="scroll" pref="555" max="32767" attributes="0"/>
+              <Component id="scroll" pref="560" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -81,7 +81,7 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="com.github.weisj.darklaf.components.text.SearchTextField" name="filter">
+    <Component class="javax.swing.JTextField" name="tfFilter">
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
       </AuxValues>

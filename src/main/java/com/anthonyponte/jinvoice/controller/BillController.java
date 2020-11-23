@@ -83,7 +83,7 @@ public class BillController {
     SortedList<Bill> sortedList = new SortedList<>(eventList, new BillComparator());
 
     MatcherEditor<Bill> matcherEditor =
-        new TextComponentMatcherEditor<>(this.mainFrame.filter, new BillTextFilterator());
+        new TextComponentMatcherEditor<>(this.mainFrame.tfFilter, new BillTextFilterator());
 
     FilterList<Bill> filterList = new FilterList<>(sortedList, matcherEditor);
 

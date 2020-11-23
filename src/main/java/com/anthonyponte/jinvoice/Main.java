@@ -7,9 +7,9 @@ package com.anthonyponte.jinvoice;
 
 import com.anthonyponte.jinvoice.controller.UserController;
 import com.anthonyponte.jinvoice.view.UserFrame;
-import com.github.weisj.darklaf.LafManager;
-import com.github.weisj.darklaf.theme.DarculaTheme;
+import com.formdev.flatlaf.FlatDarkLaf;
 import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 
 /** @author nthny */
 public class Main {
@@ -18,7 +18,10 @@ public class Main {
   public static void main(String[] args) {
     SwingUtilities.invokeLater(
         () -> {
-          LafManager.installTheme(new DarculaTheme());
+          FlatDarkLaf.install();
+          UIManager.put("Table.showHorizontalLines", false);
+          UIManager.put("Table.showVerticalLines", false);
+
           UserFrame userFrame = new UserFrame();
           new UserController(userFrame).start();
         });

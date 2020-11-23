@@ -5,9 +5,8 @@
  */
 package com.anthonyponte.jinvoice.view;
 
-import com.github.weisj.darklaf.ui.text.DarkPasswordFieldUI;
-import com.github.weisj.darklaf.ui.text.DarkTextFieldUI;
-import com.github.weisj.darklaf.ui.text.DarkTextUI;
+import java.text.NumberFormat;
+
 /**
  *
  * @author nthny
@@ -19,7 +18,6 @@ public class UserFrame extends javax.swing.JFrame {
      */
     public UserFrame() {
         initComponents();
-        init();
     }
 
     /**
@@ -31,25 +29,31 @@ public class UserFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        txtRuc = new javax.swing.JFormattedTextField();
-        txtUsername = new javax.swing.JTextField();
-        txtPassword = new javax.swing.JPasswordField();
+        tfUsername = new javax.swing.JTextField();
+        tfPassword = new javax.swing.JPasswordField();
         btnEnter = new javax.swing.JButton();
+        tfRuc = new javax.swing.JFormattedTextField(NumberFormat.getIntegerInstance());
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Clave SOL");
         setIconImage(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_lock_64.png")).getImage());
         setResizable(false);
 
-        txtUsername.addKeyListener(new java.awt.event.KeyAdapter() {
+        tfUsername.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtUsernameKeyTyped(evt);
+                tfUsernameKeyTyped(evt);
             }
         });
 
         btnEnter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_approved_unlock_16.png"))); // NOI18N
         btnEnter.setText("Entrar");
         btnEnter.setEnabled(false);
+
+        try {
+            tfRuc.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###########")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -58,23 +62,25 @@ public class UserFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtRuc)
-                    .addComponent(txtUsername)
-                    .addComponent(txtPassword)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnEnter)
-                        .addGap(0, 307, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addGap(313, 313, 313))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tfUsername)
+                            .addComponent(tfPassword)
+                            .addComponent(tfRuc, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(txtRuc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tfRuc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tfUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tfPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnEnter)
                 .addContainerGap())
@@ -84,28 +90,17 @@ public class UserFrame extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtUsernameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsernameKeyTyped
+    private void tfUsernameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfUsernameKeyTyped
         char keyChar = evt.getKeyChar();
         if (Character.isLowerCase(keyChar)) {
             evt.setKeyChar(Character.toUpperCase(keyChar));
         }
-    }//GEN-LAST:event_txtUsernameKeyTyped
+    }//GEN-LAST:event_tfUsernameKeyTyped
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btnEnter;
-    public javax.swing.JPasswordField txtPassword;
-    public javax.swing.JFormattedTextField txtRuc;
-    public javax.swing.JTextField txtUsername;
+    public javax.swing.JPasswordField tfPassword;
+    public javax.swing.JFormattedTextField tfRuc;
+    public javax.swing.JTextField tfUsername;
     // End of variables declaration//GEN-END:variables
-
-    private void init() {
-        txtRuc.putClientProperty(DarkTextUI.KEY_DEFAULT_TEXT, "RUC");
-        txtRuc.putClientProperty(DarkTextFieldUI.KEY_SHOW_CLEAR, true);
-
-        txtUsername.putClientProperty(DarkTextUI.KEY_DEFAULT_TEXT, "Usuario");
-        txtUsername.putClientProperty(DarkTextFieldUI.KEY_SHOW_CLEAR, true);
-
-        txtPassword.putClientProperty(DarkTextUI.KEY_DEFAULT_TEXT, "Contraseña");
-        txtPassword.putClientProperty(DarkPasswordFieldUI.KEY_SHOW_VIEW_BUTTON, true);
-    }
 }

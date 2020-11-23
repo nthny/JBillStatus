@@ -9,7 +9,6 @@ package com.anthonyponte.jinvoice.controller;
 import com.anthonyponte.jinvoice.pojo.User;
 import com.anthonyponte.jinvoice.view.BillFrame;
 import com.anthonyponte.jinvoice.view.UserFrame;
-import com.github.weisj.darklaf.ui.text.DarkTextUI;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -29,9 +28,9 @@ public class UserController implements KeyListener, ActionListener {
 
   public void start() {
     frame.setVisible(true);
-    frame.txtRuc.addKeyListener(this);
-    frame.txtUsername.addKeyListener(this);
-    frame.txtPassword.addKeyListener(this);
+    frame.tfRuc.addKeyListener(this);
+    frame.tfUsername.addKeyListener(this);
+    frame.tfPassword.addKeyListener(this);
     frame.btnEnter.addActionListener(this);
   }
 
@@ -43,9 +42,9 @@ public class UserController implements KeyListener, ActionListener {
 
   @Override
   public void keyReleased(KeyEvent e) {
-    if (frame.txtRuc.getText().length() == 0
-        || frame.txtUsername.getText().length() == 0
-        || frame.txtPassword.getPassword().length == 0) {
+    if (frame.tfRuc.getText().isEmpty()
+        || frame.tfUsername.getText().isEmpty()
+        || frame.tfPassword.getPassword().length == 0) {
       frame.btnEnter.setEnabled(false);
     } else {
       frame.btnEnter.setEnabled(true);
@@ -55,26 +54,18 @@ public class UserController implements KeyListener, ActionListener {
   @Override
   public void actionPerformed(ActionEvent e) {
     try {
-      if (frame.txtRuc.getText().isEmpty()
-          && frame.txtRuc.getText().isEmpty()
-          && frame.txtRuc.getText().isEmpty()) {
-        frame.txtRuc.putClientProperty(DarkTextUI.KEY_HAS_ERROR, true);
-        frame.txtUsername.putClientProperty(DarkTextUI.KEY_HAS_ERROR, true);
-        frame.txtPassword.putClientProperty(DarkTextUI.KEY_HAS_ERROR, true);
-      } else {
-        User user = User.getInstance();
-        user.setRuc(frame.txtRuc.getText());
-        user.setUsername(frame.txtUsername.getText());
-        user.setPassword(frame.txtPassword.getText());
+      User user = User.getInstance();
+      user.setRuc(frame.tfRuc.getText());
+      user.setUsername(frame.tfUsername.getText());
+      user.setPassword(String.valueOf(frame.tfPassword.getPassword()));
 
-        frame.dispose();
+      frame.dispose();
 
-        SwingUtilities.invokeLater(
-            () -> {
-              BillFrame mainFrame = new BillFrame();
-              new BillController(mainFrame).start();
-            });
-      }
+      SwingUtilities.invokeLater(
+          () -> {
+            BillFrame mainFrame = new BillFrame();
+            new BillController(mainFrame).start();
+          });
     } catch (Exception ex) {
       Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
     }
