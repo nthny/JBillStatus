@@ -7,7 +7,6 @@
 package com.anthonyponte.jinvoice.utils;
 
 import com.anthonyponte.jinvoice.pojo.Bill;
-import com.anthonyponte.jinvoice.controller.BillController;
 import com.anthonyponte.jinvoice.view.BillFrame;
 import ca.odell.glazedlists.EventList;
 import com.anthonyponte.jinvoice.view.LoadingDialog;
@@ -65,11 +64,14 @@ public class BillWorker extends SwingWorker<List<Bill>, Object> {
     List<Bill> list = new ArrayList<>();
     for (int i = 0; i < bills.size(); i++) {
       Bill bill = (Bill) bills.get(i);
+
       bill.setBillResponse(
           service.getStatus(bill.getRuc(), bill.getTipo(), bill.getSerie(), bill.getCorrelativo()));
+
       bill.setCdrResponse(
           service.getStatusCdr(
               bill.getRuc(), bill.getTipo(), bill.getSerie(), bill.getCorrelativo()));
+
       list.add(bill);
     }
     return list;

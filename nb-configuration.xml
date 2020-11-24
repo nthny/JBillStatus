@@ -24,6 +24,5 @@ Any value defined here will override the pom.xml file value but is only applicab
         <de-funfried-netbeans-plugins-externalcodeformatter.showNotifications>false</de-funfried-netbeans-plugins-externalcodeformatter.showNotifications>
         <de-funfried-netbeans-plugins-externalcodeformatter.useProjectSettings>true</de-funfried-netbeans-plugins-externalcodeformatter.useProjectSettings>
         <org-netbeans-modules-javascript2-requirejs.enabled>true</org-netbeans-modules-javascript2-requirejs.enabled>
-        <netbeans.hint.jdkPlatform>JDK_11</netbeans.hint.jdkPlatform>
     </properties>
 </project-shared-configuration>
