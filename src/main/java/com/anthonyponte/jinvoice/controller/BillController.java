@@ -78,10 +78,6 @@ public class BillController {
           baseList.add(element.getTipo());
           baseList.add(element.getSerie());
           baseList.add(String.valueOf(element.getCorrelativo()));
-          baseList.add(String.valueOf(element.getBillResponse().getStatusCode()));
-          baseList.add(String.valueOf(element.getBillResponse().getStatusMessage()));
-          baseList.add(String.valueOf(element.getCdrResponse().getStatusCode()));
-          baseList.add(String.valueOf(element.getCdrResponse().getStatusCode()));
         };
     MatcherEditor<Bill> matcherEditor =
         new TextComponentMatcherEditor<>(this.mainFrame.tfFilter, textFilterator);
@@ -199,66 +195,72 @@ public class BillController {
                               @Override
                               protected void done() {
                                 try {
+                                  eventList.clear();
                                   eventList.addAll(get());
 
-//                                  TableCellRenderer renderer =
-//                                      new DefaultTableCellRenderer() {
-//                                        @Override
-//                                        public Component getTableCellRendererComponent(
-//                                            JTable table,
-//                                            Object value,
-//                                            boolean isSelected,
-//                                            boolean hasFocus,
-//                                            int row,
-//                                            int column) {
-//
-//                                          Component component =
-//                                              super.getTableCellRendererComponent(
-//                                                  table, value, isSelected, hasFocus, row, column);
-//
-//                                          Bill bill = model.getElementAt(row);
-//
-//                                          switch (bill.getBillResponse().getStatusCode()) {
-//                                            case "0001":
-//                                              component.setForeground(Color.decode("#499C54"));
-//                                              break;
-//                                            case "0002":
-//                                              component.setForeground(Color.decode("#F0A732"));
-//                                              break;
-//                                            case "0003":
-//                                              component.setForeground(Color.decode("#FF6D00"));
-//                                              break;
-//                                            case "0004":
-//                                            case "0005":
-//                                            case "0006":
-//                                            case "0007":
-//                                            case "0008":
-//                                            case "0009":
-//                                            case "0010":
-//                                            case "0011":
-//                                            case "0012":
-//                                              component.setForeground(Color.decode("#8B3C3C"));
-//                                              break;
-//                                            default:
-//                                              component.setForeground(Color.BLACK);
-//                                              break;
-//                                          }
-//
-//                                          return component;
-//                                        }
-//                                      };
-//
-//                                  mainFrame
-//                                      .table
-//                                      .getColumnModel()
-//                                      .getColumn(4)
-//                                      .setCellRenderer(renderer);
-//
-//                                  mainFrame
-//                                      .table
-//                                      .getColumnModel()
-//                                      .getColumn(5)
-//                                      .setCellRenderer(renderer);
+                                  TableCellRenderer renderer =
+                                      new DefaultTableCellRenderer() {
+                                        @Override
+                                        public Component getTableCellRendererComponent(
+                                            JTable table,
+                                            Object value,
+                                            boolean isSelected,
+                                            boolean hasFocus,
+                                            int row,
+                                            int column) {
+
+                                          Component component =
+                                              super.getTableCellRendererComponent(
+                                                  table, value, isSelected, hasFocus, row, column);
+
+                                          Bill bill = model.getElementAt(row);
+
+                                          switch (bill.getBillResponse().getStatusCode()) {
+                                            case "0001":
+                                              component.setForeground(Color.WHITE);
+                                              // Objects.GreenAndroid
+                                              component.setBackground(Color.decode("#A4C639"));
+                                              break;
+                                            case "0002":
+                                              component.setForeground(Color.WHITE);
+                                              // Objects.Yellow
+                                              component.setBackground(Color.decode("#F4AF3D"));
+                                              break;
+                                            case "0003":
+                                              component.setForeground(Color.WHITE);
+                                              // Objects.Grey
+                                              component.setBackground(Color.decode("#9AA7B0"));
+                                              break;
+                                            case "0004":
+                                            case "0005":
+                                            case "0006":
+                                            case "0007":
+                                            case "0008":
+                                            case "0009":
+                                            case "0010":
+                                            case "0011":
+                                            case "0012":
+                                              component.setForeground(Color.WHITE);
+                                              // Objects.RedStatus
+                                              component.setBackground(Color.decode("#E05555"));
+                                              break;
+                                          }
+
+                                          return component;
+                                        }
+                                      };
+
+                                  mainFrame
+                                      .table
+                                      .getColumnModel()
+                                      .getColumn(4)
+                                      .setCellRenderer(renderer);
+
+                                  mainFrame
+                                      .table
+                                      .getColumnModel()
+                                      .getColumn(5)
+                                      .setCellRenderer(renderer);
 
                                   loadingDialog.dispose();
                                 } catch (InterruptedException | ExecutionException ex) {

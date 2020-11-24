@@ -16,7 +16,7 @@ public class User {
 
   private User() {}
 
-  public static User getInstance(){
+  public static User getInstance() {
     if (instance == null) {
       instance = new User();
     }

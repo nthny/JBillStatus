@@ -5,8 +5,6 @@
  */
 package com.anthonyponte.jinvoice.view;
 
-import epinsa.com.pe.utils.TableColumnAdjuster;
-
 /**
  *
  * @author nthny
@@ -18,7 +16,6 @@ public class BillFrame extends javax.swing.JFrame {
      */
     public BillFrame() {
         initComponents();
-        init();
     }
 
     /**
@@ -38,7 +35,6 @@ public class BillFrame extends javax.swing.JFrame {
         setTitle("JInvoice");
         setIconImage(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_bill_64.png")).getImage());
         setMinimumSize(new java.awt.Dimension(800, 600));
-        setPreferredSize(new java.awt.Dimension(800, 600));
 
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -48,10 +44,12 @@ public class BillFrame extends javax.swing.JFrame {
 
             }
         ));
-        table.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        table.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         table.setIntercellSpacing(new java.awt.Dimension(1, 1));
         table.getTableHeader().setReorderingAllowed(false);
         scroll.setViewportView(table);
+
+        tfFilter.setToolTipText("Filtrar documentos por RUC, tipo, serie y/o correlativo");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -60,7 +58,7 @@ public class BillFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scroll)
+                    .addComponent(scroll, javax.swing.GroupLayout.DEFAULT_SIZE, 788, Short.MAX_VALUE)
                     .addComponent(tfFilter, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
@@ -70,24 +68,19 @@ public class BillFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(tfFilter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scroll)
+                .addComponent(scroll, javax.swing.GroupLayout.DEFAULT_SIZE, 553, Short.MAX_VALUE)
                 .addContainerGap())
         );
+
+        tfFilter.putClientProperty("JTextField.placeholderText", "Filtrar documentos");
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void init() {
-        columnAdjuster = new TableColumnAdjuster(table);
-        columnAdjuster.setDynamicAdjustment(true);
-        columnAdjuster.adjustColumns();
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JScrollPane scroll;
     public javax.swing.JTable table;
     public javax.swing.JTextField tfFilter;
     // End of variables declaration//GEN-END:variables
-    private TableColumnAdjuster columnAdjuster;
 }

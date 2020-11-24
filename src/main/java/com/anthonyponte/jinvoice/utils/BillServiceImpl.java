@@ -22,7 +22,7 @@ public class BillServiceImpl implements BillService {
   private final User user = User.getInstance();
 
   @Override
-  public StatusResponse getStatusCdr(
+  public StatusResponse getStatus(
       String rucComprobante,
       String tipoComprobante,
       String serieComprobante,
@@ -43,7 +43,7 @@ public class BillServiceImpl implements BillService {
   }
 
   @Override
-  public StatusResponse getStatus(
+  public StatusResponse getStatusCdr(
       String rucComprobante,
       String tipoComprobante,
       String serieComprobante,
