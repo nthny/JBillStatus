@@ -8,6 +8,8 @@ package com.anthonyponte.jinvoice;
 import com.anthonyponte.jinvoice.controller.UserController;
 import com.anthonyponte.jinvoice.view.UserFrame;
 import com.formdev.flatlaf.intellijthemes.FlatArcDarkIJTheme;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
@@ -19,9 +21,12 @@ public class Main {
     SwingUtilities.invokeLater(
         () -> {
           FlatArcDarkIJTheme.install();
-          UIManager.put("Table.showHorizontalLines", true);
-          UIManager.put("Table.showVerticalLines", true);
-          UIManager.put("Table.rowHeight", 25);
+          UIManager.put("Button.arc", 999);
+          UIManager.put("Component.arc", 999);
+          UIManager.put("ProgressBar.arc", 999);
+          UIManager.put("TextComponent.arc", 999);
+          JFrame.setDefaultLookAndFeelDecorated(true);
+          JDialog.setDefaultLookAndFeelDecorated(true);
 
           UserFrame userFrame = new UserFrame();
           new UserController(userFrame).start();

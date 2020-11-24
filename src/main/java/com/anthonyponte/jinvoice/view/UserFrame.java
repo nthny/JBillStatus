@@ -45,7 +45,7 @@ public class UserFrame extends javax.swing.JFrame {
             }
         });
 
-        btnEnter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_approved_unlock_16.png"))); // NOI18N
+        btnEnter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_unlock_16.png"))); // NOI18N
         btnEnter.setText("Entrar");
         btnEnter.setEnabled(false);
 
@@ -62,15 +62,11 @@ public class UserFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnEnter)
-                        .addGap(313, 313, 313))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfUsername)
-                            .addComponent(tfPassword)
-                            .addComponent(tfRuc, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addContainerGap())))
+                    .addComponent(tfUsername, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
+                    .addComponent(tfPassword)
+                    .addComponent(tfRuc, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnEnter, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -85,9 +81,6 @@ public class UserFrame extends javax.swing.JFrame {
                 .addComponent(btnEnter)
                 .addContainerGap())
         );
-
-        tfUsername.putClientProperty("JTextField.placeholderText", "Usuario");
-        tfPassword.putClientProperty("JTextField.placeholderText", "Contraseña");
 
         pack();
         setLocationRelativeTo(null);

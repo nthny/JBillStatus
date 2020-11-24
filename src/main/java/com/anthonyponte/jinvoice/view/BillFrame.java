@@ -36,7 +36,7 @@ public class BillFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("JInvoice");
-        setIconImage(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_invoice_64.png")).getImage());
+        setIconImage(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_bill_64.png")).getImage());
         setMinimumSize(new java.awt.Dimension(800, 600));
         setPreferredSize(new java.awt.Dimension(800, 600));
 
@@ -73,8 +73,6 @@ public class BillFrame extends javax.swing.JFrame {
                 .addComponent(scroll)
                 .addContainerGap())
         );
-
-        tfFilter.putClientProperty("JTextField.placeholderText", "Filtrar");
 
         pack();
         setLocationRelativeTo(null);

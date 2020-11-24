@@ -21,7 +21,6 @@ import ca.odell.glazedlists.swing.TableComparatorChooser;
 import ca.odell.glazedlists.swing.TextComponentMatcherEditor;
 import com.anthonyponte.jinvoice.pojo.Bill;
 import com.anthonyponte.jinvoice.utils.BillServiceImpl;
-import com.anthonyponte.jinvoice.utils.BillWorker;
 import com.anthonyponte.jinvoice.view.LoadingDialog;
 import com.poiji.bind.Poiji;
 import java.awt.Color;
@@ -202,64 +201,66 @@ public class BillController {
                                 try {
                                   eventList.addAll(get());
 
-                                  TableCellRenderer renderer =
-                                      new DefaultTableCellRenderer() {
-                                        @Override
-                                        public Component getTableCellRendererComponent(
-                                            JTable table,
-                                            Object value,
-                                            boolean isSelected,
-                                            boolean hasFocus,
-                                            int row,
-                                            int column) {
+//                                  TableCellRenderer renderer =
+//                                      new DefaultTableCellRenderer() {
+//                                        @Override
+//                                        public Component getTableCellRendererComponent(
+//                                            JTable table,
+//                                            Object value,
+//                                            boolean isSelected,
+//                                            boolean hasFocus,
+//                                            int row,
+//                                            int column) {
+//
+//                                          Component component =
+//                                              super.getTableCellRendererComponent(
+//                                                  table, value, isSelected, hasFocus, row, column);
+//
+//                                          Bill bill = model.getElementAt(row);
+//
+//                                          switch (bill.getBillResponse().getStatusCode()) {
+//                                            case "0001":
+//                                              component.setForeground(Color.decode("#499C54"));
+//                                              break;
+//                                            case "0002":
+//                                              component.setForeground(Color.decode("#F0A732"));
+//                                              break;
+//                                            case "0003":
+//                                              component.setForeground(Color.decode("#FF6D00"));
+//                                              break;
+//                                            case "0004":
+//                                            case "0005":
+//                                            case "0006":
+//                                            case "0007":
+//                                            case "0008":
+//                                            case "0009":
+//                                            case "0010":
+//                                            case "0011":
+//                                            case "0012":
+//                                              component.setForeground(Color.decode("#8B3C3C"));
+//                                              break;
+//                                            default:
+//                                              component.setForeground(Color.BLACK);
+//                                              break;
+//                                          }
+//
+//                                          return component;
+//                                        }
+//                                      };
+//
+//                                  mainFrame
+//                                      .table
+//                                      .getColumnModel()
+//                                      .getColumn(4)
+//                                      .setCellRenderer(renderer);
+//
+//                                  mainFrame
+//                                      .table
+//                                      .getColumnModel()
+//                                      .getColumn(5)
+//                                      .setCellRenderer(renderer);
 
-                                          Component component =
-                                              super.getTableCellRendererComponent(
-                                                  table, value, isSelected, hasFocus, row, column);
-
-                                          Bill bill = model.getElementAt(row);
-
-                                          switch (bill.getBillResponse().getStatusCode()) {
-                                            case "0001":
-                                              component.setForeground(Color.decode("#499C54"));
-                                              break;
-                                            case "0002":
-                                              component.setForeground(Color.decode("#F0A732"));
-                                              break;
-                                            case "0003":
-                                              component.setForeground(Color.decode("#FF6D00"));
-                                              break;
-                                            case "0004":
-                                            case "0005":
-                                            case "0006":
-                                            case "0007":
-                                            case "0008":
-                                            case "0009":
-                                            case "0010":
-                                            case "0011":
-                                            case "0012":
-                                              component.setForeground(Color.decode("#8B3C3C"));
-                                              break;
-                                            default:
-                                              component.setForeground(Color.BLACK);
-                                              break;
-                                          }
-
-                                          return component;
-                                        }
-                                      };
-
-                                  mainFrame
-                                      .table
-                                      .getColumnModel()
-                                      .getColumn(4)
-                                      .setCellRenderer(renderer);
-																	
-                                  mainFrame
-                                      .table
-                                      .getColumnModel()
-                                      .getColumn(5)
-                                      .setCellRenderer(renderer);
+                                  loadingDialog.dispose();
                                 } catch (InterruptedException | ExecutionException ex) {
                                   Logger.getLogger(BillController.class.getName())
                                       .log(Level.SEVERE, null, ex);

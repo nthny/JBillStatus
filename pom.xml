@@ -88,21 +88,26 @@
         </plugins>
     </build>
     
-    <dependencies>       
+    <dependencies>              
         <dependency>
             <groupId>com.formdev</groupId>
             <artifactId>flatlaf</artifactId>
+            <version>0.44</version>
+        </dependency>         
+        <dependency>
+            <groupId>com.formdev</groupId>
+            <artifactId>flatlaf-intellij-themes</artifactId>
+            <version>0.44</version>
+        </dependency>       
+        <dependency>
+            <groupId>com.formdev</groupId>
+            <artifactId>flatlaf-extras</artifactId>
             <version>0.44</version>
         </dependency>
         <dependency>
             <groupId>com.glazedlists</groupId>
             <artifactId>glazedlists</artifactId>
             <version>1.11.0</version>
-        </dependency>        
-        <dependency>
-            <groupId>com.formdev</groupId>
-            <artifactId>flatlaf-intellij-themes</artifactId>
-            <version>0.44</version>
         </dependency>
         <dependency>
             <groupId>com.github.ozlerhakan</groupId>
