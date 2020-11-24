@@ -5,6 +5,8 @@
  */
 package com.anthonyponte.jinvoice.view;
 
+import com.formdev.flatlaf.extras.FlatSVGIcon;
+
 /**
  *
  * @author nthny
@@ -35,6 +37,7 @@ public class LoadingDialog extends javax.swing.JDialog {
         setUndecorated(true);
         setResizable(false);
 
+        label.setBackground(new java.awt.Color(0, 0, 0));
         label.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/loading.gif"))); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

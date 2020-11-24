@@ -20,14 +20,18 @@ public class Main {
   public static void main(String[] args) {
     SwingUtilities.invokeLater(
         () -> {
-          FlatArcDarkIJTheme.install();
+          FlatArcDarkIJTheme.install();					
+					//Rounded
           UIManager.put("Button.arc", 999);
           UIManager.put("Component.arc", 999);
           UIManager.put("ProgressBar.arc", 999);
           UIManager.put("TextComponent.arc", 999);
+					//Window decoration
           JFrame.setDefaultLookAndFeelDecorated(true);
-          JDialog.setDefaultLookAndFeelDecorated(true);
-
+					//Table
+					UIManager.put("Table.showHorizontalLines", true);
+					UIManager.put("Table.showVerticalLines", true);
+					
           UserFrame userFrame = new UserFrame();
           new UserController(userFrame).start();
         });
