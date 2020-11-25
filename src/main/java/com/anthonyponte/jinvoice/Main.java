@@ -8,7 +8,6 @@ package com.anthonyponte.jinvoice;
 import com.anthonyponte.jinvoice.controller.UserController;
 import com.anthonyponte.jinvoice.view.UserFrame;
 import com.formdev.flatlaf.intellijthemes.FlatArcDarkIJTheme;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
