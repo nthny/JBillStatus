@@ -8,6 +8,8 @@ package com.anthonyponte.jinvoice;
 import com.anthonyponte.jinvoice.controller.UserController;
 import com.anthonyponte.jinvoice.view.UserFrame;
 import com.formdev.flatlaf.intellijthemes.FlatArcDarkIJTheme;
+import java.awt.Color;
+import java.awt.Insets;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
@@ -28,7 +30,7 @@ public class Main {
   }
 
   private static void customizeUI() {
-    // Frame
+    // JFrame
     JFrame.setDefaultLookAndFeelDecorated(true);
     // Button
     UIManager.put("Button.arc", 999);
@@ -41,5 +43,9 @@ public class Main {
     // Table
     UIManager.put("Table.showHorizontalLines", true);
     UIManager.put("Table.showVerticalLines", true);
+    // ScrollBar
+    UIManager.put("ScrollBar.trackInsets", new Insets(2, 4, 2, 4));
+    UIManager.put("ScrollBar.thumbInsets", new Insets(2, 2, 2, 2));
+    UIManager.put("ScrollBar.track", new Color(0xe0e0e0));
   }
 }

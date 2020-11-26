@@ -31,13 +31,18 @@ import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.dnd.DnDConstants;
 import java.awt.dnd.DropTarget;
 import java.awt.dnd.DropTargetDropEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.SwingWorker;
@@ -47,7 +52,7 @@ import pe.gob.sunat.BillService;
 import pe.gob.sunat.StatusResponse;
 
 /** @author nthny */
-public class BillController {
+public class BillController implements MouseListener {
 
   private final BillFrame mainFrame;
   private final LoadingDialog loadingDialog;
@@ -63,6 +68,7 @@ public class BillController {
 
   public void start() {
     mainFrame.setVisible(true);
+    mainFrame.table.addMouseListener(this);
   }
 
   private void init() {
@@ -78,6 +84,7 @@ public class BillController {
           baseList.add(element.getTipo());
           baseList.add(element.getSerie());
           baseList.add(String.valueOf(element.getCorrelativo()));
+          baseList.add(element.getBillResponse().getStatusMessage());
         };
     MatcherEditor<Bill> matcherEditor =
         new TextComponentMatcherEditor<>(this.mainFrame.tfFilter, textFilterator);
@@ -291,4 +298,60 @@ public class BillController {
           }
         });
   }
+
+  @Override
+  public void mouseClicked(MouseEvent e) {
+    if (e.getClickCount() == 2) {
+      JTable target = (JTable) e.getSource();
+      int row = target.getSelectedRow();
+      int column = target.getSelectedColumn();
+      Bill bill = model.getElementAt(row);
+      if (column == 5 && bill.getBillResponse().getStatusCode().equals("0001")
+          || bill.getBillResponse().getStatusCode().equals("0002")
+          || bill.getBillResponse().getStatusCode().equals("0003")) {
+
+        JFileChooser chooser = new JFileChooser();
+        chooser.setCurrentDirectory(new File("."));
+        chooser.setSelectedFile(
+            new File(
+                "R-"
+                    + bill.getRuc()
+                    + "-"
+                    + bill.getTipo()
+                    + "-"
+                    + bill.getSerie()
+                    + "-"
+                    + bill.getCorrelativo()
+                    + ".zip"));
+
+        int result = chooser.showSaveDialog(mainFrame);
+        if (result == JFileChooser.APPROVE_OPTION) {
+
+          File file = chooser.getSelectedFile().getAbsoluteFile();
+          try (FileOutputStream fout =
+              new FileOutputStream(file.getParent() + "//" + file.getName())) {
+            fout.write(bill.getCdrResponse().getContent());
+            fout.flush();
+            fout.close();						
+          } catch (FileNotFoundException ex) {
+            Logger.getLogger(BillController.class.getName()).log(Level.SEVERE, null, ex);
+          } catch (IOException ex) {
+            Logger.getLogger(BillController.class.getName()).log(Level.SEVERE, null, ex);
+          }
+        }
+      }
+    }
+  }
+
+  @Override
+  public void mousePressed(MouseEvent e) {}
+
+  @Override
+  public void mouseReleased(MouseEvent e) {}
+
+  @Override
+  public void mouseEntered(MouseEvent e) {}
+
+  @Override
+  public void mouseExited(MouseEvent e) {}
 }
