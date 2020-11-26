@@ -80,10 +80,7 @@ public class BillController implements MouseListener {
 
     TextFilterator<Bill> textFilterator =
         (List<String> baseList, Bill element) -> {
-          baseList.add(element.getRuc());
-          baseList.add(element.getTipo());
-          baseList.add(element.getSerie());
-          baseList.add(String.valueOf(element.getCorrelativo()));
+          baseList.add(element.getBillResponse().getStatusCode());
           baseList.add(element.getBillResponse().getStatusMessage());
         };
     MatcherEditor<Bill> matcherEditor =
@@ -332,7 +329,7 @@ public class BillController implements MouseListener {
               new FileOutputStream(file.getParent() + "//" + file.getName())) {
             fout.write(bill.getCdrResponse().getContent());
             fout.flush();
-            fout.close();						
+            fout.close();
           } catch (FileNotFoundException ex) {
             Logger.getLogger(BillController.class.getName()).log(Level.SEVERE, null, ex);
           } catch (IOException ex) {
