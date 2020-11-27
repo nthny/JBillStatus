@@ -5,6 +5,8 @@
  */
 package com.anthonyponte.jinvoice.view;
 
+import org.jdesktop.swingx.JXTable;
+
 /**
  *
  * @author nthny
@@ -27,14 +29,17 @@ public class BillFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        scroll = new javax.swing.JScrollPane();
-        table = new javax.swing.JTable();
         tfFilter = new javax.swing.JTextField();
+        scroll = new javax.swing.JScrollPane();
+        table = new org.jdesktop.swingx.JXTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("JInvoice");
         setIconImage(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_bill_64.png")).getImage());
         setMinimumSize(new java.awt.Dimension(800, 600));
+        setPreferredSize(new java.awt.Dimension(800, 600));
+
+        tfFilter.setToolTipText("Filtrar documentos por RUC, tipo, serie y/o correlativo");
 
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -44,12 +49,8 @@ public class BillFrame extends javax.swing.JFrame {
 
             }
         ));
-        table.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
-        table.setIntercellSpacing(new java.awt.Dimension(1, 1));
-        table.getTableHeader().setReorderingAllowed(false);
+        table.putClientProperty(JXTable.USE_DTCR_COLORMEMORY_HACK, false);
         scroll.setViewportView(table);
-
-        tfFilter.setToolTipText("Filtrar documentos por RUC, tipo, serie y/o correlativo");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -58,8 +59,8 @@ public class BillFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scroll, javax.swing.GroupLayout.DEFAULT_SIZE, 788, Short.MAX_VALUE)
-                    .addComponent(tfFilter, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(tfFilter, javax.swing.GroupLayout.DEFAULT_SIZE, 788, Short.MAX_VALUE)
+                    .addComponent(scroll))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -68,7 +69,7 @@ public class BillFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(tfFilter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scroll, javax.swing.GroupLayout.DEFAULT_SIZE, 560, Short.MAX_VALUE)
+                .addComponent(scroll)
                 .addContainerGap())
         );
 
@@ -80,7 +81,7 @@ public class BillFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JScrollPane scroll;
-    public javax.swing.JTable table;
+    public org.jdesktop.swingx.JXTable table;
     public javax.swing.JTextField tfFilter;
     // End of variables declaration//GEN-END:variables
 }

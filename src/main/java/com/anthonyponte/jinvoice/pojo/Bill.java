@@ -109,10 +109,18 @@ public class Bill {
         + serie
         + ", correlativo="
         + correlativo
-        + ", billResponse="
-        + billResponse
-        + ", cbrResponse="
-        + cdrResponse
+        + " BillResponse{"
+        + "statusCode="
+        + billResponse.getStatusCode()
+        + ", statusMessage="
+        + billResponse.getStatusMessage()
+        + '}'
+        + " CdrResponse{"
+        + "statusCode="
+        + cdrResponse.getStatusCode()
+        + ", statusMessage="
+        + cdrResponse.getStatusMessage()
+        + '}'
         + '}';
   }
 }

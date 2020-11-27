@@ -43,6 +43,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.SwingWorker;
@@ -213,27 +214,30 @@ public class BillController implements MouseListener {
                                             int row,
                                             int column) {
 
-                                          Component component =
-                                              super.getTableCellRendererComponent(
-                                                  table, value, isSelected, hasFocus, row, column);
+                                          JLabel label =
+                                              (JLabel)
+                                                  super.getTableCellRendererComponent(
+                                                      table,
+                                                      value,
+                                                      isSelected,
+                                                      hasFocus,
+                                                      row,
+                                                      column);
 
                                           Bill bill = model.getElementAt(row);
 
                                           switch (bill.getBillResponse().getStatusCode()) {
                                             case "0001":
-                                              component.setForeground(Color.WHITE);
                                               // Objects.GreenAndroid
-                                              component.setBackground(Color.decode("#A4C639"));
+                                              label.setBackground(Color.decode("#C5E1A5"));
                                               break;
                                             case "0002":
-                                              component.setForeground(Color.WHITE);
                                               // Objects.Yellow
-                                              component.setBackground(Color.decode("#F4AF3D"));
+                                              label.setBackground(Color.decode("#FFF59D"));
                                               break;
                                             case "0003":
-                                              component.setForeground(Color.WHITE);
                                               // Objects.Grey
-                                              component.setBackground(Color.decode("#9AA7B0"));
+                                              label.setBackground(Color.decode("#EF9A9A"));
                                               break;
                                             case "0004":
                                             case "0005":
@@ -244,16 +248,15 @@ public class BillController implements MouseListener {
                                             case "0010":
                                             case "0011":
                                             case "0012":
-                                              component.setForeground(Color.WHITE);
                                               // Objects.RedStatus
-                                              component.setBackground(Color.decode("#E05555"));
+                                              label.setBackground(Color.decode("#EEEEEE"));
                                               break;
                                           }
 
-                                          return component;
+                                          return label;
                                         }
                                       };
-
+																	
                                   mainFrame
                                       .table
                                       .getColumnModel()
@@ -265,7 +268,9 @@ public class BillController implements MouseListener {
                                       .getColumnModel()
                                       .getColumn(5)
                                       .setCellRenderer(renderer);
-
+																	
+																	mainFrame.table.packAll();
+																	
                                   loadingDialog.dispose();
                                 } catch (InterruptedException | ExecutionException ex) {
                                   Logger.getLogger(BillController.class.getName())
