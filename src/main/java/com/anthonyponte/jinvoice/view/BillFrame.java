@@ -31,13 +31,12 @@ public class BillFrame extends javax.swing.JFrame {
 
         tfFilter = new javax.swing.JTextField();
         scroll = new javax.swing.JScrollPane();
-        table = new org.jdesktop.swingx.JXTable();
+        table = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("JInvoice");
         setIconImage(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_bill_64.png")).getImage());
         setMinimumSize(new java.awt.Dimension(800, 600));
-        setPreferredSize(new java.awt.Dimension(800, 600));
 
         tfFilter.setToolTipText("Filtrar documentos por RUC, tipo, serie y/o correlativo");
 
@@ -49,7 +48,7 @@ public class BillFrame extends javax.swing.JFrame {
 
             }
         ));
-        table.putClientProperty(JXTable.USE_DTCR_COLORMEMORY_HACK, false);
+        table.setIntercellSpacing(new java.awt.Dimension(1, 1));
         scroll.setViewportView(table);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -81,7 +80,7 @@ public class BillFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JScrollPane scroll;
-    public org.jdesktop.swingx.JXTable table;
+    public javax.swing.JTable table;
     public javax.swing.JTextField tfFilter;
     // End of variables declaration//GEN-END:variables
 }

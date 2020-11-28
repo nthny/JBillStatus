@@ -5,8 +5,6 @@
  */
 package com.anthonyponte.jinvoice.view;
 
-import com.formdev.flatlaf.extras.FlatSVGIcon;
-
 /**
  *
  * @author nthny
@@ -36,8 +34,8 @@ public class LoadingDialog extends javax.swing.JDialog {
         setUndecorated(true);
         setResizable(false);
 
-        progressBar.setIndeterminate(true);
         progressBar.setPreferredSize(new java.awt.Dimension(200, 15));
+        progressBar.setStringPainted(true);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

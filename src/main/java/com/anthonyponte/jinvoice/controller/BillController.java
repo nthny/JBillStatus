@@ -31,6 +31,7 @@ import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.dnd.DnDConstants;
 import java.awt.dnd.DropTarget;
 import java.awt.dnd.DropTargetDropEvent;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
@@ -53,24 +54,232 @@ import pe.gob.sunat.BillService;
 import pe.gob.sunat.StatusResponse;
 
 /** @author nthny */
-public class BillController implements MouseListener {
+public class BillController {
 
   private final BillFrame mainFrame;
   private final LoadingDialog loadingDialog;
   private EventList<Bill> eventList;
   private AdvancedListSelectionModel<Bill> selectionModel;
   private AdvancedTableModel<Bill> model;
+  private BillService service;
 
   public BillController(BillFrame mainFrame) {
     this.mainFrame = mainFrame;
     this.loadingDialog = new LoadingDialog(mainFrame, false);
-    init();
   }
 
   public void start() {
     mainFrame.setVisible(true);
-    mainFrame.table.addMouseListener(this);
+    mainFrame.scroll.setDropTarget(dt);
+    mainFrame.table.addMouseListener(ml);
   }
+
+  private DropTarget dt =
+      new DropTarget() {
+        @Override
+        public synchronized void drop(DropTargetDropEvent dtde) {
+          if (dtde.isDataFlavorSupported(DataFlavor.javaFileListFlavor)) {
+            try {
+              dtde.acceptDrop(DnDConstants.ACTION_COPY_OR_MOVE);
+              Transferable t = dtde.getTransferable();
+              List fileList = (List) t.getTransferData(DataFlavor.javaFileListFlavor);
+              if (fileList != null && fileList.size() > 0) {
+                for (Object value : fileList) {
+                  if (value instanceof File) {
+                    File file = (File) value;
+                    if (file.getName().endsWith(".xls") || file.getName().endsWith(".xlsx")) {
+
+                      SwingWorker worker =
+                          new SwingWorker<List<Bill>, Integer>() {
+                            @Override
+                            protected List<Bill> doInBackground() throws Exception {
+                              loadingDialog.setVisible(true);
+
+                              List<Bill> list = Poiji.fromExcel(file, Bill.class);
+                              service = new BillServiceImpl();
+
+                              loadingDialog.progressBar.setMaximum(list.size());
+
+                              for (int i = 0; i < list.size(); i++) {
+                                Bill bill = (Bill) list.get(i);
+
+                                StatusResponse billResponse =
+                                    service.getStatus(
+                                        bill.getRuc(),
+                                        bill.getTipo(),
+                                        bill.getSerie(),
+                                        bill.getCorrelativo());
+
+                                StatusResponse cdrResponse =
+                                    service.getStatusCdr(
+                                        bill.getRuc(),
+                                        bill.getTipo(),
+                                        bill.getSerie(),
+                                        bill.getCorrelativo());
+
+                                list.get(i).setBillResponse(billResponse);
+                                list.get(i).setCdrResponse(cdrResponse);
+
+                                publish(i + 1);
+                              }
+
+                              return list;
+                            }
+
+                            @Override
+                            protected void process(List<Integer> chunks) {
+                              loadingDialog.progressBar.setValue(chunks.get(0));
+                            }
+
+                            @Override
+                            protected void done() {
+                              try {
+								init();
+								
+                                eventList.clear();
+                                eventList.addAll(get());
+
+                                TableCellRenderer renderer =
+                                    new DefaultTableCellRenderer() {
+                                      @Override
+                                      public Component getTableCellRendererComponent(
+                                          JTable table,
+                                          Object value,
+                                          boolean isSelected,
+                                          boolean hasFocus,
+                                          int row,
+                                          int column) {
+
+                                        JLabel label =
+                                            (JLabel)
+                                                super.getTableCellRendererComponent(
+                                                    table,
+                                                    value,
+                                                    isSelected,
+                                                    hasFocus,
+                                                    row,
+                                                    column);
+
+                                        Bill bill = model.getElementAt(row);
+
+                                        switch (bill.getBillResponse().getStatusCode()) {
+                                          case "0001":
+                                            // Objects.GreenAndroid
+                                            label.setBackground(Color.decode("#C5E1A5"));
+                                            break;
+                                          case "0002":
+                                            // Objects.Yellow
+                                            label.setBackground(Color.decode("#FFF59D"));
+                                            break;
+                                          case "0003":
+                                            // Objects.Grey
+                                            label.setBackground(Color.decode("#EF9A9A"));
+                                            break;
+                                          case "0004":
+                                          case "0005":
+                                          case "0006":
+                                          case "0007":
+                                          case "0008":
+                                          case "0009":
+                                          case "0010":
+                                          case "0011":
+                                          case "0012":
+                                            // Objects.RedStatus
+                                            label.setBackground(Color.decode("#EEEEEE"));
+                                            break;
+                                        }
+
+                                        return label;
+                                      }
+                                    };
+
+                                mainFrame
+                                    .table
+                                    .getColumnModel()
+                                    .getColumn(4)
+                                    .setCellRenderer(renderer);
+
+                                mainFrame
+                                    .table
+                                    .getColumnModel()
+                                    .getColumn(5)
+                                    .setCellRenderer(renderer);
+
+                                loadingDialog.dispose();
+                              } catch (InterruptedException | ExecutionException ex) {
+                                Logger.getLogger(BillController.class.getName())
+                                    .log(Level.SEVERE, null, ex);
+                              }
+                            }
+                          };
+
+                      worker.execute();
+
+                    } else {
+                      JOptionPane.showMessageDialog(
+                          mainFrame,
+                          "El archivo debe ser .xls o .xlsx",
+                          "Error",
+                          JOptionPane.ERROR_MESSAGE);
+                    }
+                  }
+                }
+              }
+            } catch (UnsupportedFlavorException | IOException ex) {
+              Logger.getLogger(BillController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+          } else {
+            dtde.rejectDrop();
+          }
+        }
+      };
+
+  private MouseListener ml =
+      new MouseAdapter() {
+        @Override
+        public void mouseClicked(MouseEvent e) {
+          if (e.getClickCount() == 2) {
+            JTable target = (JTable) e.getSource();
+            int row = target.getSelectedRow();
+            int column = target.getSelectedColumn();
+            Bill bill = model.getElementAt(row);
+            if (column == 5 && bill.getBillResponse().getStatusCode().equals("0001")
+                || bill.getBillResponse().getStatusCode().equals("0002")
+                || bill.getBillResponse().getStatusCode().equals("0003")) {
+
+              JFileChooser chooser = new JFileChooser();
+              chooser.setCurrentDirectory(new File("."));
+              chooser.setSelectedFile(
+                  new File(
+                      "R-"
+                          + bill.getRuc()
+                          + "-"
+                          + bill.getTipo()
+                          + "-"
+                          + bill.getSerie()
+                          + "-"
+                          + bill.getCorrelativo()
+                          + ".zip"));
+
+              int result = chooser.showSaveDialog(mainFrame);
+              if (result == JFileChooser.APPROVE_OPTION) {
+
+                File file = chooser.getSelectedFile().getAbsoluteFile();
+                try (FileOutputStream fout =
+                    new FileOutputStream(file.getParent() + "//" + file.getName())) {
+                  fout.write(bill.getCdrResponse().getContent());
+                  fout.flush();
+                  fout.close();
+                } catch (FileNotFoundException ex) {
+                  Logger.getLogger(BillController.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                  Logger.getLogger(BillController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+              }
+            }
+          }
+        }
+      };
 
   private void init() {
     eventList = new BasicEventList<>();
@@ -148,212 +357,5 @@ public class BillController implements MouseListener {
 
     TableComparatorChooser.install(
         mainFrame.table, sortedList, TableComparatorChooser.MULTIPLE_COLUMN_MOUSE_WITH_UNDO);
-
-    mainFrame.scroll.setDropTarget(
-        new DropTarget() {
-          @Override
-          public synchronized void drop(DropTargetDropEvent dtde) {
-            if (dtde.isDataFlavorSupported(DataFlavor.javaFileListFlavor)) {
-              try {
-                dtde.acceptDrop(DnDConstants.ACTION_COPY_OR_MOVE);
-                Transferable t = dtde.getTransferable();
-                List fileList = (List) t.getTransferData(DataFlavor.javaFileListFlavor);
-                if (fileList != null && fileList.size() > 0) {
-                  for (Object value : fileList) {
-                    if (value instanceof File) {
-                      File file = (File) value;
-                      if (file.getName().endsWith(".xls") || file.getName().endsWith(".xlsx")) {
-
-                        SwingWorker worker =
-                            new SwingWorker<List<Bill>, Void>() {
-                              @Override
-                              protected List<Bill> doInBackground() throws Exception {
-                                loadingDialog.setVisible(true);
-
-                                List<Bill> list = Poiji.fromExcel(file, Bill.class);
-                                BillService service = new BillServiceImpl();
-
-                                for (int i = 0; i < list.size(); i++) {
-                                  Bill bill = (Bill) list.get(i);
-
-                                  StatusResponse billResponse =
-                                      service.getStatus(
-                                          bill.getRuc(),
-                                          bill.getTipo(),
-                                          bill.getSerie(),
-                                          bill.getCorrelativo());
-
-                                  StatusResponse cdrResponse =
-                                      service.getStatusCdr(
-                                          bill.getRuc(),
-                                          bill.getTipo(),
-                                          bill.getSerie(),
-                                          bill.getCorrelativo());
-
-                                  list.get(i).setBillResponse(billResponse);
-                                  list.get(i).setCdrResponse(cdrResponse);
-                                }
-
-                                return list;
-                              }
-
-                              @Override
-                              protected void done() {
-                                try {
-                                  eventList.clear();
-                                  eventList.addAll(get());
-
-                                  TableCellRenderer renderer =
-                                      new DefaultTableCellRenderer() {
-                                        @Override
-                                        public Component getTableCellRendererComponent(
-                                            JTable table,
-                                            Object value,
-                                            boolean isSelected,
-                                            boolean hasFocus,
-                                            int row,
-                                            int column) {
-
-                                          JLabel label =
-                                              (JLabel)
-                                                  super.getTableCellRendererComponent(
-                                                      table,
-                                                      value,
-                                                      isSelected,
-                                                      hasFocus,
-                                                      row,
-                                                      column);
-
-                                          Bill bill = model.getElementAt(row);
-
-                                          switch (bill.getBillResponse().getStatusCode()) {
-                                            case "0001":
-                                              // Objects.GreenAndroid
-                                              label.setBackground(Color.decode("#C5E1A5"));
-                                              break;
-                                            case "0002":
-                                              // Objects.Yellow
-                                              label.setBackground(Color.decode("#FFF59D"));
-                                              break;
-                                            case "0003":
-                                              // Objects.Grey
-                                              label.setBackground(Color.decode("#EF9A9A"));
-                                              break;
-                                            case "0004":
-                                            case "0005":
-                                            case "0006":
-                                            case "0007":
-                                            case "0008":
-                                            case "0009":
-                                            case "0010":
-                                            case "0011":
-                                            case "0012":
-                                              // Objects.RedStatus
-                                              label.setBackground(Color.decode("#EEEEEE"));
-                                              break;
-                                          }
-
-                                          return label;
-                                        }
-                                      };
-																	
-                                  mainFrame
-                                      .table
-                                      .getColumnModel()
-                                      .getColumn(4)
-                                      .setCellRenderer(renderer);
-
-                                  mainFrame
-                                      .table
-                                      .getColumnModel()
-                                      .getColumn(5)
-                                      .setCellRenderer(renderer);
-																	
-																	mainFrame.table.packAll();
-																	
-                                  loadingDialog.dispose();
-                                } catch (InterruptedException | ExecutionException ex) {
-                                  Logger.getLogger(BillController.class.getName())
-                                      .log(Level.SEVERE, null, ex);
-                                }
-                              }
-                            };
-
-                        worker.execute();
-
-                      } else {
-                        JOptionPane.showMessageDialog(
-                            mainFrame,
-                            "El archivo debe ser .xls o .xlsx",
-                            "Error",
-                            JOptionPane.ERROR_MESSAGE);
-                      }
-                    }
-                  }
-                }
-              } catch (UnsupportedFlavorException | IOException ex) {
-                Logger.getLogger(BillController.class.getName()).log(Level.SEVERE, null, ex);
-              }
-            } else {
-              dtde.rejectDrop();
-            }
-          }
-        });
   }
-
-  @Override
-  public void mouseClicked(MouseEvent e) {
-    if (e.getClickCount() == 2) {
-      JTable target = (JTable) e.getSource();
-      int row = target.getSelectedRow();
-      int column = target.getSelectedColumn();
-      Bill bill = model.getElementAt(row);
-      if (column == 5 && bill.getBillResponse().getStatusCode().equals("0001")
-          || bill.getBillResponse().getStatusCode().equals("0002")
-          || bill.getBillResponse().getStatusCode().equals("0003")) {
-
-        JFileChooser chooser = new JFileChooser();
-        chooser.setCurrentDirectory(new File("."));
-        chooser.setSelectedFile(
-            new File(
-                "R-"
-                    + bill.getRuc()
-                    + "-"
-                    + bill.getTipo()
-                    + "-"
-                    + bill.getSerie()
-                    + "-"
-                    + bill.getCorrelativo()
-                    + ".zip"));
-
-        int result = chooser.showSaveDialog(mainFrame);
-        if (result == JFileChooser.APPROVE_OPTION) {
-
-          File file = chooser.getSelectedFile().getAbsoluteFile();
-          try (FileOutputStream fout =
-              new FileOutputStream(file.getParent() + "//" + file.getName())) {
-            fout.write(bill.getCdrResponse().getContent());
-            fout.flush();
-            fout.close();
-          } catch (FileNotFoundException ex) {
-            Logger.getLogger(BillController.class.getName()).log(Level.SEVERE, null, ex);
-          } catch (IOException ex) {
-            Logger.getLogger(BillController.class.getName()).log(Level.SEVERE, null, ex);
-          }
-        }
-      }
-    }
-  }
-
-  @Override
-  public void mousePressed(MouseEvent e) {}
-
-  @Override
-  public void mouseReleased(MouseEvent e) {}
-
-  @Override
-  public void mouseEntered(MouseEvent e) {}
-
-  @Override
-  public void mouseExited(MouseEvent e) {}
 }
