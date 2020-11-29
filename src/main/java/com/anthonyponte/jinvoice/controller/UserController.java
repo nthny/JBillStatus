@@ -70,7 +70,7 @@ public class UserController {
         }
       };
 
-  private ActionListener al =
+  private final ActionListener al =
       new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
