@@ -74,7 +74,7 @@ public class BillController {
     mainFrame.table.addMouseListener(ml);
   }
 
-  private DropTarget dt =
+  private final DropTarget dt =
       new DropTarget() {
         @Override
         public synchronized void drop(DropTargetDropEvent dtde) {
@@ -97,7 +97,8 @@ public class BillController {
 
                               List<Bill> list = Poiji.fromExcel(file, Bill.class);
                               service = new BillServiceImpl();
-
+							  
+                              loadingDialog.progressBar.setMinimum(0);
                               loadingDialog.progressBar.setMaximum(list.size());
 
                               for (int i = 0; i < list.size(); i++) {
@@ -120,7 +121,7 @@ public class BillController {
                                 list.get(i).setBillResponse(billResponse);
                                 list.get(i).setCdrResponse(cdrResponse);
 
-                                publish(i + 1);
+                                publish(i);
                               }
 
                               return list;
@@ -134,8 +135,8 @@ public class BillController {
                             @Override
                             protected void done() {
                               try {
-								init();
-								
+                                init();
+
                                 eventList.clear();
                                 eventList.addAll(get());
 
@@ -164,28 +165,13 @@ public class BillController {
 
                                         switch (bill.getBillResponse().getStatusCode()) {
                                           case "0001":
-                                            // Objects.GreenAndroid
-                                            label.setBackground(Color.decode("#C5E1A5"));
+                                            label.setForeground(Color.decode("#C5E1A5"));
                                             break;
                                           case "0002":
-                                            // Objects.Yellow
-                                            label.setBackground(Color.decode("#FFF59D"));
+                                            label.setForeground(Color.decode("#FFF59D"));
                                             break;
                                           case "0003":
-                                            // Objects.Grey
-                                            label.setBackground(Color.decode("#EF9A9A"));
-                                            break;
-                                          case "0004":
-                                          case "0005":
-                                          case "0006":
-                                          case "0007":
-                                          case "0008":
-                                          case "0009":
-                                          case "0010":
-                                          case "0011":
-                                          case "0012":
-                                            // Objects.RedStatus
-                                            label.setBackground(Color.decode("#EEEEEE"));
+                                            label.setForeground(Color.decode("#EF9A9A"));
                                             break;
                                         }
 
@@ -234,7 +220,7 @@ public class BillController {
         }
       };
 
-  private MouseListener ml =
+  private final MouseListener ml =
       new MouseAdapter() {
         @Override
         public void mouseClicked(MouseEvent e) {

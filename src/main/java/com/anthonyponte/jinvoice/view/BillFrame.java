@@ -5,8 +5,6 @@
  */
 package com.anthonyponte.jinvoice.view;
 
-import org.jdesktop.swingx.JXTable;
-
 /**
  *
  * @author nthny

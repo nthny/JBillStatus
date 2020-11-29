@@ -120,11 +120,6 @@
             <version>2.3.3</version>
             <type>pom</type>
         </dependency>
-        <dependency>
-            <groupId>at.swimmesberger</groupId>
-            <artifactId>swingx-all</artifactId>
-            <version>1.6.8</version>
-        </dependency>
     </dependencies>
     
     <properties>
