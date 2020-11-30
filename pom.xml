@@ -3,6 +3,8 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.anthonyponte</groupId>
     <artifactId>JInvoice</artifactId>
+    <name>JInvoice</name>
+    <description>Consulta masiva de comprobantes</description>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     
