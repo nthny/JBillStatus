@@ -98,11 +98,6 @@
             <groupId>com.formdev</groupId>
             <artifactId>flatlaf-intellij-themes</artifactId>
             <version>0.44</version>
-        </dependency>       
-        <dependency>
-            <groupId>com.formdev</groupId>
-            <artifactId>flatlaf-extras</artifactId>
-            <version>0.44</version>
         </dependency>
         <dependency>
             <groupId>com.glazedlists</groupId>

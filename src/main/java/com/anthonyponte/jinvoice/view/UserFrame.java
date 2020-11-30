@@ -32,8 +32,8 @@ public class UserFrame extends javax.swing.JFrame {
         tfUsername = new javax.swing.JTextField();
         tfPassword = new javax.swing.JPasswordField();
         btnEnter = new javax.swing.JButton();
-        tfRuc = new javax.swing.JFormattedTextField(NumberFormat.getIntegerInstance());
         cbRemember = new javax.swing.JCheckBox();
+        tfRuc = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Clave SOL");
@@ -49,12 +49,6 @@ public class UserFrame extends javax.swing.JFrame {
         btnEnter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_unlock_16.png"))); // NOI18N
         btnEnter.setText("Entrar");
         btnEnter.setEnabled(false);
-
-        try {
-            tfRuc.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###########")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
 
         cbRemember.setText("Recordar");
 
@@ -72,8 +66,8 @@ public class UserFrame extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(tfUsername)
                             .addComponent(tfPassword)
-                            .addComponent(tfRuc, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnEnter, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                            .addComponent(btnEnter, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(tfRuc, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addContainerGap())))
         );
         layout.setVerticalGroup(
@@ -91,6 +85,10 @@ public class UserFrame extends javax.swing.JFrame {
                 .addComponent(btnEnter)
                 .addContainerGap())
         );
+
+        tfUsername.putClientProperty("JTextField.placeholderText", "Usuario");
+        tfPassword.putClientProperty("JTextField.placeholderText", "Contraseña");
+        tfRuc.putClientProperty("JTextField.placeholderText", "RUC");
 
         pack();
         setLocationRelativeTo(null);

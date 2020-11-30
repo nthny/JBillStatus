@@ -22,14 +22,14 @@ public class Main {
     SwingUtilities.invokeLater(
         () -> {
           FlatArcDarkIJTheme.install();
-          customizeUI();
+          init();
 
           UserFrame userFrame = new UserFrame();
           new UserController(userFrame).start();
         });
   }
 
-  private static void customizeUI() {
+  private static void init() {
     // JFrame
     JFrame.setDefaultLookAndFeelDecorated(true);
     // Button
@@ -40,9 +40,6 @@ public class Main {
     UIManager.put("ProgressBar.arc", 999);
     // TextComponent
     UIManager.put("TextComponent.arc", 999);
-    // Table
-    UIManager.put("Table.showHorizontalLines", true);
-    UIManager.put("Table.showVerticalLines", true);
     // ScrollBar
     UIManager.put("ScrollBar.trackInsets", new Insets(2, 4, 2, 4));
     UIManager.put("ScrollBar.thumbInsets", new Insets(2, 2, 2, 2));

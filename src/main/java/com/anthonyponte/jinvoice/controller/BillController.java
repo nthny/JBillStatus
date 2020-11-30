@@ -62,10 +62,12 @@ public class BillController {
   private EventList<Bill> eventList;
   private AdvancedListSelectionModel<Bill> selectionModel;
   private AdvancedTableModel<Bill> model;
+  private BillService service;
 
   public BillController(BillFrame mainFrame) {
     this.mainFrame = mainFrame;
-    this.loadingDialog = new LoadingDialog(mainFrame, true);
+    this.loadingDialog = new LoadingDialog(mainFrame, false);
+    this.service = new BillServiceImpl();
     init();
   }
 
@@ -180,8 +182,6 @@ public class BillController {
                             loadingDialog.progressBar.setMinimum(0);
                             loadingDialog.progressBar.setMaximum(list.size());
 
-                            BillService service = new BillServiceImpl();
-
                             for (int i = 0; i < list.size(); i++) {
                               Bill bill = (Bill) list.get(i);
 
@@ -241,13 +241,13 @@ public class BillController {
 
                                       switch (bill.getBillResponse().getStatusCode()) {
                                         case "0001":
-                                          label.setForeground(Color.decode("#C5E1A5"));
+                                          label.setForeground(Color.decode("#AED581"));
                                           break;
                                         case "0002":
-                                          label.setForeground(Color.decode("#FFF59D"));
+                                          label.setForeground(Color.decode("#FFF176"));
                                           break;
                                         case "0003":
-                                          label.setForeground(Color.decode("#EF9A9A"));
+                                          label.setForeground(Color.decode("#E57373"));
                                           break;
                                         case "0004":
                                         case "0005":
@@ -258,7 +258,7 @@ public class BillController {
                                         case "0010":
                                         case "0011":
                                         case "0012":
-                                          label.setForeground(Color.decode("#D3DAE3"));
+                                          label.setForeground(Color.decode("#BBBBBB"));
                                           break;
                                       }
 
@@ -294,6 +294,7 @@ public class BillController {
                                       null);
 
                               if (input == JOptionPane.OK_OPTION) {
+                                mainFrame.dispose();
                                 UserFrame userFrame = new UserFrame();
                                 new UserController(userFrame).start();
                               }

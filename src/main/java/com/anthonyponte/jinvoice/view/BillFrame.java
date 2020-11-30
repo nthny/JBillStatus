@@ -47,6 +47,8 @@ public class BillFrame extends javax.swing.JFrame {
             }
         ));
         table.setIntercellSpacing(new java.awt.Dimension(1, 1));
+        table.setShowHorizontalLines(true);
+        table.setShowVerticalLines(true);
         scroll.setViewportView(table);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -56,7 +58,7 @@ public class BillFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tfFilter, javax.swing.GroupLayout.DEFAULT_SIZE, 788, Short.MAX_VALUE)
+                    .addComponent(tfFilter)
                     .addComponent(scroll))
                 .addContainerGap())
         );
