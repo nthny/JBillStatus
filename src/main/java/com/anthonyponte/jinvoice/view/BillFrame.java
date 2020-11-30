@@ -38,6 +38,8 @@ public class BillFrame extends javax.swing.JFrame {
 
         tfFilter.setToolTipText("Filtrar documentos por RUC, tipo, serie y/o correlativo");
 
+        scroll.setToolTipText("Arraste su archivo excel aqui");
+
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 

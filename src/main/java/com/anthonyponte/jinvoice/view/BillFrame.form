@@ -63,6 +63,9 @@
       </AuxValues>
     </Component>
     <Container class="javax.swing.JScrollPane" name="scroll">
+      <Properties>
+        <Property name="toolTipText" type="java.lang.String" value="Arraste su archivo excel aqui"/>
+      </Properties>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
         <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
