@@ -50,6 +50,7 @@ public class UserController {
     if (!ruc.isEmpty() && !username.isEmpty()) {
       frame.tfRuc.setText(ruc);
       frame.tfUsername.setText(username);
+      frame.tfPassword.requestFocus();
       frame.cbRemember.setSelected(true);
     } else {
       frame.cbRemember.setSelected(false);
