@@ -55,7 +55,7 @@
   <SubComponents>
     <Component class="javax.swing.JTextField" name="tfFilter">
       <Properties>
-        <Property name="toolTipText" type="java.lang.String" value="Filtrar documentos por RUC, tipo, serie y/o correlativo"/>
+        <Property name="toolTipText" type="java.lang.String" value="Filtrar comprobantes por estado"/>
       </Properties>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="tfFilter.putClientProperty(&quot;JTextField.placeholderText&quot;, &quot;Filtrar documentos&quot;);"/>

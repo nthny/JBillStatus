@@ -36,7 +36,7 @@ public class BillFrame extends javax.swing.JFrame {
         setIconImage(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_bill_64.png")).getImage());
         setMinimumSize(new java.awt.Dimension(800, 600));
 
-        tfFilter.setToolTipText("Filtrar documentos por RUC, tipo, serie y/o correlativo");
+        tfFilter.setToolTipText("Filtrar comprobantes por estado");
 
         scroll.setToolTipText("Arraste su archivo excel aqui");
 
