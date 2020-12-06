@@ -5,6 +5,8 @@
  */
 package com.anthonyponte.jinvoice.view;
 
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author nthny
@@ -33,6 +35,7 @@ public class BillFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("JInvoice");
+        setIconImage(new ImageIcon(getClass().getResource("/img/jinvoice.png")).getImage());
         setMinimumSize(new java.awt.Dimension(800, 600));
 
         tfFilter.setToolTipText("Filtrar comprobantes por estado");

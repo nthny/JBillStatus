@@ -6,6 +6,7 @@
 package com.anthonyponte.jinvoice.view;
 
 import java.text.NumberFormat;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -37,6 +38,7 @@ public class UserFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Clave SOL");
+        setIconImage(new ImageIcon(getClass().getResource("/img/jinvoice.png")).getImage());
         setResizable(false);
 
         tfUsername.addKeyListener(new java.awt.event.KeyAdapter() {
