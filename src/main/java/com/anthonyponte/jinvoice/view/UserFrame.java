@@ -37,7 +37,6 @@ public class UserFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Clave SOL");
-        setIconImage(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_lock_64.png")).getImage());
         setResizable(false);
 
         tfUsername.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -46,7 +45,7 @@ public class UserFrame extends javax.swing.JFrame {
             }
         });
 
-        btnEnter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_unlock_16.png"))); // NOI18N
+        btnEnter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/key-fill.png"))); // NOI18N
         btnEnter.setText("Entrar");
         btnEnter.setEnabled(false);
 
