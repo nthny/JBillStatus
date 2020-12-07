@@ -37,6 +37,7 @@ public class BillFrame extends javax.swing.JFrame {
         setTitle("JInvoice");
         setIconImage(new ImageIcon(getClass().getResource("/img/jinvoice.png")).getImage());
         setMinimumSize(new java.awt.Dimension(800, 600));
+        setPreferredSize(new java.awt.Dimension(800, 600));
 
         tfFilter.setToolTipText("Filtrar comprobantes por estado");
 
