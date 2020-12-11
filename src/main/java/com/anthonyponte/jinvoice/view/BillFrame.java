@@ -59,7 +59,7 @@ public class BillFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tfFilter, javax.swing.GroupLayout.DEFAULT_SIZE, 452, Short.MAX_VALUE)
+                    .addComponent(tfFilter, javax.swing.GroupLayout.DEFAULT_SIZE, 788, Short.MAX_VALUE)
                     .addComponent(scroll))
                 .addContainerGap())
         );
@@ -69,7 +69,7 @@ public class BillFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(tfFilter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scroll, javax.swing.GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE)
+                .addComponent(scroll, javax.swing.GroupLayout.DEFAULT_SIZE, 553, Short.MAX_VALUE)
                 .addContainerGap())
         );
 

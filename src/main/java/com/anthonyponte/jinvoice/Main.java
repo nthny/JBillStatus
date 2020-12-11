@@ -30,8 +30,6 @@ public class Main {
   }
 
   private static void init() {
-    // JFrame
-    JFrame.setDefaultLookAndFeelDecorated(true);
     // Button
     UIManager.put("Button.arc", 999);
     // Component

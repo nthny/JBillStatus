@@ -277,7 +277,7 @@ public class BillController {
                                   .getColumnModel()
                                   .getColumn(5)
                                   .setCellRenderer(renderer);
-
+							  
                               mainFrame.table.packAll();
 
                               loadingDialog.dispose();
