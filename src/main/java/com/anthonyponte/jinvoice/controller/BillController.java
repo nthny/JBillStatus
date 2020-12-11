@@ -135,9 +135,13 @@ public class BillController {
               case 3:
                 return baseObject.getCorrelativo();
               case 4:
-                return baseObject.getBillResponse().getStatusMessage();
+                return baseObject.getBillResponse().getStatusCode()
+                    + " | "
+                    + baseObject.getBillResponse().getStatusMessage();
               case 5:
-                return baseObject.getCdrResponse().getStatusMessage();
+                return baseObject.getCdrResponse().getStatusCode()
+                    + " | "
+                    + baseObject.getCdrResponse().getStatusMessage();
               default:
                 break;
             }
@@ -221,64 +225,71 @@ public class BillController {
                               eventList.clear();
                               eventList.addAll(bills);
 
-                              TableCellRenderer renderer =
-                                  new DefaultTableRenderer() {
-                                    @Override
-                                    public Component getTableCellRendererComponent(
-                                        JTable table,
-                                        Object value,
-                                        boolean isSelected,
-                                        boolean hasFocus,
-                                        int row,
-                                        int column) {
-
-                                      JLabel label =
-                                          (JLabel)
-                                              super.getTableCellRendererComponent(
-                                                  table, value, isSelected, hasFocus, row, column);
-
-                                      Bill bill = model.getElementAt(row);
-
-                                      switch (bill.getBillResponse().getStatusCode()) {
-                                        case "0001":
-                                          label.setForeground(Color.decode("#AED581"));
-                                          break;
-                                        case "0002":
-                                          label.setForeground(Color.decode("#FFF176"));
-                                          break;
-                                        case "0003":
-                                          label.setForeground(Color.decode("#E57373"));
-                                          break;
-                                        case "0004":
-                                        case "0005":
-                                        case "0006":
-                                        case "0007":
-                                        case "0008":
-                                        case "0009":
-                                        case "0010":
-                                        case "0011":
-                                        case "0012":
-                                          label.setForeground(Color.decode("#BBBBBB"));
-                                          break;
-                                      }
-
-                                      return label;
-                                    }
-                                  };
-
-                              mainFrame
-                                  .table
-                                  .getColumnModel()
-                                  .getColumn(4)
-                                  .setCellRenderer(renderer);
-
-                              mainFrame
-                                  .table
-                                  .getColumnModel()
-                                  .getColumn(5)
-                                  .setCellRenderer(renderer);
-							  
-                              mainFrame.table.packAll();
+                              //                              TableCellRenderer renderer =
+                              //                                  new DefaultTableRenderer() {
+                              //                                    @Override
+                              //                                    public Component
+                              // getTableCellRendererComponent(
+                              //                                        JTable table,
+                              //                                        Object value,
+                              //                                        boolean isSelected,
+                              //                                        boolean hasFocus,
+                              //                                        int row,
+                              //                                        int column) {
+                              //
+                              //                                      JLabel label =
+                              //                                          (JLabel)
+                              //
+                              // super.getTableCellRendererComponent(
+                              //                                                  table, value,
+                              // isSelected, hasFocus, row, column);
+                              //
+                              //                                      Bill bill =
+                              // model.getElementAt(row);
+                              //
+                              //                                      switch
+                              // (bill.getBillResponse().getStatusCode()) {
+                              //                                        case "0001":
+                              //
+                              // label.setForeground(Color.decode("#AED581"));
+                              //                                          break;
+                              //                                        case "0002":
+                              //
+                              // label.setForeground(Color.decode("#FFF176"));
+                              //                                          break;
+                              //                                        case "0003":
+                              //
+                              // label.setForeground(Color.decode("#E57373"));
+                              //                                          break;
+                              //                                        case "0004":
+                              //                                        case "0005":
+                              //                                        case "0006":
+                              //                                        case "0007":
+                              //                                        case "0008":
+                              //                                        case "0009":
+                              //                                        case "0010":
+                              //                                        case "0011":
+                              //                                        case "0012":
+                              //
+                              // label.setForeground(Color.decode("#BBBBBB"));
+                              //                                          break;
+                              //                                      }
+                              //
+                              //                                      return label;
+                              //                                    }
+                              //                                  };
+                              //
+                              //                              mainFrame
+                              //                                  .table
+                              //                                  .getColumnModel()
+                              //                                  .getColumn(4)
+                              //                                  .setCellRenderer(renderer);
+                              //
+                              //                              mainFrame
+                              //                                  .table
+                              //                                  .getColumnModel()
+                              //                                  .getColumn(5)
+                              //                                  .setCellRenderer(renderer);
 
                               loadingDialog.dispose();
                             } catch (InterruptedException | ExecutionException ex) {

@@ -5,6 +5,7 @@
  */
 package com.anthonyponte.jinvoice.view;
 
+import com.github.weisj.darklaf.ui.table.DarkTableUI;
 import javax.swing.ImageIcon;
 
 /**
@@ -31,7 +32,7 @@ public class BillFrame extends javax.swing.JFrame {
 
         tfFilter = new javax.swing.JTextField();
         scroll = new javax.swing.JScrollPane();
-        table = new org.jdesktop.swingx.JXTable();
+        table = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("JInvoice");
@@ -49,7 +50,9 @@ public class BillFrame extends javax.swing.JFrame {
 
             }
         ));
-        table.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        table.setIntercellSpacing(new java.awt.Dimension(1, 1));
+        table.getTableHeader().setReorderingAllowed(false);
+        table.putClientProperty(DarkTableUI.KEY_ALTERNATE_ROW_COLOR, true);
         scroll.setViewportView(table);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -59,7 +62,7 @@ public class BillFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tfFilter, javax.swing.GroupLayout.DEFAULT_SIZE, 788, Short.MAX_VALUE)
+                    .addComponent(tfFilter)
                     .addComponent(scroll))
                 .addContainerGap())
         );
@@ -69,7 +72,7 @@ public class BillFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(tfFilter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scroll, javax.swing.GroupLayout.DEFAULT_SIZE, 553, Short.MAX_VALUE)
+                .addComponent(scroll)
                 .addContainerGap())
         );
 
@@ -81,7 +84,7 @@ public class BillFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JScrollPane scroll;
-    public org.jdesktop.swingx.JXTable table;
+    public javax.swing.JTable table;
     public javax.swing.JTextField tfFilter;
     // End of variables declaration//GEN-END:variables
 }

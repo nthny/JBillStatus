@@ -141,12 +141,18 @@
         </plugins>
     </build>
     
-    <dependencies>              
+    <dependencies>             
         <dependency>
-            <groupId>com.formdev</groupId>
-            <artifactId>flatlaf</artifactId>
-            <version>0.45</version>
-        </dependency>         
+            <groupId>com.github.weisj</groupId>
+            <artifactId>darklaf-core</artifactId>
+            <version>2.5.3</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>com.github.weisj</groupId>
+            <artifactId>darklaf-windows</artifactId>
+            <version>2.5.3</version>
+        </dependency>
         
         <dependency>
             <groupId>com.formdev</groupId>
@@ -190,7 +196,7 @@
             <groupId>at.swimmesberger</groupId>
             <artifactId>swingx-core</artifactId>
             <version>1.6.8</version>
-        </dependency>        
+        </dependency>
     </dependencies>
     
     <properties>
