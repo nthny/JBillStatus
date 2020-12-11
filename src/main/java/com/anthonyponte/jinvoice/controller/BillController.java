@@ -49,8 +49,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.SwingWorker;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellRenderer;
+import org.jdesktop.swingx.renderer.DefaultTableRenderer;
 import pe.gob.sunat.BillService;
 import pe.gob.sunat.StatusResponse;
 
@@ -222,7 +222,7 @@ public class BillController {
                               eventList.addAll(bills);
 
                               TableCellRenderer renderer =
-                                  new DefaultTableCellRenderer() {
+                                  new DefaultTableRenderer() {
                                     @Override
                                     public Component getTableCellRendererComponent(
                                         JTable table,
@@ -277,6 +277,8 @@ public class BillController {
                                   .getColumnModel()
                                   .getColumn(5)
                                   .setCellRenderer(renderer);
+
+                              mainFrame.table.packAll();
 
                               loadingDialog.dispose();
                             } catch (InterruptedException | ExecutionException ex) {

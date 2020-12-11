@@ -31,7 +31,7 @@ public class BillFrame extends javax.swing.JFrame {
 
         tfFilter = new javax.swing.JTextField();
         scroll = new javax.swing.JScrollPane();
-        table = new javax.swing.JTable();
+        table = new org.jdesktop.swingx.JXTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("JInvoice");
@@ -41,8 +41,6 @@ public class BillFrame extends javax.swing.JFrame {
 
         tfFilter.setToolTipText("Filtrar comprobantes por estado");
 
-        scroll.setToolTipText("Arraste su archivo excel aqui");
-
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -51,9 +49,7 @@ public class BillFrame extends javax.swing.JFrame {
 
             }
         ));
-        table.setIntercellSpacing(new java.awt.Dimension(1, 1));
-        table.setShowHorizontalLines(true);
-        table.setShowVerticalLines(true);
+        table.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         scroll.setViewportView(table);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -63,7 +59,7 @@ public class BillFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tfFilter)
+                    .addComponent(tfFilter, javax.swing.GroupLayout.DEFAULT_SIZE, 452, Short.MAX_VALUE)
                     .addComponent(scroll))
                 .addContainerGap())
         );
@@ -73,7 +69,7 @@ public class BillFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(tfFilter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scroll)
+                .addComponent(scroll, javax.swing.GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -85,7 +81,7 @@ public class BillFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JScrollPane scroll;
-    public javax.swing.JTable table;
+    public org.jdesktop.swingx.JXTable table;
     public javax.swing.JTextField tfFilter;
     // End of variables declaration//GEN-END:variables
 }
