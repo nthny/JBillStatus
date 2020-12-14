@@ -153,13 +153,7 @@
             <artifactId>darklaf-windows</artifactId>
             <version>2.5.3</version>
         </dependency>
-        
-        <dependency>
-            <groupId>com.formdev</groupId>
-            <artifactId>flatlaf-intellij-themes</artifactId>
-            <version>0.45</version>
-        </dependency>
-        
+                
         <dependency>
             <groupId>com.glazedlists</groupId>
             <artifactId>glazedlists</artifactId>
