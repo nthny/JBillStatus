@@ -38,7 +38,6 @@ public class BillFrame extends javax.swing.JFrame {
         setTitle("JInvoice");
         setIconImage(new ImageIcon(getClass().getResource("/img/jinvoice.png")).getImage());
         setMinimumSize(new java.awt.Dimension(800, 600));
-        setPreferredSize(new java.awt.Dimension(800, 600));
 
         tfFilter.setToolTipText("Filtrar comprobantes por estado");
 
@@ -50,7 +49,6 @@ public class BillFrame extends javax.swing.JFrame {
 
             }
         ));
-        table.setIntercellSpacing(new java.awt.Dimension(1, 1));
         table.getTableHeader().setReorderingAllowed(false);
         table.putClientProperty(DarkTableUI.KEY_ALTERNATE_ROW_COLOR, true);
         scroll.setViewportView(table);
