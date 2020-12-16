@@ -6,6 +6,8 @@
 package com.anthonyponte.jinvoice.view;
 
 import com.github.weisj.darklaf.ui.table.DarkTableUI;
+import com.github.weisj.darklaf.ui.text.DarkTextFieldUI;
+import com.github.weisj.darklaf.ui.text.DarkTextUI;
 import javax.swing.ImageIcon;
 
 /**
@@ -30,16 +32,14 @@ public class BillFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        tfFilter = new javax.swing.JTextField();
+        tfFilter = new com.github.weisj.darklaf.components.text.SearchTextField();
         scroll = new javax.swing.JScrollPane();
-        table = new javax.swing.JTable();
+        table = new org.jdesktop.swingx.JXTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("JInvoice");
         setIconImage(new ImageIcon(getClass().getResource("/img/jinvoice.png")).getImage());
         setMinimumSize(new java.awt.Dimension(800, 600));
-
-        tfFilter.setToolTipText("Filtrar comprobantes por estado");
 
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -50,7 +50,6 @@ public class BillFrame extends javax.swing.JFrame {
             }
         ));
         table.getTableHeader().setReorderingAllowed(false);
-        table.putClientProperty(DarkTableUI.KEY_ALTERNATE_ROW_COLOR, true);
         scroll.setViewportView(table);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -60,8 +59,8 @@ public class BillFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tfFilter)
-                    .addComponent(scroll))
+                    .addComponent(scroll)
+                    .addComponent(tfFilter, javax.swing.GroupLayout.DEFAULT_SIZE, 788, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -74,7 +73,8 @@ public class BillFrame extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        tfFilter.putClientProperty("JTextField.placeholderText", "Filtrar documentos");
+        tfFilter.putClientProperty(DarkTextUI.KEY_DEFAULT_TEXT, "Filtrar comprobantes");
+        tfFilter.putClientProperty(DarkTextFieldUI.KEY_SHOW_CLEAR, true);
 
         pack();
         setLocationRelativeTo(null);
@@ -82,7 +82,7 @@ public class BillFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JScrollPane scroll;
-    public javax.swing.JTable table;
-    public javax.swing.JTextField tfFilter;
+    public org.jdesktop.swingx.JXTable table;
+    public com.github.weisj.darklaf.components.text.SearchTextField tfFilter;
     // End of variables declaration//GEN-END:variables
 }

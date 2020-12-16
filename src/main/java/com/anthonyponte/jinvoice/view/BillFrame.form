@@ -33,8 +33,8 @@
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="tfFilter" max="32767" attributes="0"/>
-                  <Component id="scroll" alignment="0" max="32767" attributes="0"/>
+                  <Component id="scroll" max="32767" attributes="0"/>
+                  <Component id="tfFilter" alignment="0" pref="788" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -42,7 +42,7 @@
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
+          <Group type="102" attributes="0">
               <EmptySpace min="-2" max="-2" attributes="0"/>
               <Component id="tfFilter" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -53,12 +53,9 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JTextField" name="tfFilter">
-      <Properties>
-        <Property name="toolTipText" type="java.lang.String" value="Filtrar comprobantes por estado"/>
-      </Properties>
+    <Component class="com.github.weisj.darklaf.components.text.SearchTextField" name="tfFilter">
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="tfFilter.putClientProperty(&quot;JTextField.placeholderText&quot;, &quot;Filtrar documentos&quot;);"/>
+        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="tfFilter.putClientProperty(DarkTextUI.KEY_DEFAULT_TEXT, &quot;Filtrar comprobantes&quot;);&#xa;tfFilter.putClientProperty(DarkTextFieldUI.KEY_SHOW_CLEAR, true);"/>
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
       </AuxValues>
     </Component>
@@ -70,7 +67,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTable" name="table">
+        <Component class="org.jdesktop.swingx.JXTable" name="table">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
               <Table columnCount="0" rowCount="0"/>
@@ -83,7 +80,6 @@
             </Property>
           </Properties>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="table.putClientProperty(DarkTableUI.KEY_ALTERNATE_ROW_COLOR, true);"/>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
           </AuxValues>
         </Component>
