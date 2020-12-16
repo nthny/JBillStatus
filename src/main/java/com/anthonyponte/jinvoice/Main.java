@@ -9,7 +9,6 @@ import com.anthonyponte.jinvoice.controller.UserController;
 import com.anthonyponte.jinvoice.view.UserFrame;
 import com.github.weisj.darklaf.LafManager;
 import com.github.weisj.darklaf.theme.DarculaTheme;
-import com.github.weisj.darklaf.theme.OneDarkTheme;
 import javax.swing.SwingUtilities;
 
 /** @author nthny */
