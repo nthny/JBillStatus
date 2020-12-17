@@ -4,10 +4,10 @@
  * and open the template in the editor.
  */
 
-package com.anthonyponte.jinvoice.utils;
+package com.anthonyponte.jinvoice.impl;
 
 import com.anthonyponte.jinvoice.pojo.User;
-import com.anthonyponte.jinvoice.utils.SOAPHanlderImpl;
+import com.anthonyponte.jinvoice.impl.SOAPHanlderImpl;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.ws.BindingProvider;

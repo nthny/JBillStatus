@@ -14,13 +14,13 @@ public class Bill {
   @ExcelCellName("RUC")
   private String ruc;
 
-  @ExcelCellName("Tipo")
+  @ExcelCellName("TIPO")
   private String tipo;
 
-  @ExcelCellName("Serie")
+  @ExcelCellName("SERIE")
   private String serie;
 
-  @ExcelCellName("Correlativo")
+  @ExcelCellName("CORRELATIVO")
   private int correlativo;
 
   private StatusResponse billResponse;

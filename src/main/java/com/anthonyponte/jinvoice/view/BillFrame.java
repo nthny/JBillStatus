@@ -40,6 +40,7 @@ public class BillFrame extends javax.swing.JFrame {
         setTitle("JInvoice");
         setIconImage(new ImageIcon(getClass().getResource("/img/jinvoice.png")).getImage());
         setMinimumSize(new java.awt.Dimension(800, 600));
+        setPreferredSize(new java.awt.Dimension(800, 600));
 
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -49,6 +50,8 @@ public class BillFrame extends javax.swing.JFrame {
 
             }
         ));
+        table.setIntercellSpacing(new java.awt.Dimension(1, 1));
+        table.setShowGrid(true);
         table.getTableHeader().setReorderingAllowed(false);
         scroll.setViewportView(table);
 
@@ -60,7 +63,7 @@ public class BillFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(scroll)
-                    .addComponent(tfFilter, javax.swing.GroupLayout.DEFAULT_SIZE, 788, Short.MAX_VALUE))
+                    .addComponent(tfFilter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(

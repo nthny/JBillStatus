@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package com.anthonyponte.jinvoice.utils;
+package com.anthonyponte.jinvoice.impl;
 
 import java.util.Set;
 import java.util.logging.Level;
