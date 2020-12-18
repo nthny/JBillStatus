@@ -14,9 +14,9 @@
    id="svg6"
    sodipodi:docname="jinvoice.svg"
    inkscape:version="1.0.1 (3bc2e813f5, 2020-09-07)"
-   inkscape:export-filename="/home/nthny/Descargas/table-line.png"
-   inkscape:export-xdpi="102.4"
-   inkscape:export-ydpi="102.4">
+   inkscape:export-filename="/home/nthny/Projects/NetBeansProjects/JInvoice/src/main/resources/img/jinvoice.png"
+   inkscape:export-xdpi="204.8"
+   inkscape:export-ydpi="204.8">
   <metadata
      id="metadata12">
     <rdf:RDF>
@@ -45,7 +45,7 @@
      id="namedview8"
      showgrid="false"
      inkscape:zoom="2"
-     inkscape:cx="76.744008"
+     inkscape:cx="53.494008"
      inkscape:cy="123.97324"
      inkscape:window-x="0"
      inkscape:window-y="30"
@@ -61,7 +61,7 @@
      d="M0 0h24v24H0z"
      id="path2" />
   <rect
-     style="fill:#474c5b;fill-opacity:1;stroke:none;stroke-width:0.299998;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke markers fill"
+     style="fill:#3c3f41;fill-opacity:1;stroke:none;stroke-width:0.299998;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke markers fill"
      id="rect887"
      width="15.999999"
      height="3"
@@ -105,5 +105,5 @@
   <path
      d="M 4,8 H 20 V 5 H 4 Z m 10,11 v -9 h -4 v 9 z m 2,0 h 4 V 10 H 16 Z M 8,19 V 10 H 4 v 9 z M 3,3 h 18 a 1,1 0 0 1 1,1 v 16 a 1,1 0 0 1 -1,1 H 3 A 1,1 0 0 1 2,20 V 4 A 1,1 0 0 1 3,3 Z"
      id="path4"
-     style="fill:#679dba;fill-opacity:1;stroke:none;stroke-width:0.1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" />
+     style="fill:#4b6eaf;fill-opacity:1;stroke:none;stroke-width:0.1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" />
 </svg>
