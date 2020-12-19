@@ -278,8 +278,6 @@ public class BillController {
                                   .getColumn(5)
                                   .setCellRenderer(renderer);
 
-                              mainFrame.table.packAll();
-
                               loadingDialog.dispose();
                             } catch (InterruptedException | ExecutionException ex) {
                               loadingDialog.dispose();

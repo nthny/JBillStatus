@@ -16,6 +16,7 @@ public class LoadingDialog extends javax.swing.JDialog {
      */
     public LoadingDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
+        setLocationRelativeTo(parent);
         initComponents();
     }
 
@@ -55,7 +56,6 @@ public class LoadingDialog extends javax.swing.JDialog {
         );
 
         pack();
-        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

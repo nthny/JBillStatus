@@ -5,7 +5,6 @@
  */
 package com.anthonyponte.jinvoice.view;
 
-import com.github.weisj.darklaf.ui.table.DarkTableUI;
 import com.github.weisj.darklaf.ui.text.DarkTextFieldUI;
 import com.github.weisj.darklaf.ui.text.DarkTextUI;
 import javax.swing.ImageIcon;
@@ -34,7 +33,7 @@ public class BillFrame extends javax.swing.JFrame {
 
         tfFilter = new com.github.weisj.darklaf.components.text.SearchTextField();
         scroll = new javax.swing.JScrollPane();
-        table = new org.jdesktop.swingx.JXTable();
+        table = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("JInvoice");
@@ -50,8 +49,8 @@ public class BillFrame extends javax.swing.JFrame {
 
             }
         ));
+        table.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_LAST_COLUMN);
         table.setIntercellSpacing(new java.awt.Dimension(1, 1));
-        table.setShowGrid(true);
         table.getTableHeader().setReorderingAllowed(false);
         scroll.setViewportView(table);
 
@@ -62,8 +61,8 @@ public class BillFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scroll)
-                    .addComponent(tfFilter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(tfFilter, javax.swing.GroupLayout.DEFAULT_SIZE, 788, Short.MAX_VALUE)
+                    .addComponent(scroll, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -85,7 +84,7 @@ public class BillFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JScrollPane scroll;
-    public org.jdesktop.swingx.JXTable table;
+    public javax.swing.JTable table;
     public com.github.weisj.darklaf.components.text.SearchTextField tfFilter;
     // End of variables declaration//GEN-END:variables
 }
