@@ -49,7 +49,6 @@ public class BillFrame extends javax.swing.JFrame {
 
             }
         ));
-        table.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_LAST_COLUMN);
         table.setIntercellSpacing(new java.awt.Dimension(1, 1));
         table.getTableHeader().setReorderingAllowed(false);
         scroll.setViewportView(table);

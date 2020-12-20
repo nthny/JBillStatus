@@ -120,7 +120,7 @@ public class Bill {
         + cdrResponse.getStatusCode()
         + ", statusMessage="
         + cdrResponse.getStatusMessage()
-        + '}'
-        + '}';
+        + "}"
+        + "}";
   }
 }
