@@ -15,37 +15,30 @@ public class Bill {
   private String ruc;
 
   @ExcelCellName("TIPO")
-  private String tipo;
+  private String type;
 
   @ExcelCellName("SERIE")
   private String serie;
 
-  @ExcelCellName("CORRELATIVO")
-  private int correlativo;
+  @ExcelCellName("NUMERO")
+  private int number;
 
   private StatusResponse billResponse;
   private StatusResponse cdrResponse;
 
   public Bill() {}
 
-  public Bill(String ruc, String tipo, String serie, int correlativo) {
-    this.ruc = ruc;
-    this.tipo = tipo;
-    this.serie = serie;
-    this.correlativo = correlativo;
-  }
-
   public Bill(
       String ruc,
-      String tipo,
+      String type,
       String serie,
-      int correlativo,
+      int number,
       StatusResponse billResponse,
       StatusResponse cdrResponse) {
     this.ruc = ruc;
-    this.tipo = tipo;
+    this.type = type;
     this.serie = serie;
-    this.correlativo = correlativo;
+    this.number = number;
     this.billResponse = billResponse;
     this.cdrResponse = cdrResponse;
   }
@@ -58,12 +51,12 @@ public class Bill {
     this.ruc = ruc;
   }
 
-  public String getTipo() {
-    return tipo;
+  public String getType() {
+    return type;
   }
 
-  public void setTipo(String tipo) {
-    this.tipo = tipo;
+  public void setType(String type) {
+    this.type = type;
   }
 
   public String getSerie() {
@@ -74,12 +67,12 @@ public class Bill {
     this.serie = serie;
   }
 
-  public int getCorrelativo() {
-    return correlativo;
+  public int getNumber() {
+    return number;
   }
 
-  public void setCorrelativo(int correlativo) {
-    this.correlativo = correlativo;
+  public void setNumber(int number) {
+    this.number = number;
   }
 
   public StatusResponse getBillResponse() {
@@ -103,12 +96,12 @@ public class Bill {
     return "Bill{"
         + "ruc="
         + ruc
-        + ", tipo="
-        + tipo
+        + ", type="
+        + type
         + ", serie="
         + serie
-        + ", correlativo="
-        + correlativo
+        + ", number="
+        + number
         + " BillResponse{"
         + "statusCode="
         + billResponse.getStatusCode()

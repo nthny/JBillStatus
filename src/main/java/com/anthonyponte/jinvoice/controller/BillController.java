@@ -81,7 +81,7 @@ public class BillController {
     eventList = new BasicEventList<>();
 
     Comparator comparator =
-        (Comparator<Bill>) (Bill o1, Bill o2) -> o1.getCorrelativo() - o2.getCorrelativo();
+        (Comparator<Bill>) (Bill o1, Bill o2) -> o1.getNumber() - o2.getNumber();
 
     SortedList<Bill> sortedList = new SortedList<>(eventList, comparator);
 
@@ -90,6 +90,7 @@ public class BillController {
           baseList.add(element.getBillResponse().getStatusCode());
           baseList.add(element.getBillResponse().getStatusMessage());
         };
+
     MatcherEditor<Bill> matcherEditor =
         new TextComponentMatcherEditor<>(this.mainFrame.tfFilter, textFilterator);
 
@@ -112,11 +113,11 @@ public class BillController {
               case 2:
                 return "Serie";
               case 3:
-                return "Correlativo";
+                return "Numero";
               case 4:
-                return "Estado del comprobante";
+                return "Estado";
               case 5:
-                return "Estado del Cdr";
+                return "Estado del cdr";
               default:
                 break;
             }
@@ -129,11 +130,11 @@ public class BillController {
               case 0:
                 return baseObject.getRuc();
               case 1:
-                return baseObject.getTipo();
+                return baseObject.getType();
               case 2:
                 return baseObject.getSerie();
               case 3:
-                return baseObject.getCorrelativo();
+                return baseObject.getNumber();
               case 4:
                 return baseObject.getBillResponse().getStatusMessage();
               case 5:
@@ -166,6 +167,7 @@ public class BillController {
               dtde.acceptDrop(DnDConstants.ACTION_COPY_OR_MOVE);
               Transferable t = dtde.getTransferable();
               List fileList = (List) t.getTransferData(DataFlavor.javaFileListFlavor);
+			  
               if (fileList != null && fileList.size() > 0) {
                 for (Object value : fileList) {
                   if (value instanceof File) {
@@ -188,16 +190,16 @@ public class BillController {
                               StatusResponse billResponse =
                                   service.getStatus(
                                       bill.getRuc(),
-                                      bill.getTipo(),
+                                      bill.getType(),
                                       bill.getSerie(),
-                                      bill.getCorrelativo());
+                                      bill.getNumber());
 
                               StatusResponse cdrResponse =
                                   service.getStatusCdr(
                                       bill.getRuc(),
-                                      bill.getTipo(),
+                                      bill.getType(),
                                       bill.getSerie(),
-                                      bill.getCorrelativo());
+                                      bill.getNumber());
 
                               list.get(i).setBillResponse(billResponse);
                               list.get(i).setCdrResponse(cdrResponse);
@@ -326,6 +328,7 @@ public class BillController {
             int row = target.getSelectedRow();
             int column = target.getSelectedColumn();
             Bill bill = model.getElementAt(row);
+
             if (column == 5 && bill.getBillResponse().getStatusCode().equals("0001")
                 || bill.getBillResponse().getStatusCode().equals("0002")
                 || bill.getBillResponse().getStatusCode().equals("0003")) {
@@ -337,11 +340,11 @@ public class BillController {
                       "R-"
                           + bill.getRuc()
                           + "-"
-                          + bill.getTipo()
+                          + bill.getType()
                           + "-"
                           + bill.getSerie()
                           + "-"
-                          + bill.getCorrelativo()
+                          + bill.getNumber()
                           + ".zip"));
 
               int result = chooser.showSaveDialog(mainFrame);
