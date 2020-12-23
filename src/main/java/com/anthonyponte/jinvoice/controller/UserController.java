@@ -92,8 +92,8 @@ public class UserController {
 
             SwingUtilities.invokeLater(
                 () -> {
-                  BillFrame mainFrame = new BillFrame();
-                  new BillController(mainFrame).start();
+                  BillFrame billFrame = new BillFrame();
+                  new BillController(billFrame).start();
                 });
           } catch (BackingStoreException ex) {
             Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);

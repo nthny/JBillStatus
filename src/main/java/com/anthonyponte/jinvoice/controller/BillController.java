@@ -57,24 +57,24 @@ import pe.gob.sunat.StatusResponse;
 /** @author nthny */
 public class BillController {
 
-  private final BillFrame mainFrame;
+  private final BillFrame billFrame;
   private final LoadingDialog loadingDialog;
   private EventList<Bill> eventList;
   private AdvancedListSelectionModel<Bill> selectionModel;
   private AdvancedTableModel<Bill> model;
   private BillService service;
 
-  public BillController(BillFrame mainFrame) {
-    this.mainFrame = mainFrame;
-    this.loadingDialog = new LoadingDialog(mainFrame, false);
+  public BillController(BillFrame billFrame) {
+    this.billFrame = billFrame;
+    this.loadingDialog = new LoadingDialog(billFrame, false);
     this.service = new BillServiceImpl();
     init();
   }
 
   public void start() {
-    mainFrame.setVisible(true);
-    mainFrame.scroll.setDropTarget(dt);
-    mainFrame.table.addMouseListener(ml);
+    billFrame.setVisible(true);
+    billFrame.scroll.setDropTarget(dt);
+    billFrame.table.addMouseListener(ml);
   }
 
   private void init() {
@@ -92,7 +92,7 @@ public class BillController {
         };
 
     MatcherEditor<Bill> matcherEditor =
-        new TextComponentMatcherEditor<>(this.mainFrame.tfFilter, textFilterator);
+        new TextComponentMatcherEditor<>(this.billFrame.tfFilter, textFilterator);
 
     FilterList<Bill> filterList = new FilterList<>(sortedList, matcherEditor);
 
@@ -150,12 +150,12 @@ public class BillController {
 
     selectionModel = new DefaultEventSelectionModel<>(eventList);
 
-    mainFrame.table.setModel(model);
+    billFrame.table.setModel(model);
 
-    mainFrame.table.setSelectionModel(selectionModel);
+    billFrame.table.setSelectionModel(selectionModel);
 
     TableComparatorChooser.install(
-        mainFrame.table, sortedList, TableComparatorChooser.MULTIPLE_COLUMN_MOUSE_WITH_UNDO);
+        billFrame.table, sortedList, TableComparatorChooser.MULTIPLE_COLUMN_MOUSE_WITH_UNDO);
   }
 
   private final DropTarget dt =
@@ -268,13 +268,13 @@ public class BillController {
                                     }
                                   };
 
-                              mainFrame
+                              billFrame
                                   .table
                                   .getColumnModel()
                                   .getColumn(4)
                                   .setCellRenderer(renderer);
 
-                              mainFrame
+                              billFrame
                                   .table
                                   .getColumnModel()
                                   .getColumn(5)
@@ -286,7 +286,7 @@ public class BillController {
 
                               int input =
                                   JOptionPane.showOptionDialog(
-                                      mainFrame,
+                                      billFrame,
                                       ex.getMessage(),
                                       "Error",
                                       JOptionPane.DEFAULT_OPTION,
@@ -296,7 +296,7 @@ public class BillController {
                                       null);
 
                               if (input == JOptionPane.OK_OPTION) {
-                                mainFrame.dispose();
+                                billFrame.dispose();
                                 UserFrame userFrame = new UserFrame();
                                 new UserController(userFrame).start();
                               }
@@ -311,7 +311,7 @@ public class BillController {
             } catch (UnsupportedFlavorException | IOException ex) {
 
               JOptionPane.showMessageDialog(
-                  mainFrame, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                  billFrame, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
           } else {
             dtde.rejectDrop();
@@ -347,7 +347,7 @@ public class BillController {
                           + bill.getNumber()
                           + ".zip"));
 
-              int result = chooser.showSaveDialog(mainFrame);
+              int result = chooser.showSaveDialog(billFrame);
               if (result == JFileChooser.APPROVE_OPTION) {
 
                 File file = chooser.getSelectedFile().getAbsoluteFile();

@@ -5,7 +5,6 @@
  */
 package com.anthonyponte.jinvoice.view;
 
-import java.text.NumberFormat;
 import javax.swing.ImageIcon;
 
 /**
@@ -113,7 +112,7 @@ public class UserFrame extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        tfRuc.putClientProperty("JTextField.placeholderText", "RUC");
+        tfPassword.putClientProperty("JPasswordField.showViewIcon", true);
 
         pack();
         setLocationRelativeTo(null);

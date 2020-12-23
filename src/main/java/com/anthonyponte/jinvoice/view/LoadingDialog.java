@@ -13,11 +13,13 @@ public class LoadingDialog extends javax.swing.JDialog {
 
     /**
      * Creates new form LoadingDialog
+     * @param parent
+     * @param modal
      */
     public LoadingDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-        setLocationRelativeTo(parent);
         initComponents();
+        setLocationRelativeTo(parent);
     }
 
     /**
@@ -56,6 +58,7 @@ public class LoadingDialog extends javax.swing.JDialog {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
