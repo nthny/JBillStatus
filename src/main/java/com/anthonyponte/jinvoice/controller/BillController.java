@@ -49,8 +49,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.SwingWorker;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellRenderer;
-import org.jdesktop.swingx.renderer.DefaultTableRenderer;
 import pe.gob.sunat.BillService;
 import pe.gob.sunat.StatusResponse;
 
@@ -167,7 +167,7 @@ public class BillController {
               dtde.acceptDrop(DnDConstants.ACTION_COPY_OR_MOVE);
               Transferable t = dtde.getTransferable();
               List fileList = (List) t.getTransferData(DataFlavor.javaFileListFlavor);
-			  
+
               if (fileList != null && fileList.size() > 0) {
                 for (Object value : fileList) {
                   if (value instanceof File) {
@@ -178,6 +178,7 @@ public class BillController {
                           @Override
                           protected List<Bill> doInBackground() throws Exception {
                             loadingDialog.setVisible(true);
+                            loadingDialog.setLocationRelativeTo(billFrame);
 
                             List<Bill> list = Poiji.fromExcel(file, Bill.class);
 
@@ -224,7 +225,7 @@ public class BillController {
                               eventList.addAll(bills);
 
                               TableCellRenderer renderer =
-                                  new DefaultTableRenderer() {
+                                  new DefaultTableCellRenderer() {
                                     @Override
                                     public Component getTableCellRendererComponent(
                                         JTable table,

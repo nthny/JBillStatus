@@ -19,7 +19,6 @@ public class LoadingDialog extends javax.swing.JDialog {
     public LoadingDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        setLocationRelativeTo(parent);
     }
 
     /**

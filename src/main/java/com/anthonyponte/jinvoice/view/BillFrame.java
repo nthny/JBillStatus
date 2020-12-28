@@ -5,6 +5,7 @@
  */
 package com.anthonyponte.jinvoice.view;
 
+import com.github.weisj.darklaf.ui.table.DarkTableUI;
 import com.github.weisj.darklaf.ui.text.DarkTextFieldUI;
 import com.github.weisj.darklaf.ui.text.DarkTextUI;
 import javax.swing.ImageIcon;
@@ -52,6 +53,7 @@ public class BillFrame extends javax.swing.JFrame {
         table.setIntercellSpacing(new java.awt.Dimension(1, 1));
         table.getTableHeader().setReorderingAllowed(false);
         scroll.setViewportView(table);
+        table.putClientProperty(DarkTableUI.KEY_ALTERNATE_ROW_COLOR, true);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
