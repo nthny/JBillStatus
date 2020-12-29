@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.anthonyponte.jinvoice.controller;
+package com.anthonyponte.jbillstatus.controller;
 
-import com.anthonyponte.jinvoice.view.BillFrame;
+import com.anthonyponte.jbillstatus.view.BillFrame;
 import ca.odell.glazedlists.BasicEventList;
 import ca.odell.glazedlists.EventList;
 import ca.odell.glazedlists.FilterList;
@@ -19,10 +19,10 @@ import ca.odell.glazedlists.swing.DefaultEventSelectionModel;
 import static ca.odell.glazedlists.swing.GlazedListsSwing.eventTableModelWithThreadProxyList;
 import ca.odell.glazedlists.swing.TableComparatorChooser;
 import ca.odell.glazedlists.swing.TextComponentMatcherEditor;
-import com.anthonyponte.jinvoice.pojo.Bill;
-import com.anthonyponte.jinvoice.impl.BillServiceImpl;
-import com.anthonyponte.jinvoice.view.LoadingDialog;
-import com.anthonyponte.jinvoice.view.UserFrame;
+import com.anthonyponte.jbillstatus.pojo.Bill;
+import com.anthonyponte.jbillstatus.impl.BillServiceImpl;
+import com.anthonyponte.jbillstatus.view.LoadingDialog;
+import com.anthonyponte.jbillstatus.view.UserFrame;
 import com.poiji.bind.Poiji;
 import java.awt.Color;
 import java.awt.Component;

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.anthonyponte.jinvoice.pojo;
+package com.anthonyponte.jbillstatus.pojo;
 
 import com.poiji.annotation.ExcelCellName;
 import pe.gob.sunat.StatusResponse;

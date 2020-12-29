@@ -4,11 +4,11 @@
  * and open the template in the editor.
  */
 
-package com.anthonyponte.jinvoice.controller;
+package com.anthonyponte.jbillstatus.controller;
 
-import com.anthonyponte.jinvoice.pojo.User;
-import com.anthonyponte.jinvoice.view.BillFrame;
-import com.anthonyponte.jinvoice.view.UserFrame;
+import com.anthonyponte.jbillstatus.pojo.User;
+import com.anthonyponte.jbillstatus.view.BillFrame;
+import com.anthonyponte.jbillstatus.view.UserFrame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;

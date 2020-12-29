@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package com.anthonyponte.jinvoice.pojo;
+package com.anthonyponte.jbillstatus.pojo;
 
 /** @author nthny */
 public class User {

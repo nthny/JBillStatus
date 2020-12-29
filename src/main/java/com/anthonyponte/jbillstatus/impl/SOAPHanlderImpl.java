@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.anthonyponte.jinvoice.impl;
+package com.anthonyponte.jbillstatus.impl;
 
 import java.util.Set;
 import java.util.logging.Level;

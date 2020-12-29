@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.anthonyponte.jinvoice;
+package com.anthonyponte.jbillstatus;
 
-import com.anthonyponte.jinvoice.controller.UserController;
-import com.anthonyponte.jinvoice.view.UserFrame;
+import com.anthonyponte.jbillstatus.controller.UserController;
+import com.anthonyponte.jbillstatus.view.UserFrame;
 import com.github.weisj.darklaf.LafManager;
 import com.github.weisj.darklaf.theme.DarculaTheme;
 import javax.swing.SwingUtilities;

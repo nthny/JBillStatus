@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.anthonyponte.jinvoice.view;
+package com.anthonyponte.jbillstatus.view;
 
 import com.github.weisj.darklaf.ui.table.DarkTableUI;
 import com.github.weisj.darklaf.ui.text.DarkTextFieldUI;
@@ -40,7 +40,6 @@ public class BillFrame extends javax.swing.JFrame {
         setTitle("JInvoice");
         setIconImage(new ImageIcon(getClass().getResource("/img/jinvoice.png")).getImage());
         setMinimumSize(new java.awt.Dimension(800, 600));
-        setPreferredSize(new java.awt.Dimension(800, 600));
 
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
