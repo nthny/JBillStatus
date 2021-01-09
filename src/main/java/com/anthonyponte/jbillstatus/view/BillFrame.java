@@ -40,6 +40,9 @@ public class BillFrame extends javax.swing.JFrame {
         setTitle("JInvoice");
         setIconImage(new ImageIcon(getClass().getResource("/img/jinvoice.png")).getImage());
         setMinimumSize(new java.awt.Dimension(800, 600));
+        setPreferredSize(new java.awt.Dimension(800, 600));
+
+        tfFilter.setToolTipText("Filtrar comprobante por estado");
 
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -61,7 +64,7 @@ public class BillFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tfFilter, javax.swing.GroupLayout.DEFAULT_SIZE, 788, Short.MAX_VALUE)
+                    .addComponent(tfFilter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(scroll, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
@@ -75,7 +78,7 @@ public class BillFrame extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        tfFilter.putClientProperty(DarkTextUI.KEY_DEFAULT_TEXT, "Filtrar comprobantes");
+        tfFilter.putClientProperty(DarkTextUI.KEY_DEFAULT_TEXT, "Filtrar comprobante por estado");
         tfFilter.putClientProperty(DarkTextFieldUI.KEY_SHOW_CLEAR, true);
 
         pack();
