@@ -5,6 +5,7 @@
  */
 package com.anthonyponte.jbillstatus.view;
 
+import com.github.weisj.darklaf.ui.text.DarkTextFieldUI;
 import javax.swing.ImageIcon;
 
 /**
@@ -40,7 +41,6 @@ public class UserFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Clave SOL");
-        setIconImage(new ImageIcon(getClass().getResource("/img/jinvoice.png")).getImage());
         setResizable(false);
 
         tfUsername.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -112,7 +112,10 @@ public class UserFrame extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        tfUsername.putClientProperty(DarkTextFieldUI.KEY_SHOW_CLEAR, true);
         tfPassword.putClientProperty("JPasswordField.showViewIcon", true);
+        tfPassword.putClientProperty(DarkTextFieldUI.KEY_SHOW_CLEAR, true);
+        tfRuc.putClientProperty(DarkTextFieldUI.KEY_SHOW_CLEAR, true);
 
         pack();
         setLocationRelativeTo(null);

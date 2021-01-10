@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package com.anthonyponte.jbillstatus.impl;
 
 import com.anthonyponte.jbillstatus.pojo.User;
@@ -16,7 +10,6 @@ import pe.gob.sunat.BillConsultService;
 import pe.gob.sunat.BillService;
 import pe.gob.sunat.StatusResponse;
 
-/** @author nthny */
 public class BillServiceImpl implements BillService {
 
   private final User user = User.getInstance();
