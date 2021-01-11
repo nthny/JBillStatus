@@ -96,18 +96,6 @@ public class Bill {
         + serie
         + ", number="
         + number
-        + " BillResponse{"
-        + "statusCode="
-        + billResponse.getStatusCode()
-        + ", statusMessage="
-        + billResponse.getStatusMessage()
-        + '}'
-        + " CdrResponse{"
-        + "statusCode="
-        + cdrResponse.getStatusCode()
-        + ", statusMessage="
-        + cdrResponse.getStatusMessage()
-        + "}"
-        + "}";
+        + '}';
   }
 }

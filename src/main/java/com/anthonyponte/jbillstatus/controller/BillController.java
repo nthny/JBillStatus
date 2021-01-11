@@ -14,7 +14,6 @@ import ca.odell.glazedlists.swing.DefaultEventSelectionModel;
 import static ca.odell.glazedlists.swing.GlazedListsSwing.eventTableModelWithThreadProxyList;
 import ca.odell.glazedlists.swing.TableComparatorChooser;
 import ca.odell.glazedlists.swing.TextComponentMatcherEditor;
-import com.anthonyponte.jbillstatus.Main;
 import com.anthonyponte.jbillstatus.pojo.Bill;
 import com.anthonyponte.jbillstatus.impl.BillServiceImpl;
 import com.anthonyponte.jbillstatus.view.LoadingDialog;
@@ -89,7 +88,6 @@ public class BillController {
     TextFilterator<Bill> textFilterator =
         (List<String> baseList, Bill element) -> {
           baseList.add(element.getBillResponse().getStatusCode());
-          baseList.add(element.getBillResponse().getStatusMessage());
         };
 
     MatcherEditor<Bill> matcherEditor =
@@ -101,7 +99,7 @@ public class BillController {
         new TableFormat<Bill>() {
           @Override
           public int getColumnCount() {
-            return 6;
+            return 5;
           }
 
           @Override
@@ -117,8 +115,6 @@ public class BillController {
                 return "Numero";
               case 4:
                 return "Estado";
-              case 5:
-                return "Estado del cdr";
               default:
                 break;
             }
@@ -138,8 +134,6 @@ public class BillController {
                 return baseObject.getNumber();
               case 4:
                 return baseObject.getBillResponse().getStatusMessage();
-              case 5:
-                return baseObject.getCdrResponse().getStatusMessage();
               default:
                 break;
             }
@@ -189,22 +183,14 @@ public class BillController {
                             for (int i = 0; i < list.size(); i++) {
                               Bill bill = (Bill) list.get(i);
 
-                              StatusResponse billResponse =
+                              StatusResponse response =
                                   service.getStatus(
                                       bill.getRuc(),
                                       bill.getType(),
                                       bill.getSerie(),
                                       bill.getNumber());
 
-                              StatusResponse cdrResponse =
-                                  service.getStatusCdr(
-                                      bill.getRuc(),
-                                      bill.getType(),
-                                      bill.getSerie(),
-                                      bill.getNumber());
-
-                              list.get(i).setBillResponse(billResponse);
-                              list.get(i).setCdrResponse(cdrResponse);
+                              list.get(i).setBillResponse(response);
 
                               publish(i);
                             }
@@ -276,12 +262,6 @@ public class BillController {
                                   .getColumn(4)
                                   .setCellRenderer(renderer);
 
-                              billFrame
-                                  .table
-                                  .getColumnModel()
-                                  .getColumn(5)
-                                  .setCellRenderer(renderer);
-
                               loadingDialog.dispose();
 
                               showNotification(
@@ -338,47 +318,92 @@ public class BillController {
       new MouseAdapter() {
         @Override
         public void mouseClicked(MouseEvent e) {
-          if (e.getClickCount() == 2) {
-            JTable target = (JTable) e.getSource();
-            int row = target.getSelectedRow();
-            int column = target.getSelectedColumn();
-            Bill bill = model.getElementAt(row);
-
-            if (column == 5 && bill.getBillResponse().getStatusCode().equals("0001")
-                || bill.getBillResponse().getStatusCode().equals("0002")
-                || bill.getBillResponse().getStatusCode().equals("0003")) {
-
-              JFileChooser chooser = new JFileChooser();
-              chooser.setCurrentDirectory(new File("."));
-              chooser.setSelectedFile(
-                  new File(
-                      "R-"
-                          + bill.getRuc()
-                          + "-"
-                          + bill.getType()
-                          + "-"
-                          + bill.getSerie()
-                          + "-"
-                          + bill.getNumber()
-                          + ".zip"));
-
-              int result = chooser.showSaveDialog(billFrame);
-              if (result == JFileChooser.APPROVE_OPTION) {
-
-                File file = chooser.getSelectedFile().getAbsoluteFile();
-                try (FileOutputStream fout =
-                    new FileOutputStream(file.getParent() + "//" + file.getName())) {
-                  fout.write(bill.getCdrResponse().getContent());
-                  fout.flush();
-                  fout.close();
-                } catch (FileNotFoundException ex) {
-                  Logger.getLogger(BillController.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (IOException ex) {
-                  Logger.getLogger(BillController.class.getName()).log(Level.SEVERE, null, ex);
-                }
-              }
-            }
-          }
+//          if (e.getClickCount() == 2) {
+//            Bill selectedBill = selectionModel.getSelected().get(0);
+//
+//            if (selectedBill.getBillResponse().getStatusCode().equals("0001")
+//                || selectedBill.getBillResponse().getStatusCode().equals("0002")
+//                || selectedBill.getBillResponse().getStatusCode().equals("0003")) {
+//
+//              SwingWorker worker =
+//                  new SwingWorker<Bill, Integer>() {
+//                    @Override
+//                    protected Bill doInBackground() throws Exception {
+//                      loadingDialog.setVisible(true);
+//                      loadingDialog.setLocationRelativeTo(billFrame);
+//
+//                      loadingDialog.progressBar.setMinimum(0);
+//                      loadingDialog.progressBar.setMaximum(100);
+//
+//                      publish(0);
+//                      StatusResponse response =
+//                          service.getStatusCdr(
+//                              selectedBill.getRuc(),
+//                              selectedBill.getType(),
+//                              selectedBill.getSerie(),
+//                              selectedBill.getNumber());
+//
+//                      selectedBill.setCdrResponse(response);
+//                      publish(100);
+//
+//                      return selectedBill;
+//                    }
+//
+//                    @Override
+//                    protected void process(List<Integer> chunks) {
+//                      loadingDialog.progressBar.setValue(chunks.get(0));
+//                    }
+//
+//                    @Override
+//                    protected void done() {
+//                      try {
+//                        loadingDialog.dispose();
+//
+//                        Bill bill = get();
+//
+//                        System.out.println(".done() " + bill.getCdrResponse().getStatusMessage());
+//
+//                        JFileChooser chooser = new JFileChooser();
+//                        chooser.setCurrentDirectory(new File("."));
+//                        chooser.setSelectedFile(
+//                            new File(
+//                                "R-"
+//                                    + bill.getRuc()
+//                                    + "-"
+//                                    + bill.getType()
+//                                    + "-"
+//                                    + bill.getSerie()
+//                                    + "-"
+//                                    + bill.getNumber()
+//                                    + ".zip"));
+//
+//                        int result = chooser.showSaveDialog(billFrame);
+//                        if (result == JFileChooser.APPROVE_OPTION) {
+//
+//                          File file = chooser.getSelectedFile().getAbsoluteFile();
+//                          try (FileOutputStream fout =
+//                              new FileOutputStream(file.getParent() + "//" + file.getName())) {
+//                            fout.write(bill.getCdrResponse().getContent());
+//                            fout.flush();
+//                            fout.close();
+//                          } catch (FileNotFoundException ex) {
+//                            Logger.getLogger(BillController.class.getName())
+//                                .log(Level.SEVERE, null, ex);
+//                          } catch (IOException ex) {
+//                            Logger.getLogger(BillController.class.getName())
+//                                .log(Level.SEVERE, null, ex);
+//                          }
+//                        }
+//                      } catch (InterruptedException | ExecutionException ex) {
+//                        Logger.getLogger(BillController.class.getName())
+//                            .log(Level.SEVERE, null, ex);
+//                      }
+//                    }
+//                  };
+//
+//              worker.execute();
+//            }
+//          }
         }
       };
 
@@ -387,9 +412,9 @@ public class BillController {
       SystemTray tray = SystemTray.getSystemTray();
       Image image =
           Toolkit.getDefaultToolkit().createImage(getClass().getResource("/img/jbillstatus.png"));
-      TrayIcon trayIcon = new TrayIcon(image, "Tray Demo");
+      TrayIcon trayIcon = new TrayIcon(image, "JBillStatus");
       trayIcon.setImageAutoSize(true);
-      trayIcon.setToolTip("System tray icon demo");
+      trayIcon.setToolTip("Notificacion de JBillStatus");
       tray.add(trayIcon);
       trayIcon.displayMessage(title, message, type);
     } catch (AWTException ex) {

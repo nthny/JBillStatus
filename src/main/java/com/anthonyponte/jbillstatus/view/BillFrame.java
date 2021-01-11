@@ -36,6 +36,7 @@ public class BillFrame extends javax.swing.JFrame {
             }
         ));
         table.setIntercellSpacing(new java.awt.Dimension(1, 1));
+        table.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         table.getTableHeader().setReorderingAllowed(false);
         scroll.setViewportView(table);
         table.putClientProperty(DarkTableUI.KEY_ALTERNATE_ROW_COLOR, true);
@@ -48,7 +49,7 @@ public class BillFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(tfFilter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(scroll, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(scroll, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 788, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
