@@ -295,6 +295,9 @@ public class BillController {
 
                               loadingDialog.dispose();
 
+                              showNotification(
+                                  "JBillStatus Error", "Error en clave SOL", MessageType.ERROR);
+
                               int input =
                                   JOptionPane.showOptionDialog(
                                       billFrame,

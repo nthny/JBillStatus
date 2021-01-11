@@ -1,7 +1,6 @@
 package com.anthonyponte.jbillstatus.impl;
 
 import com.anthonyponte.jbillstatus.pojo.User;
-import com.anthonyponte.jbillstatus.impl.SOAPHanlderImpl;
 import jakarta.xml.ws.BindingProvider;
 import jakarta.xml.ws.handler.Handler;
 import java.util.ArrayList;
