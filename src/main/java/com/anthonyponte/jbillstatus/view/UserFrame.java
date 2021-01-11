@@ -114,7 +114,6 @@ public class UserFrame extends javax.swing.JFrame {
 
         tfUsername.putClientProperty(DarkTextFieldUI.KEY_SHOW_CLEAR, true);
         tfPassword.putClientProperty("JPasswordField.showViewIcon", true);
-        tfPassword.putClientProperty(DarkTextFieldUI.KEY_SHOW_CLEAR, true);
         tfRuc.putClientProperty(DarkTextFieldUI.KEY_SHOW_CLEAR, true);
 
         pack();
