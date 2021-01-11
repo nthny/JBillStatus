@@ -2,10 +2,10 @@ package com.anthonyponte.jbillstatus.impl;
 
 import com.anthonyponte.jbillstatus.pojo.User;
 import com.anthonyponte.jbillstatus.impl.SOAPHanlderImpl;
+import jakarta.xml.ws.BindingProvider;
+import jakarta.xml.ws.handler.Handler;
 import java.util.ArrayList;
 import java.util.List;
-import javax.xml.ws.BindingProvider;
-import javax.xml.ws.handler.Handler;
 import pe.gob.sunat.BillConsultService;
 import pe.gob.sunat.BillService;
 import pe.gob.sunat.StatusResponse;

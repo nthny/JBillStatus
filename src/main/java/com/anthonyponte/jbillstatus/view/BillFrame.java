@@ -3,6 +3,7 @@ package com.anthonyponte.jbillstatus.view;
 import com.github.weisj.darklaf.ui.table.DarkTableUI;
 import com.github.weisj.darklaf.ui.text.DarkTextFieldUI;
 import com.github.weisj.darklaf.ui.text.DarkTextUI;
+import javax.swing.ImageIcon;
 
 public class BillFrame extends javax.swing.JFrame {
 
@@ -19,7 +20,8 @@ public class BillFrame extends javax.swing.JFrame {
         table = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("JInvoice");
+        setTitle("JBillStatus");
+        setIconImage(new ImageIcon(getClass().getResource("/img/jbillstatus.png")).getImage());
         setMinimumSize(new java.awt.Dimension(800, 600));
         setPreferredSize(new java.awt.Dimension(800, 600));
 

@@ -14,13 +14,20 @@ import ca.odell.glazedlists.swing.DefaultEventSelectionModel;
 import static ca.odell.glazedlists.swing.GlazedListsSwing.eventTableModelWithThreadProxyList;
 import ca.odell.glazedlists.swing.TableComparatorChooser;
 import ca.odell.glazedlists.swing.TextComponentMatcherEditor;
+import com.anthonyponte.jbillstatus.Main;
 import com.anthonyponte.jbillstatus.pojo.Bill;
 import com.anthonyponte.jbillstatus.impl.BillServiceImpl;
 import com.anthonyponte.jbillstatus.view.LoadingDialog;
 import com.anthonyponte.jbillstatus.view.UserFrame;
 import com.poiji.bind.Poiji;
+import java.awt.AWTException;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Image;
+import java.awt.SystemTray;
+import java.awt.Toolkit;
+import java.awt.TrayIcon;
+import java.awt.TrayIcon.MessageType;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
@@ -276,7 +283,16 @@ public class BillController {
                                   .setCellRenderer(renderer);
 
                               loadingDialog.dispose();
+
+                              showNotification(
+                                  "JBillStatus Info",
+                                  "Se consultaron " + bills.size() + " comprobantes",
+                                  MessageType.INFO);
+
                             } catch (InterruptedException | ExecutionException ex) {
+                              Logger.getLogger(BillController.class.getName())
+                                  .log(Level.SEVERE, null, ex);
+
                               loadingDialog.dispose();
 
                               int input =
@@ -304,6 +320,7 @@ public class BillController {
                 }
               }
             } catch (UnsupportedFlavorException | IOException ex) {
+              Logger.getLogger(BillController.class.getName()).log(Level.SEVERE, null, ex);
 
               JOptionPane.showMessageDialog(
                   billFrame, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -361,4 +378,19 @@ public class BillController {
           }
         }
       };
+
+  private void showNotification(String title, String message, MessageType type) {
+    try {
+      SystemTray tray = SystemTray.getSystemTray();
+      Image image =
+          Toolkit.getDefaultToolkit().createImage(getClass().getResource("/img/jbillstatus.png"));
+      TrayIcon trayIcon = new TrayIcon(image, "Tray Demo");
+      trayIcon.setImageAutoSize(true);
+      trayIcon.setToolTip("System tray icon demo");
+      tray.add(trayIcon);
+      trayIcon.displayMessage(title, message, type);
+    } catch (AWTException ex) {
+      Logger.getLogger(BillController.class.getName()).log(Level.SEVERE, null, ex);
+    }
+  }
 }

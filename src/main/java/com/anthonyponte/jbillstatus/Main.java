@@ -12,6 +12,7 @@ public class Main {
     SwingUtilities.invokeLater(
         () -> {
           LafManager.install(new DarculaTheme());
+          LafManager.setDecorationsEnabled(false);
           UserFrame userFrame = new UserFrame();
           new UserController(userFrame).start();
         });
