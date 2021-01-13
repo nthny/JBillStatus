@@ -88,6 +88,7 @@ public class BillController {
     TextFilterator<Bill> textFilterator =
         (List<String> baseList, Bill element) -> {
           baseList.add(element.getBillResponse().getStatusCode());
+          baseList.add(element.getBillResponse().getStatusMessage());
         };
 
     MatcherEditor<Bill> matcherEditor =
@@ -265,7 +266,6 @@ public class BillController {
                               loadingDialog.dispose();
 
                               showNotification(
-                                  "JBillStatus Info",
                                   "Se consultaron " + bills.size() + " comprobantes",
                                   MessageType.INFO);
 
@@ -275,8 +275,7 @@ public class BillController {
 
                               loadingDialog.dispose();
 
-                              showNotification(
-                                  "JBillStatus Error", "Error en clave SOL", MessageType.ERROR);
+                              showNotification("Error en clave SOL", MessageType.ERROR);
 
                               int input =
                                   JOptionPane.showOptionDialog(
@@ -318,105 +317,102 @@ public class BillController {
       new MouseAdapter() {
         @Override
         public void mouseClicked(MouseEvent e) {
-//          if (e.getClickCount() == 2) {
-//            Bill selectedBill = selectionModel.getSelected().get(0);
-//
-//            if (selectedBill.getBillResponse().getStatusCode().equals("0001")
-//                || selectedBill.getBillResponse().getStatusCode().equals("0002")
-//                || selectedBill.getBillResponse().getStatusCode().equals("0003")) {
-//
-//              SwingWorker worker =
-//                  new SwingWorker<Bill, Integer>() {
-//                    @Override
-//                    protected Bill doInBackground() throws Exception {
-//                      loadingDialog.setVisible(true);
-//                      loadingDialog.setLocationRelativeTo(billFrame);
-//
-//                      loadingDialog.progressBar.setMinimum(0);
-//                      loadingDialog.progressBar.setMaximum(100);
-//
-//                      publish(0);
-//                      StatusResponse response =
-//                          service.getStatusCdr(
-//                              selectedBill.getRuc(),
-//                              selectedBill.getType(),
-//                              selectedBill.getSerie(),
-//                              selectedBill.getNumber());
-//
-//                      selectedBill.setCdrResponse(response);
-//                      publish(100);
-//
-//                      return selectedBill;
-//                    }
-//
-//                    @Override
-//                    protected void process(List<Integer> chunks) {
-//                      loadingDialog.progressBar.setValue(chunks.get(0));
-//                    }
-//
-//                    @Override
-//                    protected void done() {
-//                      try {
-//                        loadingDialog.dispose();
-//
-//                        Bill bill = get();
-//
-//                        System.out.println(".done() " + bill.getCdrResponse().getStatusMessage());
-//
-//                        JFileChooser chooser = new JFileChooser();
-//                        chooser.setCurrentDirectory(new File("."));
-//                        chooser.setSelectedFile(
-//                            new File(
-//                                "R-"
-//                                    + bill.getRuc()
-//                                    + "-"
-//                                    + bill.getType()
-//                                    + "-"
-//                                    + bill.getSerie()
-//                                    + "-"
-//                                    + bill.getNumber()
-//                                    + ".zip"));
-//
-//                        int result = chooser.showSaveDialog(billFrame);
-//                        if (result == JFileChooser.APPROVE_OPTION) {
-//
-//                          File file = chooser.getSelectedFile().getAbsoluteFile();
-//                          try (FileOutputStream fout =
-//                              new FileOutputStream(file.getParent() + "//" + file.getName())) {
-//                            fout.write(bill.getCdrResponse().getContent());
-//                            fout.flush();
-//                            fout.close();
-//                          } catch (FileNotFoundException ex) {
-//                            Logger.getLogger(BillController.class.getName())
-//                                .log(Level.SEVERE, null, ex);
-//                          } catch (IOException ex) {
-//                            Logger.getLogger(BillController.class.getName())
-//                                .log(Level.SEVERE, null, ex);
-//                          }
-//                        }
-//                      } catch (InterruptedException | ExecutionException ex) {
-//                        Logger.getLogger(BillController.class.getName())
-//                            .log(Level.SEVERE, null, ex);
-//                      }
-//                    }
-//                  };
-//
-//              worker.execute();
-//            }
-//          }
+          if (e.getClickCount() == 2) {
+            Bill selectedBill = selectionModel.getSelected().get(0);
+
+            if (selectedBill.getBillResponse().getStatusCode().equals("0001")
+                || selectedBill.getBillResponse().getStatusCode().equals("0002")
+                || selectedBill.getBillResponse().getStatusCode().equals("0003")) {
+
+              SwingWorker worker =
+                  new SwingWorker<Bill, Integer>() {
+                    @Override
+                    protected Bill doInBackground() throws Exception {
+                      loadingDialog.setVisible(true);
+                      loadingDialog.setLocationRelativeTo(billFrame);
+
+                      loadingDialog.progressBar.setMinimum(0);
+                      loadingDialog.progressBar.setMaximum(100);
+
+                      publish(0);
+                      StatusResponse response =
+                          service.getStatusCdr(
+                              selectedBill.getRuc(),
+                              selectedBill.getType(),
+                              selectedBill.getSerie(),
+                              selectedBill.getNumber());
+
+                      selectedBill.setCdrResponse(response);
+                      publish(100);
+
+                      return selectedBill;
+                    }
+
+                    @Override
+                    protected void process(List<Integer> chunks) {
+                      loadingDialog.progressBar.setValue(chunks.get(0));
+                    }
+
+                    @Override
+                    protected void done() {
+                      try {
+                        loadingDialog.dispose();
+
+                        Bill bill = get();
+
+                        JFileChooser chooser = new JFileChooser();
+                        chooser.setCurrentDirectory(new File("."));
+                        chooser.setSelectedFile(
+                            new File(
+                                "R-"
+                                    + bill.getRuc()
+                                    + "-"
+                                    + bill.getType()
+                                    + "-"
+                                    + bill.getSerie()
+                                    + "-"
+                                    + bill.getNumber()
+                                    + ".zip"));
+
+                        int result = chooser.showSaveDialog(billFrame);
+                        if (result == JFileChooser.APPROVE_OPTION) {
+
+                          File file = chooser.getSelectedFile().getAbsoluteFile();
+                          try (FileOutputStream fout =
+                              new FileOutputStream(file.getParent() + "//" + file.getName())) {
+                            fout.write(bill.getCdrResponse().getContent());
+                            fout.flush();
+                            fout.close();
+                          } catch (FileNotFoundException ex) {
+                            Logger.getLogger(BillController.class.getName())
+                                .log(Level.SEVERE, null, ex);
+                          } catch (IOException ex) {
+                            Logger.getLogger(BillController.class.getName())
+                                .log(Level.SEVERE, null, ex);
+                          }
+                        }
+                      } catch (InterruptedException | ExecutionException ex) {
+                        Logger.getLogger(BillController.class.getName())
+                            .log(Level.SEVERE, null, ex);
+                      }
+                    }
+                  };
+
+              worker.execute();
+            }
+          }
         }
       };
 
-  private void showNotification(String title, String message, MessageType type) {
+  private void showNotification(String message, MessageType type) {
     try {
       SystemTray tray = SystemTray.getSystemTray();
       Image image =
           Toolkit.getDefaultToolkit().createImage(getClass().getResource("/img/jbillstatus.png"));
       TrayIcon trayIcon = new TrayIcon(image, "JBillStatus");
       trayIcon.setImageAutoSize(true);
-      trayIcon.setToolTip("Notificacion de JBillStatus");
       tray.add(trayIcon);
-      trayIcon.displayMessage(title, message, type);
+      trayIcon.displayMessage("JBillStatus", message, type);
     } catch (AWTException ex) {
       Logger.getLogger(BillController.class.getName()).log(Level.SEVERE, null, ex);
     }
