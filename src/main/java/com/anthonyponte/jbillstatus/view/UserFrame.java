@@ -1,7 +1,11 @@
 package com.anthonyponte.jbillstatus.view;
 
 import com.github.weisj.darklaf.ui.text.DarkTextFieldUI;
+import java.awt.Color;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import jiconfont.icons.google_material_design_icons.GoogleMaterialDesignIcons;
+import jiconfont.swing.IconFontSwing;
 
 public class UserFrame extends javax.swing.JFrame {
 
@@ -33,7 +37,6 @@ public class UserFrame extends javax.swing.JFrame {
             }
         });
 
-        btnEnter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/key-fill.png"))); // NOI18N
         btnEnter.setText("Entrar");
         btnEnter.setEnabled(false);
 
@@ -98,6 +101,8 @@ public class UserFrame extends javax.swing.JFrame {
 
         tfUsername.putClientProperty(DarkTextFieldUI.KEY_SHOW_CLEAR, true);
         tfPassword.putClientProperty("JPasswordField.showViewIcon", true);
+        Icon icon = IconFontSwing.buildIcon(GoogleMaterialDesignIcons.VPN_KEY, 16, new Color(175,177,179));
+        btnEnter.setIcon(icon);
         tfRuc.putClientProperty(DarkTextFieldUI.KEY_SHOW_CLEAR, true);
 
         pack();

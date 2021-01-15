@@ -52,6 +52,7 @@ import javax.swing.JTable;
 import javax.swing.SwingWorker;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumnModel;
 import pe.gob.sunat.BillService;
 import pe.gob.sunat.StatusResponse;
 
@@ -263,6 +264,13 @@ public class BillController {
                                   .getColumn(4)
                                   .setCellRenderer(renderer);
 
+                              TableColumnModel tcm = billFrame.table.getColumnModel();
+                              tcm.getColumn(0).setPreferredWidth(100);
+                              tcm.getColumn(1).setPreferredWidth(50);
+                              tcm.getColumn(2).setPreferredWidth(50);
+                              tcm.getColumn(3).setPreferredWidth(100);
+                              tcm.getColumn(4).setPreferredWidth(350);
+
                               loadingDialog.dispose();
 
                               showNotification(
@@ -360,35 +368,42 @@ public class BillController {
 
                         Bill bill = get();
 
-                        JFileChooser chooser = new JFileChooser();
-                        chooser.setCurrentDirectory(new File("."));
-                        chooser.setSelectedFile(
-                            new File(
-                                "R-"
-                                    + bill.getRuc()
-                                    + "-"
-                                    + bill.getType()
-                                    + "-"
-                                    + bill.getSerie()
-                                    + "-"
-                                    + bill.getNumber()
-                                    + ".zip"));
+                        showNotification(
+                            bill.getCdrResponse().getStatusCode()
+                                + " - "
+                                + bill.getCdrResponse().getStatusMessage(),
+                            MessageType.INFO);
 
-                        int result = chooser.showSaveDialog(billFrame);
-                        if (result == JFileChooser.APPROVE_OPTION) {
+                        if (bill.getCdrResponse().getStatusCode().equals("0004")) {
+                          JFileChooser chooser = new JFileChooser();
+                          chooser.setCurrentDirectory(new File("."));
+                          chooser.setSelectedFile(
+                              new File(
+                                  "R-"
+                                      + bill.getRuc()
+                                      + "-"
+                                      + bill.getType()
+                                      + "-"
+                                      + bill.getSerie()
+                                      + "-"
+                                      + bill.getNumber()
+                                      + ".zip"));
 
-                          File file = chooser.getSelectedFile().getAbsoluteFile();
-                          try (FileOutputStream fout =
-                              new FileOutputStream(file.getParent() + "//" + file.getName())) {
-                            fout.write(bill.getCdrResponse().getContent());
-                            fout.flush();
-                            fout.close();
-                          } catch (FileNotFoundException ex) {
-                            Logger.getLogger(BillController.class.getName())
-                                .log(Level.SEVERE, null, ex);
-                          } catch (IOException ex) {
-                            Logger.getLogger(BillController.class.getName())
-                                .log(Level.SEVERE, null, ex);
+                          int result = chooser.showSaveDialog(billFrame);
+                          if (result == JFileChooser.APPROVE_OPTION) {
+                            File file = chooser.getSelectedFile().getAbsoluteFile();
+                            try (FileOutputStream fout =
+                                new FileOutputStream(file.getParent() + "//" + file.getName())) {
+                              fout.write(bill.getCdrResponse().getContent());
+                              fout.flush();
+                              fout.close();
+                            } catch (FileNotFoundException ex) {
+                              Logger.getLogger(BillController.class.getName())
+                                  .log(Level.SEVERE, null, ex);
+                            } catch (IOException ex) {
+                              Logger.getLogger(BillController.class.getName())
+                                  .log(Level.SEVERE, null, ex);
+                            }
                           }
                         }
                       } catch (InterruptedException | ExecutionException ex) {

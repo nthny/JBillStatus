@@ -99,13 +99,11 @@
     </Component>
     <Component class="javax.swing.JButton" name="btnEnter">
       <Properties>
-        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/img/key-fill.png"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="Entrar"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <AuxValues>
+        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="Icon icon = IconFontSwing.buildIcon(GoogleMaterialDesignIcons.VPN_KEY, 16, new Color(175,177,179));&#xa;btnEnter.setIcon(icon);"/>
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
       </AuxValues>
     </Component>
