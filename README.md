@@ -1,12 +1,12 @@
 ---
-typora-root-url: screenshots
+
 ---
 
 # JBillStatus
 
 > Consulta de comprobantes
 
-![image_1](/image_1.png)
+![image_1](\screenshots\image_1.png)
 
 ## Comenzando
 
