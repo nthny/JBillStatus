@@ -6,7 +6,7 @@
 
 > Consulta de comprobantes
 
-![image_1](\screenshots\image_1.png)
+![header](https://github.com/nthny/JBillStatus/blob/master/screenshots/image_1.png?raw=true)
 
 ## Comenzando
 
