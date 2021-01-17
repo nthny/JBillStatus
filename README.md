@@ -1,8 +1,6 @@
-![jbillstatus](C:\Users\nthny\Documents\NetBeansProjects\JBillStatus\src\main\resources\img\jbillstatus.png)
-
 # JBillStatus
 
-Consulta de comprobantes de SUNAT
+> Consulta de comprobantes
 
 ## Comenzando
 
@@ -14,9 +12,11 @@ TODO
 
 ## Uso
 
-| RUC  | TIPO | SERIE | NUMERO |
-| :--: | :--: | :---: | :----: |
-|      |      |       |        |
+
+
+|    RUC     | TIPO | SERIE | NUMERO |
+| :--------: | :--: | :---: | :----: |
+| 1045529725 |  01  | F001  |   1    |
 
 ## Licencia
 
