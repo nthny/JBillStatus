@@ -18,6 +18,8 @@ JDK 11
 
 1. Ingresar con su Clave SOL.
 
+   
+
 2. Preparé un archivo excel con la siguiente estructura.
 
    | RUC        | TIPO | SERIE | NUMERO |
