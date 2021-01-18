@@ -192,8 +192,6 @@ public class BillController {
                                       bill.getSerie(),
                                       bill.getNumber());
 
-                              list.get(i).setRuc("10455297252");
-                              list.get(i).setSerie("F001");
                               list.get(i).setBillResponse(response);
 
                               publish(i);
