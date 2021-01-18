@@ -1,4 +1,4 @@
-<img src="https://github.com/nthny/JBillStatus/blob/master/src/main/resources/img/jbillstatus.png?raw=true" alt="logo" style="zoom:5%;" />
+<img src="https://github.com/nthny/JBillStatus/blob/master/src/main/resources/img/jbillstatus.ico?raw=true" alt="logo" style="zoom:5%;" />
 
 # JBillStatus
 
