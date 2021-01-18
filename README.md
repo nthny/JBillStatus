@@ -33,7 +33,7 @@ JDK 11
 
 3. Arrastrar el archivo excel hacia la tabla y espere a que se realice la consulta.
 
-   ![image_1](https://github.com/nthny/JBillStatus/blob/master/screenshots/image_2.gif?raw=true)
+   ![image_2](https://github.com/nthny/JBillStatus/blob/master/screenshots/image_2.gif?raw=true)
 
 4. El campo estado puede tomar uno de los siguiente valores:
 
@@ -53,6 +53,8 @@ JDK 11
    | ERROR | 0012              | El comprobante de pago electrónico no le pertenece.          |
 
    Los comprobantes pueden filtrarse tanto por CODIGO DE RETORNO como por DESCRIPCION DE RETORNO.
+
+   ![image_3](https://github.com/nthny/JBillStatus/blob/master/screenshots/image_3.gif?raw=true)
 
 ## Licencia
 
