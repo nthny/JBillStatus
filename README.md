@@ -33,6 +33,8 @@ JDK 11
 
 3. Arrastre el archivo excel hacia la tabla y espere a que se realice la consulta.
 
+   ![image_2](https://github.com/nthny/JBillStatus/blob/master/screenshots/image_2.gif?raw=true)
+
 ## Licencia
 
 TODO
