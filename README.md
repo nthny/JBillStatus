@@ -18,7 +18,7 @@ JDK 11
 
 1. Ingresar con su Clave SOL.
 
-   
+   ![image_1](https://github.com/nthny/JBillStatus/blob/master/screenshots/image_1.gif?raw=true)
 
 2. Preparé un archivo excel con la siguiente estructura.
 
