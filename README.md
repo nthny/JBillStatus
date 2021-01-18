@@ -1,8 +1,8 @@
+<img src="https://github.com/nthny/JBillStatus/blob/master/src/main/resources/img/jbillstatus.png?raw=true" alt="logo" style="zoom:25%;" />
+
 # JBillStatus
 
 > Consulta de comprobantes
-
-![header](https://github.com/nthny/JBillStatus/blob/master/screenshots/header.png?raw=true)
 
 ## Descripción
 
@@ -55,6 +55,12 @@ JDK 11
    Los comprobantes pueden filtrarse tanto por CODIGO DE RETORNO como por DESCRIPCION DE RETORNO.
 
    ![image_3](https://github.com/nthny/JBillStatus/blob/master/screenshots/image_3.gif?raw=true)
+
+5. Para obtener el CDR de aceptación o rechazo haga doble click sobre el comprobante.
+
+   ![image_4](https://github.com/nthny/JBillStatus/blob/master/screenshots/image_4.gif?raw=true)
+
+   
 
 ## Licencia
 
