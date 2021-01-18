@@ -2,8 +2,6 @@
 
 > Consulta de comprobantes
 
-![header](https://github.com/nthny/JBillStatus/blob/master/screenshots/header.png?raw=true)
-
 ## Descripción
 
 Pequeño programa hecho en java para hacer consulta masiva del estado de facturas, notas de crédito y debito que empiecen con la letra "F" además de poder obtener el archivo zip que contiene el CDR de aceptación o rechazo.
