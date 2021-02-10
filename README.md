@@ -18,7 +18,7 @@ JDK 11
 
 1. Ingresar con su Clave SOL, puede darle en recordar para guardar el RUC y el Usuario. 
 
-   ![image_1](https://github.com/nthny/JBillStatus/blob/master/screenshots/image_1.gif?raw=true)
+   ![image_1](https://github.com/nthny/JBillStatus/blob/master/screenshots/img_1.gif?raw=true)
 
 2. Preparar un archivo excel con la siguiente estructura.
 
@@ -33,7 +33,7 @@ JDK 11
 
 3. Arrastrar el archivo excel hacia la tabla y espere a que se realice la consulta.
 
-   ![image_2](https://github.com/nthny/JBillStatus/blob/master/screenshots/image_2.gif?raw=true)
+   ![image_2](https://github.com/nthny/JBillStatus/blob/master/screenshots/img_2.gif?raw=true)
 
 4. El campo estado puede tomar uno de los siguiente valores:
 
@@ -54,11 +54,11 @@ JDK 11
 
    Los comprobantes pueden filtrarse tanto por CODIGO DE RETORNO como por DESCRIPCION DE RETORNO.
 
-   ![image_3](https://github.com/nthny/JBillStatus/blob/master/screenshots/image_3.gif?raw=true)
+   ![image_3](https://github.com/nthny/JBillStatus/blob/master/screenshots/img_3.gif?raw=true)
 
 5. Para obtener el CDR de aceptación o rechazo haga doble click sobre el comprobante.
 
-   ![image_4](https://github.com/nthny/JBillStatus/blob/master/screenshots/image_4.gif?raw=true)
+   ![image_4](https://github.com/nthny/JBillStatus/blob/master/screenshots/img_4.gif?raw=true)
 
    
 
