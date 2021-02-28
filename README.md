@@ -55,6 +55,6 @@ Consulta masiva del estado de facturas, notas de crédito y debito que empiecen 
    | ERROR | 0011              | El comprobante de pago electrónico no existe.                |
    | ERROR | 0012              | El comprobante de pago electrónico no le pertenece.          |
 
-5. Para obtener el CDR de aceptación o rechazo haga doble clic sobre el comprobante y luego elija la ubicación para guardar el archivo zip con el archivo xml. 
+4. Para obtener el CDR de aceptación o rechazo haga doble clic sobre el comprobante y luego elija la ubicación para guardar el archivo zip con el archivo xml. 
 
    ![image_4](https://github.com/nthny/JBillStatus/blob/master/screenshots/img_4.gif?raw=true)
