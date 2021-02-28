@@ -6,36 +6,39 @@
 
 ## Descripción
 
-Pequeño programa hecho en java para hacer consulta masiva del estado de facturas, notas de crédito y debito que empiecen con la letra "F" además de poder obtener el archivo zip que contiene el CDR de aceptación o rechazo.
+Consulta masiva del estado de facturas, notas de crédito y debito que empiecen con la letra "F" además de obtener el archivo zip que contiene el CDR de aceptación o rechazo.
 
-## Comenzando
+## Dependencias
 
-### Dependencias
+- Clave SOL
+- OpenJDK 11 o JDK 11
 
-JDK 11
+## Uso Y Características
 
-### Uso
-
-1. Ingresar con su Clave SOL, puede darle en recordar para guardar el RUC y el Usuario. 
+1. Ingrese con su Clave SOL. Puede darle en recordar para guardar el RUC y el Usuario.
 
    ![image_1](https://github.com/nthny/JBillStatus/blob/master/screenshots/img_1.gif?raw=true)
 
-2. Preparar un archivo excel con la siguiente estructura.
+2. Prepare un archivo excel con la siguiente estructura.
 
    | RUC        | TIPO | SERIE | NUMERO |
    | ---------- | ---- | ----- | ------ |
    | 1045529725 | 01   | F001  | 1      |
 
-   - **RUC** del emisor del comprobante.
-   - **TIPO** es el código de tipo de documento según el Anexo N° 8: Catalogo de códigos. Para este caso puede tener los valores 01 para facturas, 07 para notas de crédito y 08 para botas de debito.
-   - **SERIE** del comprobante  a consultar.
-   - **NUMERO** del comprobante a consultar.
+   **RUC** del emisor del comprobante.
+   **TIPO** es el código de tipo de documento según el Anexo N° 8: Catálogo de códigos. Puede tomar los valores 01 para facturas, 07 para notas de crédito y 08 para botas de débito.
+   **SERIE** del comprobante  a consultar.
+   **NUMERO** del comprobante a consultar.
 
-3. Arrastrar el archivo excel hacia la tabla y espere a que se realice la consulta.
-
+   Con el archivo listo arrastrarlo hacia la tabla, dependiendo del numero de comprobantes puede demorar unos segundos.
+      
    ![image_2](https://github.com/nthny/JBillStatus/blob/master/screenshots/img_2.gif?raw=true)
 
-4. El campo estado puede tomar uno de los siguiente valores:
+3. Puede filtrar los comprobantes consultados según el CODIGO DE RETORNO o DESCRIPCION DE RETORNO.
+
+   ![image_3](https://github.com/nthny/JBillStatus/blob/master/screenshots/img_3.gif?raw=true)
+
+   El campo estado puede tomar uno de los siguiente valores:
 
    | TIPO  | CODIGO DE RETORNO | DESCRIPCION DE RETORNO                                       |
    | ----- | ----------------- | ------------------------------------------------------------ |
@@ -52,16 +55,6 @@ JDK 11
    | ERROR | 0011              | El comprobante de pago electrónico no existe.                |
    | ERROR | 0012              | El comprobante de pago electrónico no le pertenece.          |
 
-   Los comprobantes pueden filtrarse tanto por CODIGO DE RETORNO como por DESCRIPCION DE RETORNO.
-
-   ![image_3](https://github.com/nthny/JBillStatus/blob/master/screenshots/img_3.gif?raw=true)
-
-5. Para obtener el CDR de aceptación o rechazo haga doble click sobre el comprobante.
+5. Para obtener el CDR de aceptación o rechazo haga doble clic sobre el comprobante y luego elija la ubicación para guardar el archivo zip con el archivo xml. 
 
    ![image_4](https://github.com/nthny/JBillStatus/blob/master/screenshots/img_4.gif?raw=true)
-
-   
-
-## Licencia
-
-TODO
