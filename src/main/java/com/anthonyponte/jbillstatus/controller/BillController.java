@@ -33,6 +33,10 @@ import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.dnd.DnDConstants;
 import java.awt.dnd.DropTarget;
 import java.awt.dnd.DropTargetDropEvent;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -74,6 +78,8 @@ public class BillController {
 
   public void start() {
     billFrame.setVisible(true);
+    billFrame.mitemImport.addActionListener(alImport);
+    billFrame.mitemExport.addActionListener(alExport);
     billFrame.scroll.setDropTarget(dt);
     billFrame.table.addMouseListener(ml);
   }
@@ -155,6 +161,19 @@ public class BillController {
         billFrame.table, sortedList, TableComparatorChooser.MULTIPLE_COLUMN_MOUSE_WITH_UNDO);
   }
 
+  private final ActionListener alImport =
+      (ActionEvent arg0) -> {
+        JFileChooser chooser = new JFileChooser();
+        chooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+        int result = chooser.showOpenDialog(null);
+        if (result == JFileChooser.APPROVE_OPTION) {
+          File file = chooser.getSelectedFile();
+          setToTable(file);
+        }
+      };
+
+  private final ActionListener alExport = (ActionEvent arg0) -> {};
+
   private final DropTarget dt =
       new DropTarget() {
         @Override
@@ -169,143 +188,7 @@ public class BillController {
                 for (Object value : fileList) {
                   if (value instanceof File) {
                     File file = (File) value;
-
-                    SwingWorker worker =
-                        new SwingWorker<List<Bill>, Integer>() {
-                          @Override
-                          protected List<Bill> doInBackground() throws Exception {
-                            loadingDialog.setVisible(true);
-                            loadingDialog.setLocationRelativeTo(billFrame);
-
-                            List<Bill> list = Poiji.fromExcel(file, Bill.class);
-
-                            loadingDialog.progressBar.setMinimum(0);
-                            loadingDialog.progressBar.setMaximum(list.size());
-
-                            for (int i = 0; i < list.size(); i++) {
-                              Bill bill = (Bill) list.get(i);
-
-                              StatusResponse response =
-                                  service.getStatus(
-                                      bill.getRuc(),
-                                      bill.getType(),
-                                      bill.getSerie(),
-                                      bill.getNumber());
-
-                              list.get(i).setBillResponse(response);
-
-                              publish(i);
-                            }
-
-                            return list;
-                          }
-
-                          @Override
-                          protected void process(List<Integer> chunks) {
-                            loadingDialog.progressBar.setValue(chunks.get(0));
-                          }
-
-                          @Override
-                          protected void done() {
-                            try {
-                              List<Bill> bills = get();
-
-                              eventList.clear();
-                              eventList.addAll(bills);
-
-                              TableCellRenderer renderer =
-                                  new DefaultTableCellRenderer() {
-                                    @Override
-                                    public Component getTableCellRendererComponent(
-                                        JTable table,
-                                        Object value,
-                                        boolean isSelected,
-                                        boolean hasFocus,
-                                        int row,
-                                        int column) {
-
-                                      JLabel label =
-                                          (JLabel)
-                                              super.getTableCellRendererComponent(
-                                                  table, value, isSelected, hasFocus, row, column);
-
-                                      Bill bill = model.getElementAt(row);
-
-                                      switch (bill.getBillResponse().getStatusCode()) {
-                                        case "0001":
-                                          label.setForeground(Color.decode("#AED581"));
-                                          break;
-                                        case "0002":
-                                          label.setForeground(Color.decode("#FFF176"));
-                                          break;
-                                        case "0003":
-                                          label.setForeground(Color.decode("#E57373"));
-                                          break;
-                                        case "0004":
-                                        case "0005":
-                                        case "0006":
-                                        case "0007":
-                                        case "0008":
-                                        case "0009":
-                                        case "0010":
-                                        case "0011":
-                                        case "0012":
-                                          label.setForeground(Color.decode("#BBBBBB"));
-                                          break;
-                                      }
-
-                                      return label;
-                                    }
-                                  };
-
-                              billFrame
-                                  .table
-                                  .getColumnModel()
-                                  .getColumn(4)
-                                  .setCellRenderer(renderer);
-
-                              TableColumnModel tcm = billFrame.table.getColumnModel();
-                              tcm.getColumn(0).setPreferredWidth(100);
-                              tcm.getColumn(1).setPreferredWidth(50);
-                              tcm.getColumn(2).setPreferredWidth(50);
-                              tcm.getColumn(3).setPreferredWidth(100);
-                              tcm.getColumn(4).setPreferredWidth(350);
-
-                              loadingDialog.dispose();
-
-                              showNotification(
-                                  "Se consultaron " + bills.size() + " comprobantes",
-                                  MessageType.INFO);
-
-                            } catch (InterruptedException | ExecutionException ex) {
-                              Logger.getLogger(BillController.class.getName())
-                                  .log(Level.SEVERE, null, ex);
-
-                              loadingDialog.dispose();
-
-                              showNotification("Error en clave SOL", MessageType.ERROR);
-
-                              int input =
-                                  JOptionPane.showOptionDialog(
-                                      billFrame,
-                                      ex.getMessage(),
-                                      "Error",
-                                      JOptionPane.DEFAULT_OPTION,
-                                      JOptionPane.ERROR_MESSAGE,
-                                      null,
-                                      null,
-                                      null);
-
-                              if (input == JOptionPane.OK_OPTION) {
-                                billFrame.dispose();
-                                UserFrame userFrame = new UserFrame();
-                                new UserController(userFrame).start();
-                              }
-                            }
-                          }
-                        };
-
-                    worker.execute();
+                    setToTable(file);
                   }
                 }
               }
@@ -418,6 +301,136 @@ public class BillController {
           }
         }
       };
+
+  private void setToTable(File file) {
+    SwingWorker worker =
+        new SwingWorker<List<Bill>, Integer>() {
+          @Override
+          protected List<Bill> doInBackground() throws Exception {
+            loadingDialog.setVisible(true);
+            loadingDialog.setLocationRelativeTo(billFrame);
+
+            List<Bill> list = Poiji.fromExcel(file, Bill.class);
+
+            loadingDialog.progressBar.setMinimum(0);
+            loadingDialog.progressBar.setMaximum(list.size());
+
+            for (int i = 0; i < list.size(); i++) {
+              Bill bill = (Bill) list.get(i);
+
+              StatusResponse response =
+                  service.getStatus(
+                      bill.getRuc(), bill.getType(), bill.getSerie(), bill.getNumber());
+
+              list.get(i).setBillResponse(response);
+
+              publish(i);
+            }
+
+            return list;
+          }
+
+          @Override
+          protected void process(List<Integer> chunks) {
+            loadingDialog.progressBar.setValue(chunks.get(0));
+          }
+
+          @Override
+          protected void done() {
+            try {
+              List<Bill> bills = get();
+
+              eventList.clear();
+              eventList.addAll(bills);
+
+              TableCellRenderer renderer =
+                  new DefaultTableCellRenderer() {
+                    @Override
+                    public Component getTableCellRendererComponent(
+                        JTable table,
+                        Object value,
+                        boolean isSelected,
+                        boolean hasFocus,
+                        int row,
+                        int column) {
+
+                      JLabel label =
+                          (JLabel)
+                              super.getTableCellRendererComponent(
+                                  table, value, isSelected, hasFocus, row, column);
+
+                      Bill bill = model.getElementAt(row);
+
+                      switch (bill.getBillResponse().getStatusCode()) {
+                        case "0001":
+                          label.setForeground(Color.decode("#AED581"));
+                          break;
+                        case "0002":
+                          label.setForeground(Color.decode("#FFF176"));
+                          break;
+                        case "0003":
+                          label.setForeground(Color.decode("#E57373"));
+                          break;
+                        case "0004":
+                        case "0005":
+                        case "0006":
+                        case "0007":
+                        case "0008":
+                        case "0009":
+                        case "0010":
+                        case "0011":
+                        case "0012":
+                          label.setForeground(Color.decode("#BBBBBB"));
+                          break;
+                      }
+
+                      return label;
+                    }
+                  };
+
+              billFrame.table.getColumnModel().getColumn(4).setCellRenderer(renderer);
+
+              TableColumnModel tcm = billFrame.table.getColumnModel();
+              tcm.getColumn(0).setPreferredWidth(100);
+              tcm.getColumn(1).setPreferredWidth(50);
+              tcm.getColumn(2).setPreferredWidth(50);
+              tcm.getColumn(3).setPreferredWidth(100);
+              tcm.getColumn(4).setPreferredWidth(350);
+
+              loadingDialog.dispose();
+
+              showNotification(
+                  "Se consultaron " + bills.size() + " comprobantes", MessageType.INFO);
+
+            } catch (InterruptedException | ExecutionException ex) {
+              Logger.getLogger(BillController.class.getName()).log(Level.SEVERE, null, ex);
+
+              loadingDialog.dispose();
+
+              showNotification("Error en clave SOL", MessageType.ERROR);
+
+              int input =
+                  JOptionPane.showOptionDialog(
+                      billFrame,
+                      ex.getMessage(),
+                      "Error",
+                      JOptionPane.DEFAULT_OPTION,
+                      JOptionPane.ERROR_MESSAGE,
+                      null,
+                      null,
+                      null);
+
+              if (input == JOptionPane.OK_OPTION) {
+                billFrame.dispose();
+                UserFrame userFrame = new UserFrame();
+                new UserController(userFrame).start();
+              }
+            }
+          }
+        };
+
+    worker.execute();
+  }
 
   private void showNotification(String message, MessageType type) {
     try {

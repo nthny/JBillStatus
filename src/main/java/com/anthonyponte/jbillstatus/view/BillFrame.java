@@ -19,6 +19,10 @@ public class BillFrame extends javax.swing.JFrame {
         tfFilter = new com.github.weisj.darklaf.components.text.SearchTextField();
         scroll = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        menuFile = new javax.swing.JMenu();
+        mitemImport = new javax.swing.JMenuItem();
+        mitemExport = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("JBillStatus");
@@ -42,6 +46,18 @@ public class BillFrame extends javax.swing.JFrame {
         scroll.setViewportView(table);
         table.putClientProperty(DarkTableUI.KEY_ALTERNATE_ROW_COLOR, true);
 
+        menuFile.setText("Archivo");
+
+        mitemImport.setText("Importar");
+        menuFile.add(mitemImport);
+
+        mitemExport.setText("Exportar");
+        menuFile.add(mitemExport);
+
+        jMenuBar1.add(menuFile);
+
+        setJMenuBar(jMenuBar1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -50,7 +66,7 @@ public class BillFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(tfFilter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(scroll, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(scroll, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 788, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -59,7 +75,7 @@ public class BillFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(tfFilter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scroll)
+                .addComponent(scroll, javax.swing.GroupLayout.DEFAULT_SIZE, 536, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -71,6 +87,10 @@ public class BillFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenu menuFile;
+    public javax.swing.JMenuItem mitemExport;
+    public javax.swing.JMenuItem mitemImport;
     public javax.swing.JScrollPane scroll;
     public javax.swing.JTable table;
     public com.github.weisj.darklaf.components.text.SearchTextField tfFilter;
