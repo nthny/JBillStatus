@@ -1,11 +1,7 @@
 package com.anthonyponte.jbillstatus.view;
 
 import com.github.weisj.darklaf.ui.text.DarkTextFieldUI;
-import java.awt.Color;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import jiconfont.icons.google_material_design_icons.GoogleMaterialDesignIcons;
-import jiconfont.swing.IconFontSwing;
 
 public class UserFrame extends javax.swing.JFrame {
 
@@ -19,7 +15,7 @@ public class UserFrame extends javax.swing.JFrame {
 
         tfUsername = new javax.swing.JTextField();
         tfPassword = new javax.swing.JPasswordField();
-        btnEnter = new javax.swing.JButton();
+        btnLogin = new javax.swing.JButton();
         cbRemember = new javax.swing.JCheckBox();
         tfRuc = new javax.swing.JFormattedTextField();
         lblRuc = new javax.swing.JLabel();
@@ -37,8 +33,9 @@ public class UserFrame extends javax.swing.JFrame {
             }
         });
 
-        btnEnter.setText("Entrar");
-        btnEnter.setEnabled(false);
+        btnLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/login.png"))); // NOI18N
+        btnLogin.setText("Entrar");
+        btnLogin.setEnabled(false);
 
         cbRemember.setText("Recordar");
 
@@ -74,7 +71,7 @@ public class UserFrame extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(cbRemember)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(btnEnter, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE))
+                    .addComponent(btnLogin, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -95,14 +92,12 @@ public class UserFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cbRemember)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnEnter)
+                .addComponent(btnLogin)
                 .addContainerGap())
         );
 
         tfUsername.putClientProperty(DarkTextFieldUI.KEY_SHOW_CLEAR, true);
         tfPassword.putClientProperty("JPasswordField.showViewIcon", true);
-        Icon icon = IconFontSwing.buildIcon(GoogleMaterialDesignIcons.VPN_KEY, 16, new Color(175,177,179));
-        btnEnter.setIcon(icon);
         tfRuc.putClientProperty(DarkTextFieldUI.KEY_SHOW_CLEAR, true);
 
         pack();
@@ -117,7 +112,7 @@ public class UserFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_tfUsernameKeyTyped
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public javax.swing.JButton btnEnter;
+    public javax.swing.JButton btnLogin;
     public javax.swing.JCheckBox cbRemember;
     private javax.swing.JLabel lblPassword;
     private javax.swing.JLabel lblRuc;

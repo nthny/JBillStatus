@@ -34,12 +34,8 @@ import java.awt.dnd.DnDConstants;
 import java.awt.dnd.DropTarget;
 import java.awt.dnd.DropTargetDropEvent;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -54,9 +50,14 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.SwingWorker;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import pe.gob.sunat.BillService;
 import pe.gob.sunat.StatusResponse;
 
@@ -78,10 +79,223 @@ public class BillController {
 
   public void start() {
     billFrame.setVisible(true);
-    billFrame.mitemImport.addActionListener(alImport);
-    billFrame.mitemExport.addActionListener(alExport);
-    billFrame.scroll.setDropTarget(dt);
-    billFrame.table.addMouseListener(ml);
+
+    billFrame.miImport.addActionListener(
+        (ActionEvent arg0) -> {
+          JFileChooser chooser = new JFileChooser();
+          chooser.setDialogTitle("Importar Excel");
+          chooser.setAcceptAllFileFilterUsed(false);
+          chooser.addChoosableFileFilter(
+              new FileNameExtensionFilter("Archivo Excel", "xls", "xlsx"));
+          chooser.setCurrentDirectory(new File("."));
+
+          int result = chooser.showOpenDialog(billFrame);
+          if (result == JFileChooser.APPROVE_OPTION) {
+            File file = chooser.getSelectedFile();
+            setToTable(file);
+          }
+        });
+
+    billFrame.miExport.addActionListener(
+        (ActionEvent arg0) -> {
+          JFileChooser chooser = new JFileChooser();
+          chooser.setDialogTitle("Exportar Excel");
+          chooser.setAcceptAllFileFilterUsed(false);
+          chooser.addChoosableFileFilter(new FileNameExtensionFilter("Archivo Excel file", "xlsx"));
+
+          chooser.setCurrentDirectory(new File("."));
+
+          int result = chooser.showSaveDialog(billFrame);
+          if (result == JFileChooser.APPROVE_OPTION) {
+            FileOutputStream out = null;
+            try {
+              XSSFWorkbook workbook = new XSSFWorkbook();
+              XSSFSheet sheet = workbook.createSheet();
+              for (int r = 0; r < model.getRowCount(); r++) {
+                XSSFRow row = sheet.createRow(r);
+                Bill bill = model.getElementAt(r);
+
+                for (int c = 0; c < model.getColumnCount(); c++) {
+                  XSSFCell cell = row.createCell(c);
+                  String columnName = model.getColumnName(c);
+
+                  if (row.getRowNum() == 0) {
+                    cell.setCellValue(columnName);
+                  } else {
+                    switch (cell.getColumnIndex()) {
+                      case 0:
+                        cell.setCellValue(bill.getRuc());
+                        break;
+                      case 1:
+                        cell.setCellValue(bill.getType());
+                        break;
+                      case 2:
+                        cell.setCellValue(bill.getSerie());
+                        break;
+                      case 3:
+                        cell.setCellValue(bill.getNumber());
+                        break;
+                      case 4:
+                        cell.setCellValue(bill.getBillResponse().getStatusCode());
+                      case 5:
+                        cell.setCellValue(bill.getBillResponse().getStatusMessage());
+                        break;
+                      default:
+                        break;
+                    }
+                  }
+                }
+              }
+              out = new FileOutputStream(chooser.getSelectedFile());
+              workbook.write(out);
+              out.close();
+              workbook.close();
+            } catch (FileNotFoundException ex) {
+              Logger.getLogger(BillController.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+              Logger.getLogger(BillController.class.getName()).log(Level.SEVERE, null, ex);
+            } finally {
+              try {
+                out.close();
+              } catch (IOException ex) {
+                Logger.getLogger(BillController.class.getName()).log(Level.SEVERE, null, ex);
+              }
+            }
+          }
+        });
+
+    billFrame.miLogout.addActionListener(
+        (ActionEvent arg0) -> {
+          System.exit(0);
+        });
+
+    billFrame.scroll.setDropTarget(
+        new DropTarget() {
+          @Override
+          public synchronized void drop(DropTargetDropEvent dtde) {
+            if (dtde.isDataFlavorSupported(DataFlavor.javaFileListFlavor)) {
+              try {
+                dtde.acceptDrop(DnDConstants.ACTION_COPY_OR_MOVE);
+                Transferable t = dtde.getTransferable();
+                List fileList = (List) t.getTransferData(DataFlavor.javaFileListFlavor);
+
+                if (fileList != null && fileList.size() > 0) {
+                  for (Object value : fileList) {
+                    if (value instanceof File) {
+                      File file = (File) value;
+                      setToTable(file);
+                    }
+                  }
+                }
+              } catch (UnsupportedFlavorException | IOException ex) {
+                Logger.getLogger(BillController.class.getName()).log(Level.SEVERE, null, ex);
+
+                JOptionPane.showMessageDialog(
+                    billFrame, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+              }
+            } else {
+              dtde.rejectDrop();
+            }
+          }
+        });
+
+    billFrame.table.addMouseListener(
+        new MouseAdapter() {
+          @Override
+          public void mouseClicked(MouseEvent e) {
+            if (e.getClickCount() == 2) {
+              Bill selectedBill = selectionModel.getSelected().get(0);
+
+              if (selectedBill.getBillResponse().getStatusCode().equals("0001")
+                  || selectedBill.getBillResponse().getStatusCode().equals("0002")
+                  || selectedBill.getBillResponse().getStatusCode().equals("0003")) {
+
+                SwingWorker worker =
+                    new SwingWorker<Bill, Integer>() {
+                      @Override
+                      protected Bill doInBackground() throws Exception {
+                        loadingDialog.setVisible(true);
+                        loadingDialog.setLocationRelativeTo(billFrame);
+
+                        loadingDialog.progressBar.setMinimum(0);
+                        loadingDialog.progressBar.setMaximum(100);
+
+                        publish(0);
+                        StatusResponse response =
+                            service.getStatusCdr(
+                                selectedBill.getRuc(),
+                                selectedBill.getType(),
+                                selectedBill.getSerie(),
+                                selectedBill.getNumber());
+
+                        selectedBill.setCdrResponse(response);
+                        publish(100);
+
+                        return selectedBill;
+                      }
+
+                      @Override
+                      protected void process(List<Integer> chunks) {
+                        loadingDialog.progressBar.setValue(chunks.get(0));
+                      }
+
+                      @Override
+                      protected void done() {
+                        try {
+                          loadingDialog.dispose();
+
+                          Bill bill = get();
+
+                          showNotification(
+                              bill.getCdrResponse().getStatusCode()
+                                  + " - "
+                                  + bill.getCdrResponse().getStatusMessage(),
+                              MessageType.INFO);
+
+                          if (bill.getCdrResponse().getStatusCode().equals("0004")) {
+                            JFileChooser chooser = new JFileChooser();
+                            chooser.setCurrentDirectory(new File("."));
+                            chooser.setSelectedFile(
+                                new File(
+                                    "R-"
+                                        + bill.getRuc()
+                                        + "-"
+                                        + bill.getType()
+                                        + "-"
+                                        + bill.getSerie()
+                                        + "-"
+                                        + bill.getNumber()
+                                        + ".zip"));
+
+                            int result = chooser.showSaveDialog(billFrame);
+                            if (result == JFileChooser.APPROVE_OPTION) {
+                              File file = chooser.getSelectedFile().getAbsoluteFile();
+                              try (FileOutputStream fout =
+                                  new FileOutputStream(file.getParent() + "//" + file.getName())) {
+                                fout.write(bill.getCdrResponse().getContent());
+                                fout.flush();
+                                fout.close();
+                              } catch (FileNotFoundException ex) {
+                                Logger.getLogger(BillController.class.getName())
+                                    .log(Level.SEVERE, null, ex);
+                              } catch (IOException ex) {
+                                Logger.getLogger(BillController.class.getName())
+                                    .log(Level.SEVERE, null, ex);
+                              }
+                            }
+                          }
+                        } catch (InterruptedException | ExecutionException ex) {
+                          Logger.getLogger(BillController.class.getName())
+                              .log(Level.SEVERE, null, ex);
+                        }
+                      }
+                    };
+
+                worker.execute();
+              }
+            }
+          }
+        });
   }
 
   private void init() {
@@ -107,7 +321,7 @@ public class BillController {
         new TableFormat<Bill>() {
           @Override
           public int getColumnCount() {
-            return 5;
+            return 6;
           }
 
           @Override
@@ -122,6 +336,8 @@ public class BillController {
               case 3:
                 return "Numero";
               case 4:
+                return "Codigo";
+              case 5:
                 return "Estado";
               default:
                 break;
@@ -141,6 +357,8 @@ public class BillController {
               case 3:
                 return baseObject.getNumber();
               case 4:
+                return baseObject.getBillResponse().getStatusCode();
+              case 5:
                 return baseObject.getBillResponse().getStatusMessage();
               default:
                 break;
@@ -160,147 +378,6 @@ public class BillController {
     TableComparatorChooser.install(
         billFrame.table, sortedList, TableComparatorChooser.MULTIPLE_COLUMN_MOUSE_WITH_UNDO);
   }
-
-  private final ActionListener alImport =
-      (ActionEvent arg0) -> {
-        JFileChooser chooser = new JFileChooser();
-        chooser.setCurrentDirectory(new File(System.getProperty("user.home")));
-        int result = chooser.showOpenDialog(null);
-        if (result == JFileChooser.APPROVE_OPTION) {
-          File file = chooser.getSelectedFile();
-          setToTable(file);
-        }
-      };
-
-  private final ActionListener alExport = (ActionEvent arg0) -> {};
-
-  private final DropTarget dt =
-      new DropTarget() {
-        @Override
-        public synchronized void drop(DropTargetDropEvent dtde) {
-          if (dtde.isDataFlavorSupported(DataFlavor.javaFileListFlavor)) {
-            try {
-              dtde.acceptDrop(DnDConstants.ACTION_COPY_OR_MOVE);
-              Transferable t = dtde.getTransferable();
-              List fileList = (List) t.getTransferData(DataFlavor.javaFileListFlavor);
-
-              if (fileList != null && fileList.size() > 0) {
-                for (Object value : fileList) {
-                  if (value instanceof File) {
-                    File file = (File) value;
-                    setToTable(file);
-                  }
-                }
-              }
-            } catch (UnsupportedFlavorException | IOException ex) {
-              Logger.getLogger(BillController.class.getName()).log(Level.SEVERE, null, ex);
-
-              JOptionPane.showMessageDialog(
-                  billFrame, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-            }
-          } else {
-            dtde.rejectDrop();
-          }
-        }
-      };
-
-  private final MouseListener ml =
-      new MouseAdapter() {
-        @Override
-        public void mouseClicked(MouseEvent e) {
-          if (e.getClickCount() == 2) {
-            Bill selectedBill = selectionModel.getSelected().get(0);
-
-            if (selectedBill.getBillResponse().getStatusCode().equals("0001")
-                || selectedBill.getBillResponse().getStatusCode().equals("0002")
-                || selectedBill.getBillResponse().getStatusCode().equals("0003")) {
-
-              SwingWorker worker =
-                  new SwingWorker<Bill, Integer>() {
-                    @Override
-                    protected Bill doInBackground() throws Exception {
-                      loadingDialog.setVisible(true);
-                      loadingDialog.setLocationRelativeTo(billFrame);
-
-                      loadingDialog.progressBar.setMinimum(0);
-                      loadingDialog.progressBar.setMaximum(100);
-
-                      publish(0);
-                      StatusResponse response =
-                          service.getStatusCdr(
-                              selectedBill.getRuc(),
-                              selectedBill.getType(),
-                              selectedBill.getSerie(),
-                              selectedBill.getNumber());
-
-                      selectedBill.setCdrResponse(response);
-                      publish(100);
-
-                      return selectedBill;
-                    }
-
-                    @Override
-                    protected void process(List<Integer> chunks) {
-                      loadingDialog.progressBar.setValue(chunks.get(0));
-                    }
-
-                    @Override
-                    protected void done() {
-                      try {
-                        loadingDialog.dispose();
-
-                        Bill bill = get();
-
-                        showNotification(
-                            bill.getCdrResponse().getStatusCode()
-                                + " - "
-                                + bill.getCdrResponse().getStatusMessage(),
-                            MessageType.INFO);
-
-                        if (bill.getCdrResponse().getStatusCode().equals("0004")) {
-                          JFileChooser chooser = new JFileChooser();
-                          chooser.setCurrentDirectory(new File("."));
-                          chooser.setSelectedFile(
-                              new File(
-                                  "R-"
-                                      + bill.getRuc()
-                                      + "-"
-                                      + bill.getType()
-                                      + "-"
-                                      + bill.getSerie()
-                                      + "-"
-                                      + bill.getNumber()
-                                      + ".zip"));
-
-                          int result = chooser.showSaveDialog(billFrame);
-                          if (result == JFileChooser.APPROVE_OPTION) {
-                            File file = chooser.getSelectedFile().getAbsoluteFile();
-                            try (FileOutputStream fout =
-                                new FileOutputStream(file.getParent() + "//" + file.getName())) {
-                              fout.write(bill.getCdrResponse().getContent());
-                              fout.flush();
-                              fout.close();
-                            } catch (FileNotFoundException ex) {
-                              Logger.getLogger(BillController.class.getName())
-                                  .log(Level.SEVERE, null, ex);
-                            } catch (IOException ex) {
-                              Logger.getLogger(BillController.class.getName())
-                                  .log(Level.SEVERE, null, ex);
-                            }
-                          }
-                        }
-                      } catch (InterruptedException | ExecutionException ex) {
-                        Logger.getLogger(BillController.class.getName())
-                            .log(Level.SEVERE, null, ex);
-                      }
-                    }
-                  };
-
-              worker.execute();
-            }
-          }
-        }
-      };
 
   private void setToTable(File file) {
     SwingWorker worker =
@@ -322,6 +399,9 @@ public class BillController {
                   service.getStatus(
                       bill.getRuc(), bill.getType(), bill.getSerie(), bill.getNumber());
 
+              list.get(i).setRuc("1045529725");
+              list.get(i).setSerie("F001");
+              list.get(i).setNumber(i);
               list.get(i).setBillResponse(response);
 
               publish(i);
@@ -388,14 +468,15 @@ public class BillController {
                     }
                   };
 
-              billFrame.table.getColumnModel().getColumn(4).setCellRenderer(renderer);
+              billFrame.table.getColumnModel().getColumn(5).setCellRenderer(renderer);
 
               TableColumnModel tcm = billFrame.table.getColumnModel();
               tcm.getColumn(0).setPreferredWidth(100);
               tcm.getColumn(1).setPreferredWidth(50);
               tcm.getColumn(2).setPreferredWidth(50);
               tcm.getColumn(3).setPreferredWidth(100);
-              tcm.getColumn(4).setPreferredWidth(350);
+              tcm.getColumn(4).setPreferredWidth(50);
+              tcm.getColumn(5).setPreferredWidth(350);
 
               loadingDialog.dispose();
 

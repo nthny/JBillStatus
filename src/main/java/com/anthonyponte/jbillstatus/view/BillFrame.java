@@ -3,8 +3,8 @@ package com.anthonyponte.jbillstatus.view;
 import com.github.weisj.darklaf.ui.table.DarkTableUI;
 import com.github.weisj.darklaf.ui.text.DarkTextFieldUI;
 import com.github.weisj.darklaf.ui.text.DarkTextUI;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.swing.table.TableColumnModel;
 
 public class BillFrame extends javax.swing.JFrame {
 
@@ -19,16 +19,16 @@ public class BillFrame extends javax.swing.JFrame {
         tfFilter = new com.github.weisj.darklaf.components.text.SearchTextField();
         scroll = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        menuFile = new javax.swing.JMenu();
-        mitemImport = new javax.swing.JMenuItem();
-        mitemExport = new javax.swing.JMenuItem();
+        menuBar = new javax.swing.JMenuBar();
+        menu = new javax.swing.JMenu();
+        miImport = new javax.swing.JMenuItem();
+        miExport = new javax.swing.JMenuItem();
+        miLogout = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("JBillStatus");
         setIconImage(new ImageIcon(getClass().getResource("/img/jbillstatus.png")).getImage());
         setMinimumSize(new java.awt.Dimension(800, 600));
-        setPreferredSize(new java.awt.Dimension(800, 600));
 
         tfFilter.setToolTipText("Filtrar comprobante por estado");
 
@@ -46,17 +46,26 @@ public class BillFrame extends javax.swing.JFrame {
         scroll.setViewportView(table);
         table.putClientProperty(DarkTableUI.KEY_ALTERNATE_ROW_COLOR, true);
 
-        menuFile.setText("Archivo");
+        menu.setText("Archivo");
 
-        mitemImport.setText("Importar");
-        menuFile.add(mitemImport);
+        miImport.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        miImport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/file-import.png"))); // NOI18N
+        miImport.setText("Importar");
+        menu.add(miImport);
 
-        mitemExport.setText("Exportar");
-        menuFile.add(mitemExport);
+        miExport.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        miExport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/file-export.png"))); // NOI18N
+        miExport.setText("Exportar");
+        menu.add(miExport);
 
-        jMenuBar1.add(menuFile);
+        miLogout.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        miLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/logout.png"))); // NOI18N
+        miLogout.setText("Salir");
+        menu.add(miLogout);
 
-        setJMenuBar(jMenuBar1);
+        menuBar.add(menu);
+
+        setJMenuBar(menuBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -87,12 +96,15 @@ public class BillFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenu menuFile;
-    public javax.swing.JMenuItem mitemExport;
-    public javax.swing.JMenuItem mitemImport;
+    private javax.swing.JMenu menu;
+    private javax.swing.JMenuBar menuBar;
+    public javax.swing.JMenuItem miExport;
+    public javax.swing.JMenuItem miImport;
+    public javax.swing.JMenuItem miLogout;
     public javax.swing.JScrollPane scroll;
     public javax.swing.JTable table;
     public com.github.weisj.darklaf.components.text.SearchTextField tfFilter;
     // End of variables declaration//GEN-END:variables
+    private Icon iconArrowBack;
+    private Icon iconArrowForward;
 }

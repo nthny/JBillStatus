@@ -34,7 +34,7 @@ public class UserController {
     frame.tfRuc.addKeyListener(kl);
     frame.tfUsername.addKeyListener(kl);
     frame.tfPassword.addKeyListener(kl);
-    frame.btnEnter.addActionListener(al);
+    frame.btnLogin.addActionListener(al);
   }
 
   private void init() {
@@ -57,9 +57,9 @@ public class UserController {
           if (frame.tfRuc.getText().isEmpty()
               || frame.tfUsername.getText().isEmpty()
               || frame.tfPassword.getPassword().length == 0) {
-            frame.btnEnter.setEnabled(false);
+            frame.btnLogin.setEnabled(false);
           } else {
-            frame.btnEnter.setEnabled(true);
+            frame.btnLogin.setEnabled(true);
           }
         }
       };
