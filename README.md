@@ -1,6 +1,6 @@
-# JBillStatus | Consulta de comprobantes
+JBillStatus | Consulta de comprobantes
 
-> ![header](./README/header.png)
+![header](./README/header.png)
 
 ## Descripción
 
@@ -13,11 +13,13 @@ Consulta masiva del estado de facturas, notas de crédito y debito que empiecen 
 
 ## Uso Y Características
 
-1. Ingrese con su Clave SOL. Puede darle en recordar para guardar el RUC y el Usuario.
+1. Ingrese con su Clave SOL. Puede darle en recordar para para no tener que ingresar el RUC y Usuario la próxima vez que abra el programa. **Este programa no almacena la contraseña.**
 
-![image_1](https://github.com/nthny/JBillStatus/blob/master/screenshots/img_1.gif?raw=true)
+   ![img_1](./README/img_1.gif)
 
-2. Prepare un archivo excel con la siguiente estructura.
+
+
+2. Prepare un archivo Excel con la siguiente estructura.
 
 | RUC        | Tipo | Serie | Numero |
 | ---------- | ---- | ----- | ------ |
@@ -31,11 +33,17 @@ Consulta masiva del estado de facturas, notas de crédito y debito que empiecen 
 
 **Numero** del comprobante a consultar.
 
-Con el archivo listo arrastrarlo hacia la tabla, dependiendo del numero de comprobantes puede demorar unos segundos.
-      
-![image_2](https://github.com/nthny/JBillStatus/blob/master/screenshots/img_2.gif?raw=true)
 
-3. Puede filtrar los comprobantes consultados según el CODIGO DE RETORNO o DESCRIPCION DE RETORNO.
+
+3. Puede empezar la consulta dando clic en **Archivo → Importar** y seleccionando el archivo Excel, o puede arrastrarlo hacia la tabla. Una vez que el archivo sea importado espere a que el porcentaje de la barra llegue a 100, el tiempo depende de la cantidad de comprobantes a consultar.  
+
+   ![img_2](./README/img_2.gif)
+
+   ![img_3](./README/img_3.gif)
+
+
+
+4. Puede filtrar los comprobantes consultados según el CODIGO DE RETORNO o DESCRIPCION DE RETORNO.
 
 ![image_3](https://github.com/nthny/JBillStatus/blob/master/screenshots/img_3.gif?raw=true)
 
