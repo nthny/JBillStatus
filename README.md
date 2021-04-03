@@ -1,10 +1,8 @@
-```
-<img src="./README/header.png"/>
-```
-
 # JBillStatus
 
 > Consulta de comprobantes
+
+![](.\README\header.png)
 
 ## Descripción
 
