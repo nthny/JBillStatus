@@ -2,16 +2,16 @@
 
 > Consulta de comprobantes
 
-![](.\README\header.png)
+![header](./README/header.png)
 
 ## Descripción
 
-Consulta masiva del estado de facturas, notas de crédito y debito que empiecen con la letra "F" además de obtener el archivo zip que contiene el CDR de aceptación o rechazo.
+Consulta masiva del estado de facturas, notas de crédito y debito que empiecen con la letra "F" y obtención de el archivo zip que contiene el CDR de aceptación o rechazo. Además de exportación de la información consultada a Excel.
 
 ## Dependencias
 
 - Clave SOL
-- OpenJDK 11 o JDK 11
+- OpenJDK 11
 
 ## Uso Y Características
 
@@ -21,14 +21,14 @@ Consulta masiva del estado de facturas, notas de crédito y debito que empiecen 
 
 2. Prepare un archivo excel con la siguiente estructura.
 
-| RUC        | TIPO | SERIE | NUMERO |
+| RUC        | Tipo | Serie | Numero |
 | ---------- | ---- | ----- | ------ |
 | 1045529725 | 01   | F001  | 1      |
 
 **RUC** del emisor del comprobante.
-**TIPO** es el código de tipo de documento según el Anexo N° 8: Catálogo de códigos. Puede tomar los valores 01 para facturas, 07 para notas de crédito y 08 para botas de débito.
-**SERIE** del comprobante  a consultar.
-**NUMERO** del comprobante a consultar.
+**Tipo** es el código de tipo de documento según el Anexo N° 8: Catálogo de códigos. Puede tomar los valores 01 para facturas, 07 para notas de crédito y 08 para botas de débito.
+**Serie** del comprobante  a consultar.
+**Numero** del comprobante a consultar.
 
 Con el archivo listo arrastrarlo hacia la tabla, dependiendo del numero de comprobantes puede demorar unos segundos.
       
