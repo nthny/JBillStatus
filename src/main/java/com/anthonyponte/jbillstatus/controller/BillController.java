@@ -556,7 +556,7 @@ public class BillController {
     try {
       SystemTray tray = SystemTray.getSystemTray();
       Image image =
-          Toolkit.getDefaultToolkit().createImage(getClass().getResource("/img/jbillstatus.png"));
+          Toolkit.getDefaultToolkit().createImage(getClass().getResource("/img/trayicon.png"));
       TrayIcon trayIcon = new TrayIcon(image, "JBillStatus");
       trayIcon.setImageAutoSize(true);
       tray.add(trayIcon);
