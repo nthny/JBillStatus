@@ -41,9 +41,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
@@ -117,69 +114,95 @@ public class BillController {
 
           int result = chooser.showSaveDialog(billFrame);
           if (result == JFileChooser.APPROVE_OPTION) {
-            FileOutputStream out = null;
-            try {
-              try (XSSFWorkbook workbook = new XSSFWorkbook()) {
-                XSSFSheet sheet = workbook.createSheet("Comprobantes");
 
-                for (int r = 0; r < model.getRowCount(); r++) {
-                  XSSFRow row = sheet.createRow(r);
-                  for (int c = 0; c < model.getColumnCount(); c++) {
-                    XSSFCell cell = row.createCell(c);
-                    if (r == 0) {
-                      cell.setCellValue(model.getColumnName(c));
+            SwingWorker worker =
+                new SwingWorker<XSSFWorkbook, Integer>() {
+                  @Override
+                  protected XSSFWorkbook doInBackground() throws Exception {
+
+                    loadingDialog.setVisible(true);
+                    loadingDialog.setLocationRelativeTo(billFrame);
+                    loadingDialog.progressBar.setMinimum(0);
+                    loadingDialog.progressBar.setMaximum(model.getRowCount());
+
+                    XSSFWorkbook workbook = new XSSFWorkbook();
+                    XSSFSheet sheet = workbook.createSheet("Comprobantes");
+
+                    for (int r = 0; r < model.getRowCount(); r++) {
+                      XSSFRow row = sheet.createRow(r);
+                      for (int c = 0; c < model.getColumnCount(); c++) {
+                        XSSFCell cell = row.createCell(c);
+                        if (r == 0) {
+                          cell.setCellValue(model.getColumnName(c));
+                        }
+                      }
+                    }
+
+                    for (int r = 0; r < model.getRowCount(); r++) {
+                      XSSFRow row = sheet.createRow(r + 1);
+                      Bill bill = model.getElementAt(r);
+                      publish(r);
+
+                      for (int c = 0; c < model.getColumnCount(); c++) {
+                        XSSFCell cell = row.createCell(c);
+                        sheet.autoSizeColumn(c);
+
+                        switch (cell.getColumnIndex()) {
+                          case 0:
+                            cell.setCellValue(bill.getRuc());
+                            break;
+                          case 1:
+                            cell.setCellValue(bill.getType());
+                            break;
+                          case 2:
+                            cell.setCellValue(bill.getSerie());
+                            break;
+                          case 3:
+                            cell.setCellValue(bill.getNumber());
+                            break;
+                          case 4:
+                            cell.setCellValue(bill.getBillResponse().getStatusCode());
+                            break;
+                          case 5:
+                            cell.setCellValue(bill.getBillResponse().getStatusMessage());
+                            break;
+                          default:
+                            break;
+                        }
+                      }
+                    }
+
+                    return workbook;
+                  }
+
+                  @Override
+                  protected void process(List<Integer> chunks) {
+                    loadingDialog.progressBar.setValue(chunks.get(0));
+                  }
+
+                  @Override
+                  protected void done() {
+                    try {
+                      XSSFWorkbook workbook = get();
+                      File file = chooser.getSelectedFile();
+
+                      try (FileOutputStream out = new FileOutputStream(file)) {
+                        workbook.write(out);
+                      }
+
+                      loadingDialog.dispose();
+
+                      showNotification(
+                          "Se exporto correctamente el archivo en la ruta "
+                              + file.getAbsolutePath(),
+                          MessageType.INFO);
+                    } catch (InterruptedException | ExecutionException | IOException ex) {
+                      Logger.getLogger(BillController.class.getName()).log(Level.SEVERE, null, ex);
                     }
                   }
-                }
+                };
 
-                for (int r = 0; r < model.getRowCount(); r++) {
-                  XSSFRow row = sheet.createRow(r + 1);
-                  Bill bill = model.getElementAt(r);
-
-                  for (int c = 0; c < model.getColumnCount(); c++) {
-                    XSSFCell cell = row.createCell(c);
-                    sheet.autoSizeColumn(c);
-
-                    switch (cell.getColumnIndex()) {
-                      case 0:
-                        cell.setCellValue(bill.getRuc());
-                        break;
-                      case 1:
-                        cell.setCellValue(bill.getType());
-                        break;
-                      case 2:
-                        cell.setCellValue(bill.getSerie());
-                        break;
-                      case 3:
-                        cell.setCellValue(bill.getNumber());
-                        break;
-                      case 4:
-                        cell.setCellValue(bill.getBillResponse().getStatusCode());
-                        break;
-                      case 5:
-                        cell.setCellValue(bill.getBillResponse().getStatusMessage());
-                        break;
-                      default:
-                        break;
-                    }
-                  }
-                }
-
-                out = new FileOutputStream(chooser.getSelectedFile());
-                workbook.write(out);
-                out.close();
-              }
-            } catch (FileNotFoundException ex) {
-              Logger.getLogger(BillController.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IOException ex) {
-              Logger.getLogger(BillController.class.getName()).log(Level.SEVERE, null, ex);
-            } finally {
-              try {
-                out.close();
-              } catch (IOException ex) {
-                Logger.getLogger(BillController.class.getName()).log(Level.SEVERE, null, ex);
-              }
-            }
+            worker.execute();
           }
         });
 
@@ -418,8 +441,6 @@ public class BillController {
                   service.getStatus(
                       bill.getRuc(), bill.getType(), bill.getSerie(), bill.getNumber());
 
-              list.get(i).setRuc("10455297252");
-              list.get(i).setSerie("F001");
               list.get(i).setBillResponse(response);
 
               publish(i);
