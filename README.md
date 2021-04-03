@@ -1,8 +1,6 @@
-# JBillStatus
+# JBillStatus | Consulta de comprobantes
 
-> Consulta de comprobantes
-
-![header](./README/header.png)
+> ![header](./README/header.png)
 
 ## Descripción
 
@@ -26,8 +24,11 @@ Consulta masiva del estado de facturas, notas de crédito y debito que empiecen 
 | 1045529725 | 01   | F001  | 1      |
 
 **RUC** del emisor del comprobante.
+
 **Tipo** es el código de tipo de documento según el Anexo N° 8: Catálogo de códigos. Puede tomar los valores 01 para facturas, 07 para notas de crédito y 08 para botas de débito.
+
 **Serie** del comprobante  a consultar.
+
 **Numero** del comprobante a consultar.
 
 Con el archivo listo arrastrarlo hacia la tabla, dependiendo del numero de comprobantes puede demorar unos segundos.
