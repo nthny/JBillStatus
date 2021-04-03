@@ -40,7 +40,12 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.logging.Level;
@@ -65,10 +70,10 @@ public class BillController {
 
   private final BillFrame billFrame;
   private final LoadingDialog loadingDialog;
+  private final BillService service;
   private EventList<Bill> eventList;
   private AdvancedListSelectionModel<Bill> selectionModel;
   private AdvancedTableModel<Bill> model;
-  private BillService service;
 
   public BillController(BillFrame billFrame) {
     this.billFrame = billFrame;
@@ -84,6 +89,7 @@ public class BillController {
         (ActionEvent arg0) -> {
           JFileChooser chooser = new JFileChooser();
           chooser.setDialogTitle("Importar Excel");
+          chooser.setApproveButtonText("Importar");
           chooser.setAcceptAllFileFilterUsed(false);
           chooser.addChoosableFileFilter(
               new FileNameExtensionFilter("Archivo Excel", "xls", "xlsx"));
@@ -98,30 +104,42 @@ public class BillController {
 
     billFrame.miExport.addActionListener(
         (ActionEvent arg0) -> {
+          SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
+          String dateString = format.format(new Date());
+
           JFileChooser chooser = new JFileChooser();
           chooser.setDialogTitle("Exportar Excel");
+          chooser.setApproveButtonText("Exportar");
           chooser.setAcceptAllFileFilterUsed(false);
           chooser.addChoosableFileFilter(new FileNameExtensionFilter("Archivo Excel file", "xlsx"));
-
+          chooser.setSelectedFile(new File(dateString.concat(".xlsx")));
           chooser.setCurrentDirectory(new File("."));
 
           int result = chooser.showSaveDialog(billFrame);
           if (result == JFileChooser.APPROVE_OPTION) {
             FileOutputStream out = null;
             try {
-              XSSFWorkbook workbook = new XSSFWorkbook();
-              XSSFSheet sheet = workbook.createSheet();
-              for (int r = 0; r < model.getRowCount(); r++) {
-                XSSFRow row = sheet.createRow(r);
-                Bill bill = model.getElementAt(r);
+              try (XSSFWorkbook workbook = new XSSFWorkbook()) {
+                XSSFSheet sheet = workbook.createSheet("Comprobantes");
 
-                for (int c = 0; c < model.getColumnCount(); c++) {
-                  XSSFCell cell = row.createCell(c);
-                  String columnName = model.getColumnName(c);
+                for (int r = 0; r < model.getRowCount(); r++) {
+                  XSSFRow row = sheet.createRow(r);
+                  for (int c = 0; c < model.getColumnCount(); c++) {
+                    XSSFCell cell = row.createCell(c);
+                    if (r == 0) {
+                      cell.setCellValue(model.getColumnName(c));
+                    }
+                  }
+                }
 
-                  if (row.getRowNum() == 0) {
-                    cell.setCellValue(columnName);
-                  } else {
+                for (int r = 0; r < model.getRowCount(); r++) {
+                  XSSFRow row = sheet.createRow(r + 1);
+                  Bill bill = model.getElementAt(r);
+
+                  for (int c = 0; c < model.getColumnCount(); c++) {
+                    XSSFCell cell = row.createCell(c);
+                    sheet.autoSizeColumn(c);
+
                     switch (cell.getColumnIndex()) {
                       case 0:
                         cell.setCellValue(bill.getRuc());
@@ -137,6 +155,7 @@ public class BillController {
                         break;
                       case 4:
                         cell.setCellValue(bill.getBillResponse().getStatusCode());
+                        break;
                       case 5:
                         cell.setCellValue(bill.getBillResponse().getStatusMessage());
                         break;
@@ -145,11 +164,11 @@ public class BillController {
                     }
                   }
                 }
+
+                out = new FileOutputStream(chooser.getSelectedFile());
+                workbook.write(out);
+                out.close();
               }
-              out = new FileOutputStream(chooser.getSelectedFile());
-              workbook.write(out);
-              out.close();
-              workbook.close();
             } catch (FileNotFoundException ex) {
               Logger.getLogger(BillController.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
@@ -399,9 +418,6 @@ public class BillController {
                   service.getStatus(
                       bill.getRuc(), bill.getType(), bill.getSerie(), bill.getNumber());
 
-              list.get(i).setRuc("1045529725");
-              list.get(i).setSerie("F001");
-              list.get(i).setNumber(i);
               list.get(i).setBillResponse(response);
 
               publish(i);

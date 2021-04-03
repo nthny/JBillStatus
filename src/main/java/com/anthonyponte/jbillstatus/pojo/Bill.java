@@ -8,13 +8,13 @@ public class Bill {
   @ExcelCellName("RUC")
   private String ruc;
 
-  @ExcelCellName("TIPO")
+  @ExcelCellName("Tipo")
   private String type;
 
-  @ExcelCellName("SERIE")
+  @ExcelCellName("Serie")
   private String serie;
 
-  @ExcelCellName("NUMERO")
+  @ExcelCellName("Numero")
   private int number;
 
   private StatusResponse billResponse;
