@@ -43,9 +43,9 @@ Consulta masiva del estado de facturas, notas de crédito y debito que empiecen 
 
 
 
-4. Puede filtrar los comprobantes consultados según el CODIGO DE RETORNO o DESCRIPCION DE RETORNO.
+4. Puede filtrar los comprobantes consultados por **Código** o **Descripción**.
 
-![image_3](https://github.com/nthny/JBillStatus/blob/master/screenshots/img_3.gif?raw=true)
+   ![img_4](./README/img_4.gif)
 
 El campo estado puede tomar uno de los siguiente valores:
 
@@ -64,6 +64,8 @@ El campo estado puede tomar uno de los siguiente valores:
 | ERROR | 0011              | El comprobante de pago electrónico no existe.                |
 | ERROR | 0012              | El comprobante de pago electrónico no le pertenece.          |
 
-4. Para obtener el CDR de aceptación o rechazo haga doble clic sobre el comprobante y luego elija la ubicación para guardar el archivo zip con el archivo xml. 
 
-![image_4](https://github.com/nthny/JBillStatus/blob/master/screenshots/img_4.gif?raw=true)
+
+4. Para obtener el CDR de aceptación o rechazo haga doble clic sobre un comprobante con estado 0001, 0002 o 0003 y luego elija la ubicación para guardar el archivo zip con el archivo xml. 
+
+   ![img_5](./README/img_5.gif)
