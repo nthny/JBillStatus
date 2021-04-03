@@ -1,4 +1,4 @@
-JBillStatus | Consulta de comprobantes
+# JBillStatus | Consulta de comprobantes
 
 ![header](./README/header.png)
 
