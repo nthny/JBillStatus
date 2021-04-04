@@ -6,18 +6,16 @@
 
 Consulta masiva del estado de facturas, notas de crédito y debito que empiecen con la letra "F" y obtención de el archivo zip que contiene el CDR de aceptación o rechazo. Además de exportación de la información consultada a Excel.
 
-## Dependencias
+## Pre-requisitos
 
 - Clave SOL
 - OpenJDK 11
 
-## Uso Y Características
+## Uso
 
 1. Ingrese con su Clave SOL. Puede darle en recordar para para no tener que ingresar el RUC y Usuario la próxima vez que abra el programa. **Este programa no almacena la contraseña.**
 
-   ![img_1](./README/img_1.gif)
-
-
+![img_1](./README/img_1.gif)
 
 2. Prepare un archivo Excel con la siguiente estructura.
 
@@ -33,15 +31,15 @@ Consulta masiva del estado de facturas, notas de crédito y debito que empiecen 
 
 **Numero** del comprobante a consultar.
 
-3. Puede empezar la consulta dando clic en **Archivo → Importar** y seleccionando el archivo Excel, o puede arrastrarlo hacia la tabla. Una vez que el archivo sea importado espere a que el porcentaje de la barra llegue a 100, el tiempo depende de la cantidad de comprobantes a consultar.  
+Puede empezar la consulta dando clic en **Archivo → Importar** y seleccionando el archivo Excel, o puede arrastrarlo hacia la tabla. Una vez que el archivo sea importado espere a que el porcentaje de la barra llegue a 100, el tiempo depende de la cantidad de comprobantes a consultar.  
 
-   ![img_2](./README/img_2.gif)
+![img_2](./README/img_2.gif)
 
-   ![img_3](./README/img_3.gif)
+![img_3](./README/img_3.gif)
 
-4. Puede filtrar los comprobantes consultados por **Código** o **Descripción**.
+3. Puede filtrar los comprobantes consultados por **Código** o **Descripción**.
 
-   ![img_4](./README/img_4.gif)
+![img_4](./README/img_4.gif)
 
 El campo estado puede tomar uno de los siguiente valores:
 
@@ -60,10 +58,15 @@ El campo estado puede tomar uno de los siguiente valores:
 | ERROR | 0011              | El comprobante de pago electrónico no existe.                |
 | ERROR | 0012              | El comprobante de pago electrónico no le pertenece.          |
 
-5. Puede obtener el CDR de aceptación o rechazo haciendo doble clic sobre un comprobante con estado 0001, 0002 o 0003 y luego elija la ubicación para guardar el archivo zip con el archivo xml. 
+4. Puede obtener el CDR de aceptación o rechazo haciendo doble clic sobre un comprobante con estado 0001, 0002 o 0003 y luego elija la ubicación para guardar el archivo zip con el archivo xml. 
 
-   ![img_5](./README/img_5.gif)
+![img_5](./README/img_5.gif)
 
-6. Puede exportar a Excel haciendo clic en **Archivo → Exportar** y eligiendo la ruta para guardar el archivo.
+5. Puede exportar a Excel haciendo clic en **Archivo → Exportar** y eligiendo la ruta para guardar el archivo.
 
-   ![img_6](./README/img_6.gif)
+![img_6](./README/img_6.gif)
+
+## Licencia
+
+Este proyecto está bajo la Licencia Apache License Version 2.0 - mira el archivo [LICENSE.md](https://github.com/nthny/JBillStatus/blob/master/LICENSE) para detalles
+
