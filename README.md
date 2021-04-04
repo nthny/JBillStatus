@@ -31,13 +31,13 @@ Consulta masiva del estado de facturas, notas de crédito y debito que empiecen 
 
 **Numero** del comprobante a consultar.
 
-Puede empezar la consulta dando clic en **Archivo → Importar** y seleccionando el archivo Excel, o puede arrastrarlo hacia la tabla. Una vez que el archivo sea importado espere a que el porcentaje de la barra llegue a 100, el tiempo depende de la cantidad de comprobantes a consultar.  
+3. Puede empezar la consulta dando clic en **Archivo → Importar** y seleccionando el archivo Excel, o puede arrastrarlo hacia la tabla. Una vez que el archivo sea importado espere a que el porcentaje de la barra llegue a 100, el tiempo depende de la cantidad de comprobantes a consultar.  
 
 ![img_2](./README/img_2.gif)
 
 ![img_3](./README/img_3.gif)
 
-3. Puede filtrar los comprobantes consultados por **Código** o **Descripción**.
+4. Puede filtrar los comprobantes consultados por **Código** o **Descripción**.
 
 ![img_4](./README/img_4.gif)
 
@@ -58,11 +58,11 @@ El campo estado puede tomar uno de los siguiente valores:
 | ERROR | 0011              | El comprobante de pago electrónico no existe.                |
 | ERROR | 0012              | El comprobante de pago electrónico no le pertenece.          |
 
-4. Puede obtener el CDR de aceptación o rechazo haciendo doble clic sobre un comprobante con estado 0001, 0002 o 0003 y luego elija la ubicación para guardar el archivo zip con el archivo xml. 
+5. Puede obtener el CDR de aceptación o rechazo haciendo doble clic sobre un comprobante con estado 0001, 0002 o 0003 y luego elija la ubicación para guardar el archivo zip con el archivo xml. 
 
 ![img_5](./README/img_5.gif)
 
-5. Puede exportar a Excel haciendo clic en **Archivo → Exportar** y eligiendo la ruta para guardar el archivo.
+6. Puede exportar a Excel haciendo clic en **Archivo → Exportar** y eligiendo la ruta para guardar el archivo.
 
 ![img_6](./README/img_6.gif)
 
